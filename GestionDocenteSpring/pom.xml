@@ -90,6 +90,12 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
+		<!--spring JDBC -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
