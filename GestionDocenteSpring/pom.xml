@@ -3,9 +3,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
   <parent>
-  <groupId>com.ipartek.formacion</groupId>
-  <artifactId>Gestor-Docente-Advanced</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+	  <groupId>com.ipartek.formacion</groupId>
+	  <artifactId>Gestor-Docente-Advanced</artifactId>
+	  <version>1.0.0-SNAPSHOT</version>
   </parent>
 	<artifactId>gestion-docente-spring</artifactId>
 	<name>GestionDocenteSpring</name>
@@ -14,8 +14,16 @@
 		<org.springframework-version>4.3.2.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<mysql.vesion>5.1.40</mysql.vesion>
 	</properties>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<!-- MySQL JDBC Driver -->
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>${mysql.vesion}</version>
+		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
