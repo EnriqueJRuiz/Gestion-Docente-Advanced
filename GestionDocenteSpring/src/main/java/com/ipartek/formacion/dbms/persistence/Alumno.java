@@ -20,13 +20,13 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 	private static final long serialVersionUID = -6698866485450376235L;
 	public static final int CODIGO_NULO = -1;
 	protected int codigo;
+	private String id;
 	private String dni;
 	private String nombre;
 	private String apellidos;
 	private Date fNacimiento;
 	private String email;
 	private String direccion;
-	private String id;
 	private boolean activo;
 	private int nHermanos;
 

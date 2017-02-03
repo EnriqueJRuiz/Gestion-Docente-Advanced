@@ -2,7 +2,7 @@ package com.ipartek.formacion.dbms.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 
 
