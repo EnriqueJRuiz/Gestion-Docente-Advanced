@@ -77,15 +77,4 @@ public class Curso implements Serializable, Comparable<Curso> {
 	public int compareTo(Curso o) {
 		return this.nombre.compareToIgnoreCase(o.nombre);
 	}
-	@Override
-	public boolean equals(Object obj) {
-		boolean iguales = false;
-		if (obj instanceof Curso) {
-			Curso curso = (Curso) obj;
-			if (curso.getCodigo() == this.codigo) {
-				iguales = true;
-			}
-		}
-		return iguales;
-	}
 }

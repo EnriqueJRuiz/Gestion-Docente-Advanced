@@ -2,11 +2,15 @@ package com.ipartek.formacion.dbms.dao;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,11 +23,14 @@ public class AlumnoDAOImp implements AlumnoDAO{
 
 	private DataSource dataSource;
 	private JdbcTemplate template;
+	private Logger logger = LoggerFactory.getLogger(AlumnoDAOImp.class);
+	
 	@Autowired // = que inject
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
-		//template = dataSource.getConnection();
+		
+		this.template = new JdbcTemplate(dataSource);
 	}
 
 	@Override
@@ -40,9 +47,14 @@ public class AlumnoDAOImp implements AlumnoDAO{
 
 	@Override
 	public List<Alumno> getAll() {
-		final String SQL = "SELECT * FROM alumno";
+		final String SQL = "SELECT codigo as codigo, nombre as nombre, apellidos as apellidos FROM alumno";
 		List<Alumno> alumnos = null;
-		alumnos = (List<Alumno>)template.queryForObject(SQL, new AlumnoMapper());
+		try{
+			alumnos = template.query(SQL, new AlumnoMapper());
+		}catch(EmptyResultDataAccessException e){
+			logger.trace(e.getMessage());
+			alumnos = new ArrayList<Alumno>();
+		}
 		return alumnos;
 	}
 

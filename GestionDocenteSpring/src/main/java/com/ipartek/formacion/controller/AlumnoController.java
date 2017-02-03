@@ -26,7 +26,7 @@ public class AlumnoController {
 	public ModelAndView getAll() {
 		mav = new ModelAndView("alumnos/alumnos");
 		
-		List alumnos= null;
+		List alumnos= aS.getAll();
 		
 		mav.addObject("listaAlumnos", alumnos);//request
 		
