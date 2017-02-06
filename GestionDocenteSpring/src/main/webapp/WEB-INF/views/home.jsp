@@ -8,7 +8,8 @@
 <h1>
 	Hello world!  
 </h1>
-<a href ="alumnos"> Ira a alumnos</a>
+<p><a href ="alumnos"> Ira a alumnos</a></p>
+<p><a href ="profesores"> Ira a profesores</a></p>
 
 </body>
 </html>

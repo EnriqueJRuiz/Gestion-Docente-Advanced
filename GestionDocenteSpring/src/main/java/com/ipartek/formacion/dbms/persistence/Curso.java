@@ -1,5 +1,6 @@
 package com.ipartek.formacion.dbms.persistence;
 
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import java.util.Date;
 
 
 public class Curso implements Serializable, Comparable<Curso> {
-
+	
 	protected int codigo;
 	private String nombre;
 	private int duracion;

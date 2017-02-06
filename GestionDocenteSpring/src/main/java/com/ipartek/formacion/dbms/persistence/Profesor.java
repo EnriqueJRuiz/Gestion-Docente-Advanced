@@ -3,6 +3,48 @@ package com.ipartek.formacion.dbms.persistence;
 import java.util.Date;
 
 public class Profesor {
+
+
+	public static final int CODIGO_NULO = -1;
+	protected int codigo;
+	private String dni;
+	private String nombre;
+	private String apellidos;
+	private Date fNacimiento;
+	private String email;
+	private String direccion;
+	private String id;
+	private int nSS;
+	
+
+	public Profesor() {
+		super();
+		this.nombre= "";
+		this.apellidos = "";
+		this.dni = "";
+		this.email = "";
+		this.direccion = "";
+		this.fNacimiento = new Date();
+		this.id = "";
+		this.codigo = CODIGO_NULO;
+		this.nSS = 0;
+	}
+
+	public int getnSS() {
+		return nSS;
+	}
+
+	public void setnSS(int nSS) {
+		this.nSS = nSS;
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
 	public String getDni() {
 		return dni;
 	}
@@ -57,47 +99,6 @@ public class Profesor {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public static final int CODIGO_NULO = -1;
-	protected int codigo;
-	private String dni;
-	private String nombre;
-	private String apellidos;
-	private Date fNacimiento;
-	private String email;
-	private String direccion;
-	private String id;
-	private int nSS;
-	
-
-	public Profesor() {
-		super();
-		this.nombre= "";
-		this.apellidos = "";
-		this.dni = "";
-		this.email = "";
-		this.direccion = "";
-		this.fNacimiento = new Date();
-		this.id = "";
-		this.codigo = CODIGO_NULO;
-		this.nSS = 0;
-	}
-
-	public int getnSS() {
-		return nSS;
-	}
-
-	public void setnSS(int nSS) {
-		this.nSS = nSS;
-	}
-
-	public int getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
 	}
 
 	@Override

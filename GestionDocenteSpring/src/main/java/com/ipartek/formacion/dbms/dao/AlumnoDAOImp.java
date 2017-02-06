@@ -29,7 +29,6 @@ public class AlumnoDAOImp implements AlumnoDAO{
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
-		
 		this.template = new JdbcTemplate(dataSource);
 	}
 

@@ -11,29 +11,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ipartek.formacion.service.interfaces.AlumnoService;
+import com.ipartek.formacion.service.interfaces.ProfesorService;
 
 @Controller
-@RequestMapping(value = "/alumnos")
-public class AlumnoController {
+@RequestMapping(value="/profesores")
+public class ProfesorController {
 	
-	@Inject//crea y destruye un objeto de aS sin tener que hacer 
-	private AlumnoService aS;
-	private static final Logger logger = LoggerFactory.getLogger(AlumnoController.class);
+	@Inject
+	private ProfesorService pS;
+	private static final Logger logger = LoggerFactory.getLogger(ProfesorController.class);
 	ModelAndView mav = null;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
-		mav = new ModelAndView("alumnos/alumnos");
+		mav = new ModelAndView("profesores/profesores");
 		
-		List alumnos= aS.getAll();
+		List profesores = pS.getAll();
 		
-		mav.addObject("listadoAlumnos", alumnos);//request
+		mav.addObject("listadoProfesores", profesores);
 		
 		logger.trace("pasa por getAll()");
 		
 		return mav;
 	}
+	
 	
 	
 }
