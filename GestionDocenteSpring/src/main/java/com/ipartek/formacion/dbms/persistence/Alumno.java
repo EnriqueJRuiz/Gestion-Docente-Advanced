@@ -11,8 +11,7 @@ import java.util.Date;
  */
 public class Alumno implements Comparable<Alumno>, Serializable {
 
-	
-	
+
 
 	/**
 	 * 
@@ -27,6 +26,9 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 	private Date fNacimiento;
 	private String email;
 	private String direccion;
+	private int codigoPostal;
+	private String poblacion;
+	private int telefono;
 	private boolean activo;
 	private int nHermanos;
 
@@ -42,6 +44,9 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 		this.id = "";
 		this.activo = true;
 		this.nHermanos = 0;
+		this.telefono = 0;
+		this.codigoPostal = 0;
+		this.poblacion = "";
 
 	}
 
@@ -123,6 +128,30 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public int getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(int codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+	public int getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(int telefono) {
+		this.telefono = telefono;
 	}
 
 	@Override

@@ -1,13 +1,23 @@
 package com.ipartek.formacion.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +36,15 @@ public class AlumnoController {
 	private static final Logger logger = LoggerFactory.getLogger(AlumnoController.class);
 	ModelAndView mav = null;
 	
+	@Resource(name="alumnoValidator")//para injectar el validator si hay mas de una ClassValidator si usan el mismo.
+	private Validator validator = null;
+	
+	@InitBinder
+	private void initBinder(WebDataBinder binder){
+		binder.setValidator(validator);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), false, 10));//validar fecha
+	}
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
 		mav = new ModelAndView("alumnos/alumnos");
@@ -35,20 +54,26 @@ public class AlumnoController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/{codigo}")
-	public ModelAndView getById(@PathVariable("codigo") int codigo){
+	@RequestMapping(value="/{id}")
+	public ModelAndView getById(@PathVariable("id") int id){
 		mav = new ModelAndView("alumnos/alumno");
-		mav.addObject("alumno",aS.getById(codigo));
+		mav.addObject("alumno",aS.getById(id));
 		return mav;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public String saveAlumno(@ModelAttribute("alumno") Alumno alumno, Model model){
+	@RequestMapping(value="/save", method = RequestMethod.POST)
+	public String saveAlumno(@ModelAttribute("alumno") @Validated Alumno alumno, Model model, BindingResult bindingResult){ //validate spring valid java
 		String destino = "";
-		if(alumno.getCodigo() > alumno.CODIGO_NULO){
-			aS.update(alumno);
+		if (bindingResult.hasErrors()) {
+			logger.info("alumno tiene errores");
+			destino = "/alumnos/alumno";
 		}else{
-			aS.create(alumno);
+			destino = "redirect:/alumnos";
+			if(alumno.getCodigo() > alumno.CODIGO_NULO){
+				aS.update(alumno);
+			}else{
+				aS.create(alumno);
+			}
 		}
 		return destino;
 	}
@@ -59,9 +84,9 @@ public class AlumnoController {
 		return "alumnos/alumno";
 	}
 	
-	@RequestMapping(value="/deleteAlumno/{codigo}")
-	public String deleteAlumno(@PathVariable("codigo") int codigo){
-		aS.delete(codigo);
+	@RequestMapping(value="/deleteAlumno/{id}")
+	public String deleteAlumno(@PathVariable("id") int id){
+		aS.delete(id);
 		return "redirect:/alumnos";// redirige a alumnos/alumnos de arriba para volver a cargar la lista.
 	}
 	
