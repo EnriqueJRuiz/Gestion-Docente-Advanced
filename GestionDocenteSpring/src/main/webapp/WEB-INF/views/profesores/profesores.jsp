@@ -12,6 +12,7 @@
 		<h1>Gestion Docente - Listado Profesor</h1>
 	</header>
 	<main>
+		<a href="profesores/addProfesor">Crear profesor</a>
 		<table id="table-1" border="2">
 				<thead>
 					<tr>
@@ -22,12 +23,15 @@
 				</thead>
 				<tbody>
 				 	<c:choose>
-				 		<c:when test="${not empty listadoProfesores}">	<!-- alumnoController -->
+				 		<c:when test="${not empty listadoProfesores}">	
 				 			<c:forEach var="profesor" items="${listadoProfesores}">
 				 				<tr>
 					 				<td>${profesor.nombre}</td> 
 					 				<td>${profesor.apellidos}</td> 
-					 				<td><a href="">modificar</a></td>
+					 				<td>
+					 					<a href="profesores/">Editar</a>
+					 					<a href="profesores/deleteProfesor/">Borrar</a>
+					 				</td>
 					 			</tr>	
 				 			</c:forEach>	
 				 		</c:when>

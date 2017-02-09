@@ -1,19 +1,53 @@
 package com.ipartek.formacion.dbms.persistence;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Profesor {
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.ipartek.formacion.dbms.persistence.validator.Phone;
+
+public class Profesor implements Serializable, Comparable<Profesor> {
 
 
+	
 	public static final int CODIGO_NULO = -1;
+	@NotNull
+	@NotBlank
 	protected int codigo;
+	@NotNull
+	@NotBlank
+	@Pattern(regexp = "[0-9]{8}[a-zA-Z]", message = "DNI incorrecto")
 	private String dni;
+	@NotNull
+	@NotBlank
+	@Size(min=2, max=50)
 	private String nombre;
+	@Size(min=7, max=150)
 	private String apellidos;
+	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@Past
 	private Date fNacimiento;
+	@Email
 	private String email;
+	
 	private String direccion;
+	
+	private int codigoPostal;
+	
+	private String poblacion;
+	@Phone
+	private String telefono;
+	
 	private String id;
+	
 	private int nSS;
 	
 
@@ -24,6 +58,9 @@ public class Profesor {
 		this.dni = "";
 		this.email = "";
 		this.direccion = "";
+		this.telefono = "";
+		this.codigoPostal = 0;
+		this.poblacion = "";
 		this.fNacimiento = new Date();
 		this.id = "";
 		this.codigo = CODIGO_NULO;
@@ -100,6 +137,31 @@ public class Profesor {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public int getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(int codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
 
 	@Override
 	public String toString() {
@@ -107,6 +169,25 @@ public class Profesor {
 				+ ", Nombre=" + getNombre() + ", Apellidos=" + getApellidos() ;
 	}
 
-	
+	@Override
+	public int compareTo(Profesor o) {
+		return this.getApellidos().compareToIgnoreCase(o.getApellidos());
+	}
+
+	/**
+	 * Para evaluar si los objetos son iguales
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean iguales = false;
+		if (obj instanceof Profesor) {
+			Profesor profe = (Profesor) obj;
+			if (this.codigo == profe.getCodigo()) {
+				iguales = true;
+			}
+		}
+		return iguales;
+	}
 	
 }

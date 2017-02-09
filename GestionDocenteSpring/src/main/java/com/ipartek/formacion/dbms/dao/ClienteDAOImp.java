@@ -12,16 +12,16 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.ipartek.formacion.dbms.dao.interfaces.AlumnoDAO;
-import com.ipartek.formacion.dbms.mappers.AlumnoMapper;
-import com.ipartek.formacion.dbms.persistence.Alumno;
+import com.ipartek.formacion.dbms.dao.interfaces.ClienteDAO;
+import com.ipartek.formacion.dbms.mappers.ClienteMapper;
+import com.ipartek.formacion.dbms.persistence.Cliente;
 
-@Repository("alumnoDaoImp")
-public class AlumnoDAOImp implements AlumnoDAO{
+@Repository("clienteDaoImp")
+public class ClienteDAOImp implements ClienteDAO {
 
 	private DataSource dataSource;
 	private JdbcTemplate template;
-	private Logger logger = LoggerFactory.getLogger(AlumnoDAOImp.class);
+	private Logger logger = LoggerFactory.getLogger(ClienteDAOImp.class);
 	
 	@Autowired // = que inject
 	@Override
@@ -29,34 +29,34 @@ public class AlumnoDAOImp implements AlumnoDAO{
 		this.dataSource = dataSource;
 		this.template = new JdbcTemplate(dataSource);
 	}
-
+	
 	@Override
-	public Alumno create(Alumno alumno) {
+	public Cliente create(Cliente cliente) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Alumno getById(int codigo) {
+	public Cliente getById(int codigo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Alumno> getAll() {
-		final String SQL = "SELECT codigo as codigo, nombre as nombre, apellidos as apellidos FROM alumno";
-		List<Alumno> alumnos = null;
+	public List<Cliente> getAll() {
+		final String SQL = "SELECT codigo as codigo, nombre as nombre, telefono as telefono, email as email FROM cliente";
+		List<Cliente> clientes = null;
 		try{
-			alumnos = template.query(SQL, new AlumnoMapper());
+			clientes = template.query(SQL, new ClienteMapper());
 		}catch(EmptyResultDataAccessException e){
 			logger.trace(e.getMessage());
-			alumnos = new ArrayList<Alumno>();
+			clientes = new ArrayList<Cliente>();
 		}
-		return alumnos;
+		return clientes;
 	}
 
 	@Override
-	public Alumno update(Alumno alumno) {
+	public Cliente update(Cliente cliente) {
 		// TODO Auto-generated method stub
 		return null;
 	}
