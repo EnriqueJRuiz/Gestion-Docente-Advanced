@@ -35,7 +35,7 @@ public class AlumnoController {
 	private static final Logger logger = LoggerFactory.getLogger(AlumnoController.class);
 	ModelAndView mav = null;
 	
-	@Resource(name="alumnoValidator")//para injectar el validator si hay mas de una ClassValidator si usan el mismo.
+	@Resource(name="AlumnoValidator")//para injectar el validator si hay mas de una ClassValidator si usan el mismo.
 	private Validator validator = null;
 	
 	@InitBinder

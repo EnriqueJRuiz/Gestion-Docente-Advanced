@@ -17,11 +17,7 @@ public class AlumnoValidator implements Validator {
 	@Override
 	public void validate(Object obj, Errors errors) {
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nombre", "505", "Tienes que introducir un nombre");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "apellidos", "506", "Tienes que introducir Los apellidos");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dni", "507", "Tienes que introducir un DNI");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "508", "Tienes que introducir un email");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "telefono", "509", "Tienes que introducir un telefono");
+		 
 		
 		Alumno alum = (Alumno) obj;
 		if(alum.getCodigo() < Alumno.CODIGO_NULO){

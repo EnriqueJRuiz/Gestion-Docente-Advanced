@@ -1,15 +1,22 @@
 package com.ipartek.formacion.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +35,9 @@ public class ClienteController {
 	private ClienteService cS;
 	private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
 	ModelAndView mav = null;
+	
+	@Resource(name="ClienteValidator")//para injectar el validator si hay mas de una ClassValidator si usan el mismo.
+	private Validator validator = null;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
