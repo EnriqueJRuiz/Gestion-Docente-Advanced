@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-02-2017 a las 12:01:09
+-- Tiempo de generación: 09-02-2017 a las 13:38:42
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -52,6 +52,33 @@ CREATE TABLE IF NOT EXISTS `alumno` (
 
 INSERT INTO `alumno` (`codigo`, `dni`, `nombre`, `apellidos`, `fNacimineto`, `email`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `nHermanos`, `activo`) VALUES
 (1, '45678912H', 'Enrique Javier', 'Ruiz Jiménez', '1985-12-01', 'enriquej@algomail.com', NULL, NULL, NULL, 678945123, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+CREATE TABLE IF NOT EXISTS `cliente` (
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `direccion` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `codigoPostal` int(5) DEFAULT NULL,
+  `poblacion` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `identificador` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `telefono` int(9) NOT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`codigo`, `nombre`, `direccion`, `codigoPostal`, `poblacion`, `identificador`, `telefono`, `email`) VALUES
+(1, 'Empresa de alguna clase', NULL, NULL, NULL, '45678912Z', 654987321, 'asfqawfafa@qafsfa.com'),
+(2, 'otra empresa', NULL, NULL, NULL, '78954862Q', 987654321, 'awfafw@agwga.com');
 
 -- --------------------------------------------------------
 
