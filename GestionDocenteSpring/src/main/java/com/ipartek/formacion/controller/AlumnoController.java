@@ -35,7 +35,7 @@ public class AlumnoController {
 	private static final Logger logger = LoggerFactory.getLogger(AlumnoController.class);
 	ModelAndView mav = null;
 	
-	@Resource(name="AlumnoValidator")//para injectar el validator si hay mas de una ClassValidator si usan el mismo.
+	@Resource(name="alumnoValidator")//para injectar el validator si hay mas de una ClassValidator si usan el mismo.El nombre esta en servlet-context.xml
 	private Validator validator = null;
 	
 	@InitBinder
@@ -61,16 +61,18 @@ public class AlumnoController {
 	}
 	
 	@RequestMapping(value="/save", method = RequestMethod.POST)
-	public String saveAlumno(@ModelAttribute("alumno") @Validated Alumno alumno, Model model, BindingResult bindingResult){ //validate spring valid java
+	public String saveAlumno( Model model, @ModelAttribute("alumno") @Validated Alumno alumno,BindingResult bindingResult){ //validate spring valid java
 		String destino = "";
 		if (bindingResult.hasErrors()) {
 			logger.info("alumno tiene errores");
 			destino = "/alumnos/alumno";
 		}else{
 			destino = "redirect:/alumnos";
-			if(alumno.getCodigo() > alumno.CODIGO_NULO){
+			if(alumno.getCodigo() > Alumno.CODIGO_NULO){
+				logger.info(alumno.toString());
 				aS.update(alumno);
 			}else{
+				logger.info(alumno.toString());
 				aS.create(alumno);
 			}
 		}
@@ -80,11 +82,13 @@ public class AlumnoController {
 	@RequestMapping(value="/addAlumno")
 	public String addAlumno(Model model){
 		model.addAttribute("alumno", new Alumno());
+		logger.trace("");
 		return "alumnos/alumno";
 	}
 	
 	@RequestMapping(value="/deleteAlumno/{id}")
 	public String deleteAlumno(@PathVariable("id") int id){
+		logger.info(Integer.toString(id));
 		aS.delete(id);
 		return "redirect:/alumnos";// redirige a alumnos/alumnos de arriba para volver a cargar la lista.
 	}

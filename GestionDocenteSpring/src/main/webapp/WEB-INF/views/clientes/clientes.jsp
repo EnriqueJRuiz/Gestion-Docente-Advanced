@@ -32,7 +32,7 @@
 					 				<td>${cliente.telefono}</td> 
 					 				<td>
 					 					<a href="clientes/${cliente.codigo}">Editar</a><!--  URL CANONICAS -->
-					 					<a href="clientes/deleteClientes/${cliente.codigo}">Borrar</a>
+					 					<a href="clientes/deleteCliente/${cliente.codigo}">Borrar</a>
 					 				</td>
 					 			</tr>	
 				 			</c:forEach>	

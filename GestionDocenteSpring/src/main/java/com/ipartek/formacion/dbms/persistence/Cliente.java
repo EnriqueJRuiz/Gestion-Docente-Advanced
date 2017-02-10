@@ -111,6 +111,12 @@ public class Cliente implements Serializable, Comparable<Cliente> {
 	}
 	
 	@Override
+	public String toString() {
+		return "Cliente [nombre=" + nombre + ", identificador=" + identificador + ", email=" + email + ", direccion="
+				+ direccion + ", telefono=" + telefono + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		boolean iguales = false;
 		if (obj instanceof Cliente) {
@@ -122,6 +128,7 @@ public class Cliente implements Serializable, Comparable<Cliente> {
 		return iguales;
 		
 	}
+	
 	@Override
 	public int compareTo(Cliente o) {
 		return this.getNombre().compareToIgnoreCase(o.getNombre());

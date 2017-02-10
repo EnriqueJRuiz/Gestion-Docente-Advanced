@@ -19,6 +19,11 @@ import com.ipartek.formacion.dbms.persistence.Cliente;
 @Repository("clienteDaoImp")
 public class ClienteDAOImp implements ClienteDAO {
 
+	@Override
+	public String toString() {
+		return "ClienteDAOImp []";
+	}
+
 	private DataSource dataSource;
 	private JdbcTemplate template;
 	private Logger logger = LoggerFactory.getLogger(ClienteDAOImp.class);
@@ -66,5 +71,9 @@ public class ClienteDAOImp implements ClienteDAO {
 		// TODO Auto-generated method stub
 		
 	}
+	
+
+	
+
 
 }

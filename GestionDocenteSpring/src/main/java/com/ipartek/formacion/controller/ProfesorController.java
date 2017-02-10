@@ -29,6 +29,8 @@ public class ProfesorController {
 	private static final Logger logger = LoggerFactory.getLogger(ProfesorController.class);
 	ModelAndView mav = null;
 	
+	
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
 		mav = new ModelAndView("profesores/profesores");
@@ -40,24 +42,26 @@ public class ProfesorController {
 	
 	@RequestMapping(value="/{id}")
 	public ModelAndView getById(@PathVariable("id") int id){
-		mav = new ModelAndView("aprofesores/profesor");
+		mav = new ModelAndView("profesores/profesor");
 		mav.addObject("profesor",pS.getById(id));
 		return mav;
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveProfesor(@ModelAttribute("profesor")@Valid Profesor profesor, Model model, 
+	public String saveProfesor(Model model, @ModelAttribute("profesor")@Valid Profesor profesor,  
 			BindingResult bindingResult){
 		String destino = "";
 			
 		if (bindingResult.hasErrors()){
 			logger.info("profesor tiene errores");
-			destino = "";
+			destino = "profesores/profesor";
 		}else{
 			destino = "redirect:/profesores";
 			if (profesor.getCodigo() > Profesor.CODIGO_NULO){
+				logger.info(profesor.toString());
 				pS.update(profesor);
 			}else{
+				logger.info(profesor.toString());
 				pS.create(profesor);
 			}
 		}

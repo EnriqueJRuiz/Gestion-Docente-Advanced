@@ -10,9 +10,6 @@ import java.util.Date;
  *
  */
 public class Alumno implements Comparable<Alumno>, Serializable {
-
-
-
 	/**
 	 * 
 	 */
@@ -158,6 +155,13 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 	public int compareTo(Alumno o) {
 		return this.getApellidos().compareToIgnoreCase(o.getApellidos());
 	}
+	
+	@Override
+	public String toString() {
+		return "Alumno [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email
+				+ ", telefono=" + telefono + "]";
+	}
+
 
 	/**
 	 * Para evaluar si los objetos son iguales

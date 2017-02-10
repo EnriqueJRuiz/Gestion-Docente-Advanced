@@ -19,11 +19,8 @@ public class Profesor implements Serializable, Comparable<Profesor> {
 
 	
 	public static final int CODIGO_NULO = -1;
-	@NotNull
-	@NotBlank
+	
 	protected int codigo;
-	@NotNull
-	@NotBlank
 	@Pattern(regexp = "[0-9]{8}[a-zA-Z]", message = "DNI incorrecto")
 	private String dni;
 	@NotNull
@@ -33,8 +30,11 @@ public class Profesor implements Serializable, Comparable<Profesor> {
 	@Size(min=7, max=150)
 	private String apellidos;
 	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@NotNull
 	@Past
 	private Date fNacimiento;
+	@NotNull
+	@NotBlank
 	@Email
 	private String email;
 	
@@ -43,9 +43,12 @@ public class Profesor implements Serializable, Comparable<Profesor> {
 	private int codigoPostal;
 	
 	private String poblacion;
+	@NotNull
+	@NotBlank
 	@Phone
 	private String telefono;
-	
+	@NotNull
+	@NotBlank
 	private String id;
 	
 	private int nSS;

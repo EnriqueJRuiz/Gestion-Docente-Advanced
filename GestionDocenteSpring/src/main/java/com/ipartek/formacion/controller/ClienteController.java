@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ipartek.formacion.dbms.persistence.Alumno;
 import com.ipartek.formacion.dbms.persistence.Cliente;
 import com.ipartek.formacion.service.interfaces.ClienteService;
 
@@ -36,8 +35,13 @@ public class ClienteController {
 	private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
 	ModelAndView mav = null;
 	
-	@Resource(name="ClienteValidator")//para injectar el validator si hay mas de una ClassValidator si usan el mismo.
+	@Resource(name="clienteValidator")//para injectar el validator si hay mas de una ClassValidator si usan el mismo.
 	private Validator validator = null;
+	
+	@InitBinder
+	private void initBinder(WebDataBinder binder){
+		binder.setValidator(validator);
+	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
@@ -56,11 +60,12 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value="/save", method = RequestMethod.POST)
-	public String saveCliente(@ModelAttribute("cliente") @Validated Cliente cliente, Model model, BindingResult bindingResult){ //validate spring valid java
+	public String saveCliente(Model model,@ModelAttribute("cliente") @Validated Cliente cliente ,BindingResult bindingResult){ //validate spring valid java
 		String destino = "";
+		logger.info("Errores:"+bindingResult.getAllErrors().size());
 		if (bindingResult.hasErrors()) {
 			logger.info("cliente tiene errores");
-			destino = "/clienes/clientes";
+			destino = "/clientes/cliente";
 		}else{
 			destino = "redirect:/clientes";
 			if(cliente.getCodigo() > Cliente.CODIGO_NULO){
@@ -77,11 +82,13 @@ public class ClienteController {
 	@RequestMapping(value="/addCliente")
 	public String addCliente(Model model){
 		model.addAttribute("cliente", new Cliente());
+		logger.trace("");
 		return "clientes/cliente";
 	}
 	
 	@RequestMapping(value="/deleteCliente/{id}")
 	public String deleteAlumno(@PathVariable("id") int id){
+		logger.info(Integer.toString(id));
 		cS.delete(id);
 		return "redirect:/clientes";
 	}
