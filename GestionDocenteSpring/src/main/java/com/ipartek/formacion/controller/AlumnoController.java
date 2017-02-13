@@ -32,7 +32,8 @@ public class AlumnoController {
 	
 	@Inject//crea y destruye un objeto de aS sin tener que hacer 
 	private AlumnoService aS;
-	private static final Logger logger = LoggerFactory.getLogger(AlumnoController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AlumnoController.class);
+	
 	ModelAndView mav = null;
 	
 	@Resource(name="alumnoValidator")//para injectar el validator si hay mas de una ClassValidator si usan el mismo.El nombre esta en servlet-context.xml
@@ -49,7 +50,7 @@ public class AlumnoController {
 		mav = new ModelAndView("alumnos/alumnos");
 		List alumnos= aS.getAll();
 		mav.addObject("listadoAlumnos", alumnos);//request
-		logger.trace("pasa por getAll()");
+		LOGGER.trace("pasa por getAll()");
 		return mav;
 	}
 	
@@ -64,15 +65,15 @@ public class AlumnoController {
 	public String saveAlumno( Model model, @ModelAttribute("alumno") @Validated Alumno alumno,BindingResult bindingResult){ //validate spring valid java
 		String destino = "";
 		if (bindingResult.hasErrors()) {
-			logger.info("alumno tiene errores");
+			LOGGER.info("alumno tiene errores");
 			destino = "/alumnos/alumno";
 		}else{
 			destino = "redirect:/alumnos";
 			if(alumno.getCodigo() > Alumno.CODIGO_NULO){
-				logger.info(alumno.toString());
+				LOGGER.info(alumno.toString());
 				aS.update(alumno);
 			}else{
-				logger.info(alumno.toString());
+				LOGGER.info(alumno.toString());
 				aS.create(alumno);
 			}
 		}
@@ -82,13 +83,13 @@ public class AlumnoController {
 	@RequestMapping(value="/addAlumno")
 	public String addAlumno(Model model){
 		model.addAttribute("alumno", new Alumno());
-		logger.trace("");
+		LOGGER.trace("");
 		return "alumnos/alumno";
 	}
 	
 	@RequestMapping(value="/deleteAlumno/{id}")
 	public String deleteAlumno(@PathVariable("id") int id){
-		logger.info(Integer.toString(id));
+		LOGGER.info(Integer.toString(id));
 		aS.delete(id);
 		return "redirect:/alumnos";// redirige a alumnos/alumnos de arriba para volver a cargar la lista.
 	}

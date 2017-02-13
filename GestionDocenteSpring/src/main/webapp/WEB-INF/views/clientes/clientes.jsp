@@ -1,16 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset=UTF-8">
-<title>Gestion Docente - Listado Clientes</title>
-</head>
-<body>
-	<header>
-		<h1>Gestion Docente - Listado Clientes</h1>
-	</header>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
+  
+
+<spring:message var="seccion" code="clientes.titulo"/>
+<c:set scope="request" var="seccion" value="${seccion}"/>
+
+<c:import url="../includes/header.jsp"/>
+
 	<main>
 		<a href="clientes/addCliente">Crear Cliente</a>
 		<table id="table-1" border="2">

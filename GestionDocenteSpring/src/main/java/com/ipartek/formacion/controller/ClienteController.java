@@ -1,7 +1,6 @@
 package com.ipartek.formacion.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,7 +8,6 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +30,7 @@ public class ClienteController {
 	
 	@Inject
 	private ClienteService cS;
-	private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClienteController.class);
 	ModelAndView mav = null;
 	
 	@Resource(name="clienteValidator")//para injectar el validator si hay mas de una ClassValidator si usan el mismo.
@@ -46,9 +44,9 @@ public class ClienteController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
 		mav = new ModelAndView("clientes/clientes");
-		List clientes= cS.getAll();
+		List<Cliente> clientes= cS.getAll();
 		mav.addObject("listadoClientes", clientes);//request
-		logger.trace("pasa por getAll()");
+		LOGGER.trace("pasa por getAll()");
 		return mav;
 	}
 	
@@ -62,17 +60,17 @@ public class ClienteController {
 	@RequestMapping(value="/save", method = RequestMethod.POST)
 	public String saveCliente(Model model,@ModelAttribute("cliente") @Validated Cliente cliente ,BindingResult bindingResult){ //validate spring valid java
 		String destino = "";
-		logger.info("Errores:"+bindingResult.getAllErrors().size());
+		
 		if (bindingResult.hasErrors()) {
-			logger.info("cliente tiene errores");
+			LOGGER.info("cliente tiene errores");
 			destino = "/clientes/cliente";
 		}else{
 			destino = "redirect:/clientes";
 			if(cliente.getCodigo() > Cliente.CODIGO_NULO){
-				logger.info(cliente.toString());
+				LOGGER.info(cliente.toString());
 				cS.update(cliente);
 			}else{
-				logger.info(cliente.toString());
+				LOGGER.info(cliente.toString());
 				cS.create(cliente);
 			}
 		}
@@ -82,13 +80,13 @@ public class ClienteController {
 	@RequestMapping(value="/addCliente")
 	public String addCliente(Model model){
 		model.addAttribute("cliente", new Cliente());
-		logger.trace("");
+		LOGGER.trace("");
 		return "clientes/cliente";
 	}
 	
 	@RequestMapping(value="/deleteCliente/{id}")
 	public String deleteAlumno(@PathVariable("id") int id){
-		logger.info(Integer.toString(id));
+		LOGGER.info(Integer.toString(id));
 		cS.delete(id);
 		return "redirect:/clientes";
 	}

@@ -26,7 +26,7 @@ public class ProfesorController {
 	
 	@Inject
 	private ProfesorService pS;
-	private static final Logger logger = LoggerFactory.getLogger(ProfesorController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProfesorController.class);
 	ModelAndView mav = null;
 	
 	
@@ -36,7 +36,7 @@ public class ProfesorController {
 		mav = new ModelAndView("profesores/profesores");
 		List profesores = pS.getAll();
 		mav.addObject("listadoProfesores", profesores);
-		logger.trace("pasa por getAll()");
+		LOGGER.trace("pasa por getAll()");
 		return mav;
 	}
 	
@@ -53,15 +53,15 @@ public class ProfesorController {
 		String destino = "";
 			
 		if (bindingResult.hasErrors()){
-			logger.info("profesor tiene errores");
+			LOGGER.info("profesor tiene errores");
 			destino = "profesores/profesor";
 		}else{
 			destino = "redirect:/profesores";
 			if (profesor.getCodigo() > Profesor.CODIGO_NULO){
-				logger.info(profesor.toString());
+				LOGGER.info(profesor.toString());
 				pS.update(profesor);
 			}else{
-				logger.info(profesor.toString());
+				LOGGER.info(profesor.toString());
 				pS.create(profesor);
 			}
 		}

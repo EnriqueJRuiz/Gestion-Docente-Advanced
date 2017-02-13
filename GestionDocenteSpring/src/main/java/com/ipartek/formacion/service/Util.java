@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.ipartek.formacion.controller.ClienteController;
 
 public class Util {
-	private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClienteController.class);
 	
 	public static boolean validarDni(String dni) {
 		boolean incorrecto=true;
@@ -27,12 +27,12 @@ public class Util {
 				String letraValidacion = cadenaVerificacion.substring(posicion,cadenaVerificacion.length()-cadenaSobrante);
 				*/
 				
-				logger.info("el resultado es = "+ letraValidacion);
+				
 					if (letraValidacion == dni.charAt(dni.length()-1)){
 					incorrecto=false;
 				}
 			} catch (Exception e) {
-				logger.info(e.getMessage());
+				LOGGER.info(e.getMessage());
 				incorrecto = true;
 	}
 			

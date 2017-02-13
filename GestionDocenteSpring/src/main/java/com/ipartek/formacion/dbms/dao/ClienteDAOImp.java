@@ -26,7 +26,7 @@ public class ClienteDAOImp implements ClienteDAO {
 
 	private DataSource dataSource;
 	private JdbcTemplate template;
-	private Logger logger = LoggerFactory.getLogger(ClienteDAOImp.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClienteDAOImp.class);
 	
 	@Autowired // = que inject
 	@Override
@@ -54,7 +54,7 @@ public class ClienteDAOImp implements ClienteDAO {
 		try{
 			clientes = template.query(SQL, new ClienteMapper());
 		}catch(EmptyResultDataAccessException e){
-			logger.trace(e.getMessage());
+			LOGGER.trace(e.getMessage());
 			clientes = new ArrayList<Cliente>();
 		}
 		return clientes;

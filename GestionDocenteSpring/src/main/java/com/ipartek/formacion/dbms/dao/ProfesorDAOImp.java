@@ -21,7 +21,7 @@ public class ProfesorDAOImp implements ProfesorDAO {
 	
 	private DataSource dataSource;
 	private JdbcTemplate template;
-	private Logger logger = LoggerFactory.getLogger(ProfesorDAOImp.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProfesorDAOImp.class);
 	
 	
 	@Autowired

@@ -21,7 +21,7 @@ public class AlumnoDAOImp implements AlumnoDAO{
 
 	private DataSource dataSource;
 	private JdbcTemplate template;
-	private Logger logger = LoggerFactory.getLogger(AlumnoDAOImp.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AlumnoDAOImp.class);
 	
 	@Autowired // = que inject
 	@Override
@@ -49,7 +49,7 @@ public class AlumnoDAOImp implements AlumnoDAO{
 		try{
 			alumnos = template.query(SQL, new AlumnoMapper());
 		}catch(EmptyResultDataAccessException e){
-			logger.trace(e.getMessage());
+			LOGGER.trace(e.getMessage());
 			alumnos = new ArrayList<Alumno>();
 		}
 		return alumnos;

@@ -3,15 +3,15 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%><!--  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset=UTF-8">
-<title>Gestion Docente - Cliente</title>
-</head>
-<body>
-	<header>
-	</header>
+  
+<spring:message var="men" code="form.crear" text="nombre" />
+<c:if test="${cliente.codigo > 0}" >
+	<spring:message var="men"  code="form.editar" text="nombre" />
+</c:if>   
+<spring:message var="seccion" code="cliente.titulo" text="cliente" />
+<c:set scope="request" var="seccion" value="${men} ${seccion}"/> 
+    
+<c:import url="../includes/header.jsp"/>
 	<main>
 		<form:form action="save" nethod="post" commandName="cliente">
 			<c:if test="${not empty cliente}">
