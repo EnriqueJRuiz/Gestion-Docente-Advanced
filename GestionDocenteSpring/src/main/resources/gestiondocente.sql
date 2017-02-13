@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-02-2017 a las 13:38:42
+-- Tiempo de generación: 13-02-2017 a las 13:34:28
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -23,6 +23,39 @@ DROP DATABASE `gestiondocente`;
 CREATE DATABASE IF NOT EXISTS `gestiondocente` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `gestiondocente`;
 
+DELIMITER $$
+--
+-- Procedimientos
+--
+DROP PROCEDURE IF EXISTS `alumnoDelete`$$
+CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnoDelete`(IN `pcodigo` INT)
+    NO SQL
+BEGIN
+	DELETE FROM alumno WHERE codigo = pcodigo;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `alumnogetAll`$$
+CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnogetAll`()
+    NO SQL
+BEGIN
+	SELECT a.codigo as codigo, a.nombre as nombre, a.apellidos as apellidos, a.dni as dni, a.email as email, a.telefono as telefono, a.fNacimiento as fNacimiento, a.direccion as direccion, a.codigoPostal as codigoPostal, a.poblacion as poblacion, a.nHermanos as nHermanos
+    FROM alumno as a;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `alumnogetById`$$
+CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnogetById`(IN `pcodigo` INT)
+    NO SQL
+BEGIN
+	SELECT a.codigo as codigo, a.nombre as nombre, a.apellidos as apellidos, a.dni as dni, a.email as email, a.telefono as telefono, a.fNacimiento as fNacimiento, a.direccion as direccion, a.codigoPostal as codigoPostal, a.poblacion as poblacion, a.nHermanos as nHermanos
+    FROM alumno as a
+    WHERE CODIGO=pcodigo;
+
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -35,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `dni` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
   `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `apellidos` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
-  `fNacimineto` date DEFAULT NULL,
+  `fNacimiento` date DEFAULT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `direccion` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `poblacion` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -50,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `alumno` (
 -- Volcado de datos para la tabla `alumno`
 --
 
-INSERT INTO `alumno` (`codigo`, `dni`, `nombre`, `apellidos`, `fNacimineto`, `email`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `nHermanos`, `activo`) VALUES
+INSERT INTO `alumno` (`codigo`, `dni`, `nombre`, `apellidos`, `fNacimiento`, `email`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `nHermanos`, `activo`) VALUES
 (1, '45678912H', 'Enrique Javier', 'Ruiz Jiménez', '1985-12-01', 'enriquej@algomail.com', NULL, NULL, NULL, 678945123, NULL, 1);
 
 -- --------------------------------------------------------
@@ -66,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `direccion` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `codigoPostal` int(5) DEFAULT NULL,
   `poblacion` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `identificador` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `identificador` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `telefono` int(9) NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`codigo`)
