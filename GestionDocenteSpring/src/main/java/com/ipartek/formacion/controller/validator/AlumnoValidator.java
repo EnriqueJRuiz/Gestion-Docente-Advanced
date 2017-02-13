@@ -46,11 +46,10 @@ public class AlumnoValidator implements Validator {
 			errors.rejectValue("telefono", null, new Object[] {"'telefono'"}, "Tamaño del telefono incorrecto");
 		}
 		
-		if(alum.getDni()!=null || alum.getDni()!= " " ){
 			if(Util.validarDni(alum.getDni())) { //validacion de la letra del DNI
-				errors.rejectValue("dni","letraDniIncorrecta", new Object[]{"'dni'"},"el dni es incorrecto");
+				errors.rejectValue("dni","letraDniIncorrecta", new Object[]{"'dni'"},"el dni es incorrecto tiene que ser 8 numero y letra Mayúscula correcta");
 			}
-		}
+		
 	}
 
 }
