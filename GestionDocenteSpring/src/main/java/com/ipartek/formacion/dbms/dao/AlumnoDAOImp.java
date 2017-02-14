@@ -2,6 +2,7 @@ package com.ipartek.formacion.dbms.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -10,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dbms.dao.interfaces.AlumnoDAO;
@@ -20,6 +24,7 @@ import com.ipartek.formacion.dbms.persistence.Alumno;
 public class AlumnoDAOImp implements AlumnoDAO{
 
 	private DataSource dataSource;
+	private SimpleJdbcCall JdbcCall;
 	private JdbcTemplate template;
 	private static final Logger LOGGER = LoggerFactory.getLogger(AlumnoDAOImp.class);
 	
@@ -32,19 +37,50 @@ public class AlumnoDAOImp implements AlumnoDAO{
 
 	@Override
 	public Alumno create(Alumno alumno) {
-		// TODO Auto-generated method stub
-		return null;
+		final String SQL="alumnoCreate";
+		//se asigna el nombre del procedimiento almacenado PHPMYADMIN
+		this.JdbcCall = new SimpleJdbcCall(dataSource);
+		
+		JdbcCall.withProcedureName(SQL);
+		//crear un mapa con los parametros de procedimientos almacenados.
+		SqlParameterSource in = new MapSqlParameterSource()
+				.addValue("pnombre", alumno.getNombre())
+				.addValue("papellidos", alumno.getApellidos())
+				.addValue("pdni", alumno.getDni())
+				.addValue("ptelefono", alumno.getTelefono())
+				.addValue("pemail", alumno.getEmail())
+				.addValue("pcodigoPostal", alumno.getCodigoPostal())
+				.addValue("pfNacimiento", alumno.getfNacimiento())
+				.addValue("pdireccion", alumno.getDireccion())
+				.addValue("ppoblacion", alumno.getPoblacion())
+				.addValue("pnHermanos", alumno.getnHermanos());
+		LOGGER.info(alumno.toString());
+		//se ejecuta la consulta
+		Map<String, Object> out = JdbcCall.execute(in);
+		//en out se han recogido los parametros out de la consulta a BBDD
+		alumno.setCodigo((Integer)out.get("pcodigo"));
+		
+		return alumno;
 	}
 
 	@Override
 	public Alumno getById(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
+		Alumno alumno = null;
+		final String SQL="CALL alumnogetById(?)";
+		try{
+			alumno = template.queryForObject(SQL, new AlumnoMapper(),new Object[] { codigo });
+			LOGGER.info(alumno.toString());
+		}catch(EmptyResultDataAccessException e){
+				alumno = new Alumno();
+			 LOGGER.info("no se he encontrado Alumno para el codigo: "+ codigo + " "+e.getMessage());
+		}
+		return alumno;
 	}
 
 	@Override
 	public List<Alumno> getAll() {
-		final String SQL = "SELECT codigo as codigo, nombre as nombre, apellidos as apellidos FROM alumno";
+		final String SQL = "CALL alumnogetAll()";
+				
 		List<Alumno> alumnos = null;
 		try{
 			alumnos = template.query(SQL, new AlumnoMapper());
@@ -57,14 +93,40 @@ public class AlumnoDAOImp implements AlumnoDAO{
 
 	@Override
 	public Alumno update(Alumno alumno) {
-		// TODO Auto-generated method stub
-		return null;
+		final String SQL="alumnoUpdate";
+		this.JdbcCall = new SimpleJdbcCall(dataSource);
+		JdbcCall.withProcedureName(SQL);
+
+		SqlParameterSource in = new MapSqlParameterSource()
+				.addValue("pnombre", alumno.getNombre())
+				.addValue("papellidos", alumno.getApellidos())
+				.addValue("pdni", alumno.getDni())
+				.addValue("ptelefono", alumno.getTelefono())
+				.addValue("pemail", alumno.getEmail())
+				.addValue("pcodigoPostal", alumno.getCodigoPostal())
+				.addValue("pfNacimiento", alumno.getfNacimiento())
+				.addValue("pdireccion", alumno.getDireccion())
+				.addValue("ppoblacion", alumno.getPoblacion())
+				.addValue("pnHermanos", alumno.getnHermanos())
+				.addValue("pcodigo", alumno.getCodigo());
+		LOGGER.info(alumno.toString());
+		
+			JdbcCall.execute(in);
+		
+		
+		return alumno;
 	}
 
 	@Override
 	public void delete(int codigo) {
-		// TODO Auto-generated method stub
+		final String SQL= "alumnoDeleteF";
+		this.JdbcCall = new SimpleJdbcCall(dataSource);
+		JdbcCall.withProcedureName(SQL);
+		SqlParameterSource in = new MapSqlParameterSource()
+				.addValue("pcodigo", codigo);
+		LOGGER.info(String.valueOf(codigo));
 		
+		JdbcCall.execute(in);
 	}
 
 }

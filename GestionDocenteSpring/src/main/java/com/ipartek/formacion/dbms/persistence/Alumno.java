@@ -156,12 +156,15 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 		return this.getApellidos().compareToIgnoreCase(o.getApellidos());
 	}
 	
+	
+
 	@Override
 	public String toString() {
-		return "Alumno [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email
-				+ ", telefono=" + telefono + "]";
+		return "Alumno [codigo=" + codigo + ", dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos
+				+ ", fNacimiento=" + fNacimiento + ", email=" + email + ", direccion=" + direccion + ", codigoPostal="
+				+ codigoPostal + ", poblacion=" + poblacion + ", telefono=" + telefono + ", activo=" + activo
+				+ ", nHermanos=" + nHermanos + "]";
 	}
-
 
 	/**
 	 * Para evaluar si los objetos son iguales

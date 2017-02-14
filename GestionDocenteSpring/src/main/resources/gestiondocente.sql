@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-02-2017 a las 13:34:28
+-- Tiempo de generación: 14-02-2017 a las 13:22:51
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -27,9 +27,30 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+DROP PROCEDURE IF EXISTS `alumnoCreate`$$
+CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnoCreate`(IN `papellidos` VARCHAR(250), IN `pcodigoPostal` INT(5), IN `pnombre` VARCHAR(50), IN `pdireccion` VARCHAR(250), IN `pdni` VARCHAR(9), IN `pemail` VARCHAR(150), IN `pfNacimiento` DATE, IN `pnHermanos` INT(2), IN `ppoblacion` VARCHAR(150), IN `ptelefono` INT(9), OUT `pcodigo` INT)
+    NO SQL
+BEGIN
+
+	INSERT INTO alumno (nombre, apellidos, dni, email, telefono, fNacimiento, direccion, codigoPostal, poblacion, nHermanos) VALUES (UPPER(pnombre), UPPER(papellidos), UPPER(pdni), UPPER(pemail), ptelefono, pfNacimiento, UPPER(pdireccion), pcodigoPostal, UPPER(ppoblacion), pnHermanos);
+    
+SET pcodigo = LAST_INSERT_ID();
+
+END$$
+
 DROP PROCEDURE IF EXISTS `alumnoDelete`$$
 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnoDelete`(IN `pcodigo` INT)
     NO SQL
+BEGIN
+
+	UPDATE alumno SET activo =  0 WHERE codigo = pcodigo;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `alumnoDeleteF`$$
+CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnoDeleteF`(IN `pcodigo` INT)
+    NO SQL
+    COMMENT 'Borrado fisico'
 BEGIN
 	DELETE FROM alumno WHERE codigo = pcodigo;
 
@@ -39,7 +60,7 @@ DROP PROCEDURE IF EXISTS `alumnogetAll`$$
 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnogetAll`()
     NO SQL
 BEGIN
-	SELECT a.codigo as codigo, a.nombre as nombre, a.apellidos as apellidos, a.dni as dni, a.email as email, a.telefono as telefono, a.fNacimiento as fNacimiento, a.direccion as direccion, a.codigoPostal as codigoPostal, a.poblacion as poblacion, a.nHermanos as nHermanos
+	SELECT a.codigo as codigo, a.nombre as nombre, a.apellidos as apellidos, a.dni as dni, a.email as email, a.telefono as telefono, a.fNacimiento as fNacimiento, a.direccion as direccion, a.codigoPostal as codigoPostal, a.poblacion as poblacion, a.nHermanos as nHermanos, a.activo as activo
     FROM alumno as a;
 
 END$$
@@ -48,9 +69,27 @@ DROP PROCEDURE IF EXISTS `alumnogetById`$$
 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnogetById`(IN `pcodigo` INT)
     NO SQL
 BEGIN
-	SELECT a.codigo as codigo, a.nombre as nombre, a.apellidos as apellidos, a.dni as dni, a.email as email, a.telefono as telefono, a.fNacimiento as fNacimiento, a.direccion as direccion, a.codigoPostal as codigoPostal, a.poblacion as poblacion, a.nHermanos as nHermanos
+	SELECT a.codigo as codigo, a.nombre as nombre, a.apellidos as apellidos, a.dni as dni, a.email as email, a.telefono as telefono, a.fNacimiento as fNacimiento, a.direccion as direccion, a.codigoPostal as codigoPostal, a.poblacion as poblacion, a.nHermanos as nHermanos, a.activo as activo
     FROM alumno as a
     WHERE CODIGO=pcodigo;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `alumnoUpdate`$$
+CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnoUpdate`(IN `pcodigo` INT, IN `papellidos` VARCHAR(250), IN `pcodigoPostal` INT(5), IN `pdireccion` VARCHAR(250), IN `pdni` VARCHAR(9), IN `pemail` VARCHAR(150), IN `pfNacimiento` DATE, IN `pnombre` VARCHAR(50), IN `pnHermanos` INT(2), IN `ptelefono` INT(9), IN `ppoblacion` VARCHAR(150))
+    NO SQL
+BEGIN
+
+	UPDATE alumno SET nombre = UPPER(pnombre), apellidos = UPPER(papellidos), codigoPostal = pcodigoPostal, direccion = uPPER(pdireccion), dni = UPPER(pdni), email = UPPER(pemail), fNacimiento = pfNacimiento, nHermanos = pnHermanos, telefono = ptelefono, poblacion = UPPER(ppoblacion)	WHERE codigo = pcodigo;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `profesorgetAll`$$
+CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `profesorgetAll`()
+    NO SQL
+BEGIN
+	SELECT p.codigo as codigo, p.nombre as nombre, p.apellidos as apellidos, p.dni as dni, p.email as email, p.telefono as telefono, p.fNacimiento as fNacimiento, p.direccion as direccion, p.codigoPostal as codigoPostal, p.poblacion as poblacion, p.nSS as nSS
+    FROM profesor as p;
 
 END$$
 
@@ -77,14 +116,15 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `nHermanos` int(2) DEFAULT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `alumno`
 --
 
 INSERT INTO `alumno` (`codigo`, `dni`, `nombre`, `apellidos`, `fNacimiento`, `email`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `nHermanos`, `activo`) VALUES
-(1, '45678912H', 'Enrique Javier', 'Ruiz Jiménez', '1985-12-01', 'enriquej@algomail.com', NULL, NULL, NULL, 678945123, NULL, 1);
+(1, '45678912H', 'Enrique Javier', 'Ruiz Jiménez', '1985-12-01', 'enriquej@algomail.com', NULL, NULL, NULL, 678945123, NULL, 1),
+(3, '45677362Y', '66666666', 'QQQQ EEEE', '1998-11-12', 'ALGUIENPESAO@YYA.COM', 'A', '', 0, 444444444, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -102,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `identificador` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `telefono` int(9) NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
@@ -109,9 +150,9 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 -- Volcado de datos para la tabla `cliente`
 --
 
-INSERT INTO `cliente` (`codigo`, `nombre`, `direccion`, `codigoPostal`, `poblacion`, `identificador`, `telefono`, `email`) VALUES
-(1, 'Empresa de alguna clase', NULL, NULL, NULL, '45678912Z', 654987321, 'asfqawfafa@qafsfa.com'),
-(2, 'otra empresa', NULL, NULL, NULL, '78954862Q', 987654321, 'awfafw@agwga.com');
+INSERT INTO `cliente` (`codigo`, `nombre`, `direccion`, `codigoPostal`, `poblacion`, `identificador`, `telefono`, `email`, `activo`) VALUES
+(1, 'Empresa de alguna clase', NULL, NULL, NULL, '45678912Z', 654987321, 'asfqawfafa@qafsfa.com', 1),
+(2, 'otra empresa', NULL, NULL, NULL, '78954862Q', 987654321, 'awfafw@agwga.com', 1);
 
 -- --------------------------------------------------------
 
@@ -125,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   `dni` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
   `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `apellidos` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
-  `fNacimineto` date DEFAULT NULL,
+  `fNacimiento` date DEFAULT NULL,
   `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `direccion` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `poblacion` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -139,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 -- Volcado de datos para la tabla `profesor`
 --
 
-INSERT INTO `profesor` (`codigo`, `dni`, `nombre`, `apellidos`, `fNacimineto`, `email`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `nSS`) VALUES
+INSERT INTO `profesor` (`codigo`, `dni`, `nombre`, `apellidos`, `fNacimiento`, `email`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `nSS`) VALUES
 (1, '45612378R', 'Enrique Javier', 'Ruiz Jiménez', NULL, 'alguienporhay@klesden.com', NULL, NULL, NULL, 654987123, 123456789123);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
