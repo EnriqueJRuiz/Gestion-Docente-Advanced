@@ -69,13 +69,13 @@ public class ProfesorController {
 	}
 	
 	@RequestMapping(value="/addProfesor")
-	public String addAlumno(Model model){
+	public String addPorfesor(Model model){
 		model.addAttribute("profesor", new Profesor());
 		return "profesores/profesor";
 	}
 	
 	@RequestMapping(value="/deleteProfesor/{id}")
-	public String deleteAlumno(@PathVariable("id") int id){
+	public String deleteProfesor(@PathVariable("id") int id){
 		pS.delete(id);
 		return "redirect:/prodesores";
 	}

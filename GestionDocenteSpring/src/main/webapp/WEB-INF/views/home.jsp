@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <spring:message var="seccion" code="home.titulo" />
 <c:set scope="request" var="seccion" value="${seccion}"/>
-<c:import url="includes/header.jsp"/>
+<jsp:include page="includes/header.jsp" />
+<jsp:include page="includes/footer.jsp" />
 </body>
 </html>

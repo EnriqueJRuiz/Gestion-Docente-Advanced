@@ -2,6 +2,7 @@ package com.ipartek.formacion.dbms.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -10,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dbms.dao.interfaces.ProfesorDAO;
@@ -20,6 +24,7 @@ import com.ipartek.formacion.dbms.persistence.Profesor;
 public class ProfesorDAOImp implements ProfesorDAO {
 	
 	private DataSource dataSource;
+	private SimpleJdbcCall JdbcCall;
 	private JdbcTemplate template;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProfesorDAOImp.class);
 	
@@ -33,17 +38,50 @@ public class ProfesorDAOImp implements ProfesorDAO {
 
 	@Override
 	public Profesor create(Profesor profesor) {
-		return null;
+		final String SQL="profesorCreate";
+		//se asigna el nombre del procedimiento almacenado PHPMYADMIN
+		this.JdbcCall = new SimpleJdbcCall(dataSource);
+		
+		JdbcCall.withProcedureName(SQL);
+		//crear un mapa con los parametros de procedimientos almacenados.
+		SqlParameterSource in = new MapSqlParameterSource()
+				.addValue("pnombre", profesor.getNombre())
+				.addValue("papellidos", profesor.getApellidos())
+				.addValue("pdni", profesor.getDni())
+				.addValue("ptelefono", profesor.getTelefono())
+				.addValue("pemail", profesor.getEmail())
+				.addValue("pcodigoPostal", profesor.getCodigoPostal())
+				.addValue("pfNacimiento", profesor.getfNacimiento())
+				.addValue("pdireccion", profesor.getDireccion())
+				.addValue("ppoblacion", profesor.getPoblacion())
+				.addValue("pnSS", profesor.getnSS());
+		LOGGER.info(profesor.toString());
+		//se ejecuta la consulta
+		Map<String, Object> out = JdbcCall.execute(in);
+		//en out se han recogido los parametros out de la consulta a BBDD
+		profesor.setCodigo((Integer)out.get("pcodigo"));
+		
+		return profesor;
+		
 	}
 
 	@Override
-	public Profesor getById(int profesor) {
-		return null;
+	public Profesor getById(int codigo) {
+		Profesor profesor = null;
+		final String SQL="CALL profesorgetById(?)";
+		try{
+			profesor = template.queryForObject(SQL, new ProfesorMapper(),new Object[] { codigo });
+			LOGGER.info(profesor.toString());
+		}catch(EmptyResultDataAccessException e){
+				profesor = new Profesor();
+			 LOGGER.info("no se he encontrado Alumno para el codigo: "+ codigo + " "+e.getMessage());
+		}
+		return profesor;
 	}
 
 	@Override
 	public List<Profesor> getAll() {
-		final String SQL="SELECT codigo as codigo, nombre as nombre, apellidos as apellidos FROM profesor";
+		final String SQL="CALL profesorgetAll()";
 		List<Profesor> profesores = null;
 		try{
 			profesores=template.query(SQL, new ProfesorMapper());
@@ -55,14 +93,38 @@ public class ProfesorDAOImp implements ProfesorDAO {
 
 	@Override
 	public Profesor update(Profesor profesor) {
-		// TODO Auto-generated method stub
-		return null;
+		final String SQL="profesorUpdate";
+		this.JdbcCall = new SimpleJdbcCall(dataSource);
+		JdbcCall.withProcedureName(SQL);
+
+		SqlParameterSource in = new MapSqlParameterSource()
+				.addValue("pnombre", profesor.getNombre())
+				.addValue("papellidos", profesor.getApellidos())
+				.addValue("pdni", profesor.getDni())
+				.addValue("ptelefono", profesor.getTelefono())
+				.addValue("pemail", profesor.getEmail())
+				.addValue("pcodigoPostal", profesor.getCodigoPostal())
+				.addValue("pfNacimiento", profesor.getfNacimiento())
+				.addValue("pdireccion", profesor.getDireccion())
+				.addValue("ppoblacion", profesor.getPoblacion())
+				.addValue("pnSS", profesor.getnSS())
+				.addValue("pcodigo", profesor.getCodigo());
+		LOGGER.info(profesor.toString());
+		
+			JdbcCall.execute(in);
+		return profesor;
 	}
 
 	@Override
 	public void delete(int codigo) {
-		// TODO Auto-generated method stub
+		final String SQL= "profesorDeleteF";
+		this.JdbcCall = new SimpleJdbcCall(dataSource);
+		JdbcCall.withProcedureName(SQL);
+		SqlParameterSource in = new MapSqlParameterSource()
+				.addValue("pcodigo", codigo);
+		LOGGER.info(String.valueOf(codigo));
 		
+		JdbcCall.execute(in);
 	}
 									
 }

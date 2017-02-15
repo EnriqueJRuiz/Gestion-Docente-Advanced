@@ -7,43 +7,43 @@
 <spring:message var="seccion" code="clientes.titulo"/>
 <c:set scope="request" var="seccion" value="${seccion}"/>
 
-<c:import url="../includes/header.jsp"/>
+	<jsp:include page="../includes/header.jsp" />
 
-	<main>
-		<a href="clientes/addCliente">Crear Cliente</a>
-		<table id="table-1" border="2">
-				<thead>
-					<tr>
-						<th>Nombre</th>
-						<th>Email</th>
-						<th>Teléfono</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-				 	<c:choose>
-				 		<c:when test="${not empty listadoClientes}">	
-				 			<c:forEach var="cliente" items="${listadoClientes}">
-				 				<tr>
-					 				<td>${cliente.nombre}</td> 
-					 				<td>${cliente.email}</td>
-					 				<td>${cliente.telefono}</td> 
-					 				<td>
-					 					<a href="clientes/${cliente.codigo}">Editar</a><!--  URL CANONICAS -->
-					 					<a href="clientes/deleteCliente/${cliente.codigo}">Borrar</a>
-					 				</td>
-					 			</tr>	
-				 			</c:forEach>	
-				 		</c:when>
-				 		<c:otherwise>
-				 			<td colspan="3">No se han encontrado clientes en la Base de Datos</td>
-				 		</c:otherwise>
-				 	</c:choose>
-				</tbody>
-			</table>
+		<main>
+			<div class="container">
+			<a href="clientes/addCliente" class="btn btn-info" role="button">Crear Cliente</a>
+			<table id="table-1" class="table table-hover">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Email</th>
+							<th>Teléfono</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+					 	<c:choose>
+					 		<c:when test="${not empty listadoClientes}">	
+					 			<c:forEach var="cliente" items="${listadoClientes}">
+					 				<tr>
+						 				<td>${cliente.nombre}</td> 
+						 				<td>${cliente.email}</td>
+						 				<td>${cliente.telefono}</td> 
+						 				<td>
+						 					<a href="<c:url value='clientes/${cliente.codigo}'/>" class="btn btn-success" role="button">Editar</a><!--  URL CANONICAS -->
+						 					<a href="<c:url value='clientes/deleteCliente/${cliente.codigo}'/>" class="btn btn-danger" role="button">Borrar</a>
+						 				</td>
+						 			</tr>	
+					 			</c:forEach>	
+					 		</c:when>
+					 		<c:otherwise>
+					 			<td colspan="3">No se han encontrado clientes en la Base de Datos</td>
+					 		</c:otherwise>
+					 	</c:choose>
+					</tbody>
+				</table>
+			</div>
 		</main>
-	<footer>
-		<p>Creado por Enrique J. Ruiz</p>
-	</footer>
+	<jsp:include page="../includes/footer.jsp" />
 </body>
 </html>

@@ -85,7 +85,7 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value="/deleteCliente/{id}")
-	public String deleteAlumno(@PathVariable("id") int id){
+	public String deleteCliente(@PathVariable("id") int id){
 		LOGGER.info(Integer.toString(id));
 		cS.delete(id);
 		return "redirect:/clientes";

@@ -2,8 +2,6 @@ package com.ipartek.formacion.dbms.dao.interfaces;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import com.ipartek.formacion.dbms.persistence.Cliente;
 
 /**

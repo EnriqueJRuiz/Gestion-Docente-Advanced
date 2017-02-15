@@ -5,10 +5,11 @@
     
 <spring:message var="seccion" code="profesores.titulo" />   
 <c:set scope="request" var="seccion" value="${seccion}"/>
-<c:import url="../includes/header.jsp"/>
+<jsp:include page="../includes/header.jsp" />
 	<main>
-		<a href="profesores/addProfesor">Crear profesor</a>
-		<table id="table-1" border="2">
+		<div class="container">
+		<a href="profesores/addProfesor" class="btn btn-info" role="button">Crear profesor</a>
+		<table id="table-1" class="table table-hover">
 				<thead>
 					<tr>
 						<th>Nombre</th>
@@ -24,8 +25,8 @@
 					 				<td>${profesor.nombre}</td> 
 					 				<td>${profesor.apellidos}</td> 
 					 				<td>
-					 					<a href="profesores/">Editar</a>
-					 					<a href="profesores/deleteProfesor/">Borrar</a>
+					 					<a href="<c:url value='profesores/${profesor.codigo}'/> "  class="btn btn-success" role="button">Editar</a>
+					 					<a href="<c:url value='profesores/deleteProfesor/${profesor.codigo}'/> " class="btn btn-danger" role="button">Borrar</a>
 					 				</td>
 					 			</tr>	
 				 			</c:forEach>	
@@ -36,9 +37,8 @@
 				 	</c:choose>
 				</tbody>
 			</table>
+			</div>
 		</main>
-	<footer>
-		<p>Creado por Enrique J. Ruiz</p>
-	</footer>
+	<jsp:include page="../includes/footer.jsp" />
 </body>
 </html>

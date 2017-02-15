@@ -73,7 +73,6 @@
 			<input type="submit" value="${menssg}" />
 		</form:form>
 	</main>
-	<footer>
-	</footer>
+	<jsp:include page="../includes/footer.jsp" />
 </body>
 </html>

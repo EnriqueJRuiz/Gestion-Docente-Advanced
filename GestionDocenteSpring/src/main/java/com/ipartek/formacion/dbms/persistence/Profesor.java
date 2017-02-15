@@ -18,10 +18,15 @@ public class Profesor implements Serializable, Comparable<Profesor> {
 
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static final int CODIGO_NULO = -1;
 	
 	protected int codigo;
-	private int nSS;
+	private String nSS;
 	
 	@Pattern(regexp = "[0-9]{8}[a-zA-Z]", message = "DNI incorrecto")
 	private String dni;
@@ -44,7 +49,7 @@ public class Profesor implements Serializable, Comparable<Profesor> {
 	@Phone(message = "Email.telefono")
 	private String telefono;
 	private String id;
-	
+	private boolean activo;
 	
 
 	public Profesor() {
@@ -60,14 +65,15 @@ public class Profesor implements Serializable, Comparable<Profesor> {
 		this.fNacimiento = new Date();
 		this.id = "";
 		this.codigo = CODIGO_NULO;
-		this.nSS = 0;
+		this.nSS = "";
+		this.activo = true;
 	}
 
-	public int getnSS() {
+	public String getnSS() {
 		return nSS;
 	}
 
-	public void setnSS(int nSS) {
+	public void setnSS(String nSS) {
 		this.nSS = nSS;
 	}
 
@@ -159,10 +165,22 @@ public class Profesor implements Serializable, Comparable<Profesor> {
 	}
 
 
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	
+
 	@Override
 	public String toString() {
-		return "Profesor :Email=" + getEmail() + ", Direccion=" + getDireccion() + ", Dni=" + getDni()
-				+ ", Nombre=" + getNombre() + ", Apellidos=" + getApellidos() ;
+		return "Profesor [codigo=" + codigo + ", nSS=" + nSS + ", dni=" + dni + ", nombre=" + nombre + ", apellidos="
+				+ apellidos + ", fNacimiento=" + fNacimiento + ", email=" + email + ", direccion=" + direccion
+				+ ", codigoPostal=" + codigoPostal + ", poblacion=" + poblacion + ", telefono=" + telefono + ", activo="
+				+ activo + "]";
 	}
 
 	@Override

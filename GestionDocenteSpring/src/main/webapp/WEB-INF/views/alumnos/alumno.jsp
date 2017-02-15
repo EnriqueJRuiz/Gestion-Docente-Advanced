@@ -11,7 +11,7 @@
 <spring:message var="seccion" code="alumnos.titulo" text="alumno" />
 <c:set scope="request" var="seccion" value="${men} ${seccion}"/>
 
-<c:import url="../includes/header.jsp"/>
+<jsp:include page="../includes/header.jsp" />
 	<main>
 		<form:form action="save" nethod="post" commandName="alumno">
 			<c:if test="${not empty alumno}">
@@ -74,7 +74,6 @@
 			<input type="submit" value="${menssg}" />
 		</form:form>
 	</main>
-	<footer>
-	</footer>
+	<jsp:include page="../includes/footer.jsp" />
 </body>
 </html>

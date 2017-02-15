@@ -24,6 +24,7 @@ public class Cliente implements Serializable, Comparable<Cliente> {
 	private String poblacion;
 	private String telefono;
 	private String id;
+	private boolean activo;
 	
 	public Cliente() {
 		super();
@@ -35,6 +36,7 @@ public class Cliente implements Serializable, Comparable<Cliente> {
 		this.codigoPostal = 0;
 		this.poblacion = "";
 		this.id = "";
+		this.activo = true;
 		this.codigo = CODIGO_NULO;
 	}
 	
@@ -86,6 +88,14 @@ public class Cliente implements Serializable, Comparable<Cliente> {
 		this.codigoPostal = codigoPostal;
 	}
 
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
 	public String getPoblacion() {
 		return poblacion;
 	}
@@ -133,5 +143,7 @@ public class Cliente implements Serializable, Comparable<Cliente> {
 	public int compareTo(Cliente o) {
 		return this.getNombre().compareToIgnoreCase(o.getNombre());
 	}
+
+	
 
 }
