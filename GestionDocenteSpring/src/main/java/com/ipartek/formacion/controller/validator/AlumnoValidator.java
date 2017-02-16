@@ -32,24 +32,24 @@ public class AlumnoValidator implements Validator {
 			errors.reject("codigo", new Object[] { "'codigo'" }, "no puede ser menor que "+Alumno.CODIGO_NULO);
 		}
 		
-		if(alum.getNombre().length() < 3 || alum.getNombre().length() > 50){
+		if(alum.getNombre()!= null && alum.getNombre()!= "" &&(alum.getNombre().length() < 3 || alum.getNombre().length() > 50)){
 			errors.rejectValue("nombre", "form.longitudNombreIncorrecta", new Object[] {"'nombre'"}, "Tamaño del nombre incorrecto");
 		} 
 		
-		if(alum.getApellidos().length() < 7 || alum.getApellidos().length() > 250){
-			errors.rejectValue("apellidos","form.apellidoRequerido", new Object[] {"'apellidos'"}, "Tamaño de los apellidos incorrecto");
+		if(alum.getApellidos()!= null && alum.getApellidos()!= "" && alum.getApellidos().length() < 7 || alum.getApellidos().length() > 250){
+			errors.rejectValue("apellidos","form.longitudapellidoIncorrecta", new Object[] {"'apellidos'"}, "Tamaño de los apellidos incorrecto");
 		} 
 		
 		
-		if(alum.getEmail().length() > 250){
+		if(alum.getEmail()!= null && alum.getEmail()!= "" && alum.getEmail().length() > 250){
 			errors.rejectValue("email", "form.longitudDireccionIncorrecta", new Object[] {"'email'"}, "Tamaño del identificador incorrecto");
 		}
 		
-		if(alum.getTelefono().length() != 9){
+		if(alum.getTelefono()!= null && alum.getTelefono()!= "" && alum.getTelefono().length() != 9){
 			errors.rejectValue("telefono", "form.telefonoIncorrecto", new Object[] {"'telefono'"}, "Tamaño del telefono incorrecto");
 		}
 		
-		if(Util.validarDni(alum.getDni())) { //validacion de la letra del DNI
+		if(alum.getDni()!= null && alum.getDni()!= "" && Util.validarDni(alum.getDni())) { //validacion de la letra del DNI
 			errors.rejectValue("dni","form.letraDniIncorrecta", new Object[]{"'dni'"},"el dni es incorrecto tiene que ser 8 numero y letra Mayúscula correcta");
 		}
 		

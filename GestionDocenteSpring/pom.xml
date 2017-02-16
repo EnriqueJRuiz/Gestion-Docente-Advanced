@@ -142,6 +142,17 @@
 			<scope>test</scope>
 		</dependency> 
 		<!-- INICIO de bootstrap -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>3.3.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>1.12.4</version>
+		</dependency>
 		<!-- Fin de bootstrap -->        
 	</dependencies>
     <build>

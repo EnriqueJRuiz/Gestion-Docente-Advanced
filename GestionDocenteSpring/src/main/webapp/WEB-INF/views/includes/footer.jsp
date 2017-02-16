@@ -3,8 +3,9 @@
 
 <footer>
 	<div>
-	<hr><!--RORRAR-->
+	<hr>
 		Realizada por Enrique J. Ruiz
 	</div>
 	
 </footer>
+

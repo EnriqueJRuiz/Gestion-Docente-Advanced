@@ -10,9 +10,9 @@
 		<main>
 			<div class="container">
 				<a href="<c:url value='alumnos/addAlumno'/>" class="btn btn-info" role="button">Crear alumno</a>
-				<table id="table-1" class="table table-hover">
-					<thead>
-						<tr>
+				<table id="table-1" class="table table-hover table-responsive">
+					<thead >
+						<tr class="info">
 							<th>Nombre</th>
 							<th>Apellidos</th>
 							<th></th>

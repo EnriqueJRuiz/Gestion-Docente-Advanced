@@ -3,9 +3,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+<!-- bootstrap 
+<mvc:resources mapping="/webjars/**" location="/webjars/"/>-->	
+
+
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -20,6 +26,8 @@
 		<beans:property name="prefix" value="/WEB-INF/views/"/>
 		<beans:property name="suffix" value=".jsp"/>
 	</beans:bean>
+	
+
 	
 	<!-- para validar por medio de Spring -->
 	<beans:bean id="alumnoValidator" class="com.ipartek.formacion.controller.validator.AlumnoValidator"/>
@@ -38,6 +46,7 @@
 			<beans:property name="paramName" value="locale"/>
 		</beans:bean>
 	</interceptors>
+	
 	
 	
 	<context:component-scan base-package="com.ipartek.formacion"/>
