@@ -129,4 +129,16 @@ public class AlumnoDAOImp implements AlumnoDAO{
 		JdbcCall.execute(in);
 	}
 
+	@Override
+	public Alumno comprobarDni(int dni) {
+		String repetido = "";
+		final String SQL= "CALL alumnoDniUnico(?)";
+		try{
+			
+		}catch(EmptyResultDataAccessException e){
+			
+		}
+		return null;
+	}
+
 }
