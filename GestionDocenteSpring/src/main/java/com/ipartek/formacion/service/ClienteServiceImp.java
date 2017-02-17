@@ -48,4 +48,9 @@ public class ClienteServiceImp implements ClienteService {
 		
 	}
 
+	@Override
+	public Cliente comprobarIdentificador(String identificador) {
+		return clienteDAO.comprobarIdentificador(identificador);
+	}
+
 }

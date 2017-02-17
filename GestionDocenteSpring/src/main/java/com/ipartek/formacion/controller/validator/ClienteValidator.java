@@ -1,16 +1,22 @@
 package com.ipartek.formacion.controller.validator;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.ipartek.formacion.controller.ClienteController;
 import com.ipartek.formacion.dbms.persistence.Cliente;
+import com.ipartek.formacion.service.interfaces.ClienteService;
 
 public class ClienteValidator implements Validator{
+	
+	@Inject
+	ClienteService cS;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ClienteValidator.class);
+	
 	@Override
 	public boolean supports(Class<?> paramClass) {	
 		
@@ -44,6 +50,27 @@ public class ClienteValidator implements Validator{
 			errors.rejectValue("telefono", "form.telefonoIncorrecto", new Object[] {"'telefono'"}, "Tamaño del telefono incorrecto");
 		}
 		
+		
+		Cliente clienComprobar = cS.comprobarIdentificador(clien.getIdentificador());
+		if(clien.getCodigo() == Cliente.CODIGO_NULO || clienComprobar.getCodigo() != clien.getCodigo()){
+			if( clienComprobar!=null){
+				errors.rejectValue("identificador","form.letraDniIncorrecta", new Object[]{"'identificador'"},"el identificador es incorrecto, ya esta almacenado");
+			}
+		}
+		
+		
+		
+		if( clien.getDireccion().length() > 250){
+			errors.rejectValue("direccion", "form.longitudDireccionIncorrecta", new Object[] {"'direccion'"}, "Tamaño de la Direccion No puede ser de mas de 250 caracteres");
+		}
+		
+		if( clien.getPoblacion().length() > 150){
+			errors.rejectValue("poblacion", "form.longitudPoblacionIncorrecta", new Object[] {"'poblacion'"}, "Tamaño de  la Poblacion No puede ser de mas de 150 caracteres");
+		}
+		
+		if( clien.getCodigoPostal() > 50000){
+			errors.rejectValue("codigoPostal", "form.longitudCodigoPostalIncorrecta", new Object[] {"'codigoPostal'"}, "El Codigo Postal en España es un número menos a 50000");
+		}
 		
 		
 	}

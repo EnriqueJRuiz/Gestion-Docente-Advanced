@@ -41,6 +41,17 @@
 			</a>
 	      </li>
 	    </ul>
+	    <ul class="nav navbar-nav navbar-right">
+					<a class="nav-link" href="?locale=es">				
+ 						<spring:message code="idioma.castellano" />
+ 					</a>
+ 					<a class="nav-link" href="?locale=en">
+ 						<spring:message code="idioma.ingles" />
+ 					</a>
+ 					<a class="nav-link" href="?locale=eu">
+ 						<spring:message code="idioma.euskera" />
+ 					</a>
+ 			</ul>
 	  </div>
 	</nav>
 	<div class="container">

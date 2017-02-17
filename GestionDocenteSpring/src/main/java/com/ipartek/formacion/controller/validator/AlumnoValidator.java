@@ -1,5 +1,10 @@
 package com.ipartek.formacion.controller.validator;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
@@ -8,8 +13,12 @@ import org.springframework.validation.Validator;
 
 import com.ipartek.formacion.dbms.persistence.Alumno;
 import com.ipartek.formacion.service.Util;
+import com.ipartek.formacion.service.interfaces.AlumnoService;
 
 public class AlumnoValidator implements Validator {
+	
+	@Inject
+	AlumnoService aS;
 	private static final Logger LOGGER = LoggerFactory.getLogger(AlumnoValidator.class);
 	
 	@Override
@@ -41,7 +50,7 @@ public class AlumnoValidator implements Validator {
 		} 
 		
 		
-		if( alum.getEmail().length() > 250){
+		if( alum.getEmail().length() > 150){
 			errors.rejectValue("email", "form.longitudDireccionIncorrecta", new Object[] {"'email'"}, "Tamaño del EMAIL No puede ser de mas de 250 caracteres");
 		}
 		
@@ -51,9 +60,38 @@ public class AlumnoValidator implements Validator {
 		
 		if(Util.validarDni(alum.getDni())) { //validacion de la letra del DNI
 			errors.rejectValue("dni","form.letraDniIncorrecta", new Object[]{"'dni'"},"el dni es incorrecto tiene que ser 8 numero y letra Mayúscula correcta");
+		}else{ 
+			Alumno alumComprobar = aS.comprobarDni(alum.getDni());
+			if(alum.getCodigo() == Alumno.CODIGO_NULO || alumComprobar.getCodigo() != alum.getCodigo()){
+				if( alumComprobar.getDni()!=null){
+					errors.rejectValue("dni","form.letraDniIncorrecta", new Object[]{"'dni'"},"el dni es incorrecto, ya esta almacenado");
+				}
+			}
 		}
 		
-	
+		
+		if( alum.getDireccion().length() > 250){
+			errors.rejectValue("direccion", "form.longitudDireccionIncorrecta", new Object[] {"'direccion'"}, "Tamaño de la Direccion No puede ser de mas de 250 caracteres");
+		}
+		
+		if( alum.getPoblacion().length() > 150){
+			errors.rejectValue("poblacion", "form.longitudPoblacionIncorrecta", new Object[] {"'poblacion'"}, "Tamaño de  la Poblacion No puede ser de mas de 150 caracteres");
+		}
+		
+		if( alum.getCodigoPostal() > 50000){
+			errors.rejectValue("codigoPostal", "form.longitudCodigoPostalIncorrecta", new Object[] {"'codigoPostal'"}, "El Codigo Postal en España es un número menos a 50000");
+		}
+		
+		if( alum.getnHermanos() > 99){
+			errors.rejectValue("nHermanos", "form.longitudnHermanosIncorrecta", new Object[] {"'nHermanos'"}, "Tamaño maximo de hermanos es de 99");
+		}
+		
+			GregorianCalendar gc = new GregorianCalendar();
+			gc.setTime(new Date());
+			int anyo18ago = gc.get(GregorianCalendar.YEAR) - 18;// 1999
+			gc.set(GregorianCalendar.YEAR, anyo18ago);
+			if (gc.getTime().before(alum.getfNacimiento())) {
+				errors.rejectValue("fNacimiento", "form.longitudnfNacimientoIncorrecta", new Object[] {"'fNacimiento'"}, "No se puede tener menos de 18 años");
+			}
 	}
-
 }

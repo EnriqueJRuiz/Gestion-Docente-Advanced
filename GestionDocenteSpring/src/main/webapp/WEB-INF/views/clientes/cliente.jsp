@@ -53,7 +53,7 @@
 				<form:errors path="codigoPostal" cssClass="" />
 			</div>
 			<c:set var="menssg" value ="Crear" />
-			<c:if test="${0 < alumno.codigo}">
+			<c:if test="${0 < cliente.codigo}">
 				<c:set var="menssg" value ="Editar" />
 			</c:if>
 			<input type="submit" value="${menssg}" />

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-02-2017 a las 13:01:52
+-- Tiempo de generación: 17-02-2017 a las 13:34:35
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -60,7 +60,8 @@ DROP PROCEDURE IF EXISTS `alumnoDniUnico`$$
 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnoDniUnico`(IN `pdni` VARCHAR(9))
     NO SQL
 BEGIN
-	sELECT dni from alumno WHERE dni = pdni;
+	SELECT a.codigo as codigo, a.nombre as nombre, a.apellidos as apellidos, a.dni as dni, a.email as email, a.telefono as telefono, a.fNacimiento as fNacimiento, a.direccion as direccion, a.codigoPostal as codigoPostal, a.poblacion as poblacion, a.nHermanos as nHermanos, a.activo as activo
+    FROM alumno as a WHERE dni = pdni;
 END$$
 
 DROP PROCEDURE IF EXISTS `alumnogetAll`$$
@@ -139,6 +140,18 @@ BEGIN
     c.identificador as identificador, c.email as email, c.direccion as direccion, c.codigoPostal as codigoPostal, c.poblacion as poblacion, c.telefono as telefono, c.activo as activo
     FROM cliente as c
     Where codigo = pcodigo;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `clienteIdentificadorUnico`$$
+CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `clienteIdentificadorUnico`(IN `pidentificador` VARCHAR(12))
+    NO SQL
+BEGIN	
+
+	SELECT c.codigo as codigo, c.nombre as nombre, 
+    c.identificador as identificador, c.email as email, c.direccion as direccion, c.codigoPostal as codigoPostal, c.poblacion as poblacion, c.telefono as telefono, c.activo as activo
+    FROM cliente as c
+    Where identificador = pidentificador;
 
 END$$
 
@@ -231,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `nHermanos` int(2) DEFAULT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `alumno`
@@ -266,8 +279,76 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 --
 
 INSERT INTO `cliente` (`codigo`, `nombre`, `direccion`, `codigoPostal`, `poblacion`, `identificador`, `telefono`, `email`, `activo`) VALUES
-(1, 'Empresa de alguna clase', NULL, NULL, NULL, '45678912Z', 654987321, 'asfqawfafa@qafsfa.com', 1),
+(1, 'EMPRESA DE ALGUNA CLASE', '', 5000, '', '45678912Z', 654987321, 'ASFQAWFAFA@QAFSFA.COM', 1),
 (3, 'ZZZ123456789ZZZ', '444555', 32165, 'DNZDSRFJNZTDJZDTZHZ', '11232123', 666222555, 'EUCALIPTUSLAND@GMAIL.COM', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `curso`
+--
+
+DROP TABLE IF EXISTS `curso`;
+CREATE TABLE IF NOT EXISTS `curso` (
+  `codigo` int(11) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `identificador` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `numeroHoras` int(11) NOT NULL,
+  `fInicio` date DEFAULT NULL,
+  `fFin` date DEFAULT NULL,
+  `temario` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cursomodulo`
+--
+
+DROP TABLE IF EXISTS `cursomodulo`;
+CREATE TABLE IF NOT EXISTS `cursomodulo` (
+  `codigo_curso_modulo` int(11) NOT NULL AUTO_INCREMENT,
+  `curso_codigo` int(11) NOT NULL,
+  `modulo_codigo` int(11) NOT NULL,
+  `curso_modulocol` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`codigo_curso_modulo`),
+  UNIQUE KEY `uq_curso_codigo_modulo_codigo` (`curso_codigo`,`modulo_codigo`),
+  KEY `fk_curosModulo_curso_idx` (`curso_codigo`),
+  KEY `fk_curosModulo_modulo_codigo_idx` (`modulo_codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `evaluacion`
+--
+
+DROP TABLE IF EXISTS `evaluacion`;
+CREATE TABLE IF NOT EXISTS `evaluacion` (
+  `codigo` int(11) NOT NULL,
+  `modulo_codigo` int(11) NOT NULL,
+  `alumno_codigo` int(11) NOT NULL,
+  `fexamen` date NOT NULL,
+  `nota` int(11) NOT NULL,
+  PRIMARY KEY (`codigo`),
+  UNIQUE KEY `uq_modulo_codigo_alumno_codigo` (`modulo_codigo`,`alumno_codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modulo`
+--
+
+DROP TABLE IF EXISTS `modulo`;
+CREATE TABLE IF NOT EXISTS `modulo` (
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `nHoras` int(3) NOT NULL,
+  `descripcion` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -302,6 +383,24 @@ INSERT INTO `profesor` (`codigo`, `dni`, `nombre`, `apellidos`, `fNacimiento`, `
 (4, '45677362Y', 'AAAAAAAAAAAAAA', 'AAAAAAAAAAAAAA', '1999-01-02', 'AAAAAAA@AAAAAAA.COM', 'AAAAAAAAAAAAAA', 'AAAAAAAAAAAAAA', '12345', 654987321, 123456789123, 0),
 (5, '45677362Y', 'AAA123456789', 'MONASTERIO HERRER', '2017-02-15', 'AA@AA.COM', '', '', '0', 666222555, 123456789123, 0),
 (6, '45677362Y', 'AAA123456789', 'MONASTERIO HERRER', '2017-02-15', 'EUCALIPTUSLAND@GMAIL.COM', '444', 'DNZDSRFJNZTDJZDTZHZ', '0', 987654321, 4444, 0);
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `cursomodulo`
+--
+ALTER TABLE `cursomodulo`
+  ADD CONSTRAINT `fk_curosModulo_curso_codigo` FOREIGN KEY (`curso_codigo`) REFERENCES `curso` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_curosModulo_modulo_codigo` FOREIGN KEY (`modulo_codigo`) REFERENCES `modulo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `evaluacion`
+--
+ALTER TABLE `evaluacion`
+  ADD CONSTRAINT `pk_evaluacion_alumno_codigo` FOREIGN KEY (`codigo`) REFERENCES `alumno` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `pk_evaluacion_modulo_codigo` FOREIGN KEY (`codigo`) REFERENCES `modulo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.jsp.ErrorData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +43,7 @@ public class AlumnoController {
 	@InitBinder
 	private void initBinder(WebDataBinder binder){
 		binder.setValidator(validator);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), false, 10));//validar fecha
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), false, 10));
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)

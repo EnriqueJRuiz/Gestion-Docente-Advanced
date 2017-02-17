@@ -2,8 +2,9 @@
 <meta charset="UTF-8">
 
 <footer class="fixed-bottom">
-	<div class="container">
+	
 	<hr>
+	<div class="container" style="margin-bottom: 5px;">
 		Realizada por Enrique J. Ruiz
 	</div>
 	

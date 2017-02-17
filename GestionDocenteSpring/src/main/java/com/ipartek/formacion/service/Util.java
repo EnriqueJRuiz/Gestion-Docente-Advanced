@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.ipartek.formacion.controller.ClienteController;
 
 public class Util {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ClienteController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 	
 	public static boolean validarDni(String dni) {
 		boolean incorrecto=true;

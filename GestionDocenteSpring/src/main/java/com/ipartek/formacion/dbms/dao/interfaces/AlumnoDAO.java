@@ -31,7 +31,7 @@ public interface AlumnoDAO extends DAOSetter{
 	
 	public void delete (int codigo);
 	
-	public Alumno comprobarDni(int dni);
+	public Alumno comprobarDni(String dni);
 	
 	
 }

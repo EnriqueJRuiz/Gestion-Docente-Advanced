@@ -45,4 +45,9 @@ public class AlumnoServiceImp implements AlumnoService {
 		this.alumnoDAO= alumnoDAO;
 		
 	}
+
+	@Override
+	public Alumno comprobarDni(String dni) {
+		return alumnoDAO.comprobarDni(dni);
+	}
 }

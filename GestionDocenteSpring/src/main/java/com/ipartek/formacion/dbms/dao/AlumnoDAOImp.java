@@ -130,15 +130,16 @@ public class AlumnoDAOImp implements AlumnoDAO{
 	}
 
 	@Override
-	public Alumno comprobarDni(int dni) {
-		String repetido = "";
-		final String SQL= "CALL alumnoDniUnico(?)";
+	public Alumno comprobarDni(String dni) {
+		Alumno alumno = null;
+		final String SQL= "CALL alumnoDniUnico(?);";
 		try{
-			
+			alumno = template.queryForObject(SQL, new AlumnoMapper(),new Object[] { dni });
+			LOGGER.info("hay alguien con ese DNI");
 		}catch(EmptyResultDataAccessException e){
-			
+			LOGGER.info("NO hay alguien con ese DNI");
 		}
-		return null;
+		return alumno;
 	}
 
 }

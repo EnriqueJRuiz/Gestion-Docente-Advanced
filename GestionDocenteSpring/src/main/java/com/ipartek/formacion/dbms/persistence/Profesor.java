@@ -13,10 +13,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.ipartek.formacion.dbms.persistence.validator.Phone;
-
 public class Profesor implements Serializable, Comparable<Profesor> {
-
-
 	
 	/**
 	 * 

@@ -18,4 +18,6 @@ public interface ClienteService {
 	public void delete (int codigo);
 	
 	public void setClienteDao(ClienteDAO cliente);
+
+	public Cliente comprobarIdentificador(String identificador);
 }

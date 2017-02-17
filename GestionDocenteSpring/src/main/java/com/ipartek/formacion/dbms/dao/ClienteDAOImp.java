@@ -17,7 +17,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dbms.dao.interfaces.ClienteDAO;
+import com.ipartek.formacion.dbms.mappers.AlumnoMapper;
 import com.ipartek.formacion.dbms.mappers.ClienteMapper;
+import com.ipartek.formacion.dbms.persistence.Alumno;
 import com.ipartek.formacion.dbms.persistence.Cliente;
 
 @Repository("clienteDaoImp")
@@ -118,6 +120,19 @@ public class ClienteDAOImp implements ClienteDAO {
 		LOGGER.info(String.valueOf(codigo));
 		
 		JdbcCall.execute(in);
+	}
+
+	@Override
+	public Cliente comprobarIdentificador(String identificador) {
+		Cliente cliente = null;
+		final String SQL= "CALL clienteIdentificadorUnico(?);";
+		try{
+			cliente = template.queryForObject(SQL, new ClienteMapper(),new Object[] { identificador });
+			LOGGER.info("hay un cliente con ese identificador");
+		}catch(EmptyResultDataAccessException e){
+			LOGGER.info("NO hay cliente con ese identificador");
+		}
+		return cliente;
 	}
 		
 }
