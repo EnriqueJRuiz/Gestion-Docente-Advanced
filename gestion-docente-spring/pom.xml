@@ -20,6 +20,14 @@
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 	</properties>
 	<dependencies>
+		<!-- para trabajar con common  -->
+		<dependency>
+            <groupId>com.ipartek.formacion</groupId>
+            <artifactId>gestion-docente-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+             <scope>provided</scope>
+        </dependency>
+       
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<!-- MySQL JDBC Driver -->
 		<dependency>
@@ -147,7 +155,7 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency> 
-		<!-- INICIO de bootstrap -->
+		<!-- INICIO de bootstrap 
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
@@ -159,7 +167,7 @@
 			<artifactId>jquery</artifactId>
 			<version>1.12.4</version>
 		</dependency>
-		<!-- Fin de bootstrap -->        
+		 Fin de bootstrap -->        
 	</dependencies>
     <build>
         <plugins>
