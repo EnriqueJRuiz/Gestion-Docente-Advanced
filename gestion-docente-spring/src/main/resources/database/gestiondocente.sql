@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-02-2017 a las 10:01:39
+-- Tiempo de generación: 22-02-2017 a las 12:59:43
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -431,6 +431,7 @@ CREATE TABLE IF NOT EXISTS `modulo` (
   `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `nHoras` int(3) NOT NULL,
   `descripcion` text COLLATE utf8_unicode_ci,
+  `precio` double(7,2) DEFAULT '0.00',
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -438,8 +439,8 @@ CREATE TABLE IF NOT EXISTS `modulo` (
 -- Volcado de datos para la tabla `modulo`
 --
 
-INSERT INTO `modulo` (`codigo`, `nombre`, `nHoras`, `descripcion`) VALUES
-(0, 'sin asignar', 0, NULL);
+INSERT INTO `modulo` (`codigo`, `nombre`, `nHoras`, `descripcion`, `precio`) VALUES
+(0, 'sin asignar', 0, NULL, 0.00);
 
 -- --------------------------------------------------------
 
@@ -511,8 +512,8 @@ ALTER TABLE `evaluacion`
 -- Filtros para la tabla `imparticion`
 --
 ALTER TABLE `imparticion`
-  ADD CONSTRAINT `fk_imparticion_profesor_codigo` FOREIGN KEY (`codigo_profesor`) REFERENCES `profesor` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_imparticion_curso_detalle_codigo` FOREIGN KEY (`codigo_curso_detalle`) REFERENCES `curso_detalle` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_imparticion_curso_detalle_codigo` FOREIGN KEY (`codigo_curso_detalle`) REFERENCES `curso_detalle` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_imparticion_profesor_codigo` FOREIGN KEY (`codigo_profesor`) REFERENCES `profesor` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

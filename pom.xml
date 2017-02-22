@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <name>Gestion Docente</name>
   <modules>
-  	<module>GestionDocenteSpring</module>
+  	<module>gestion-docente-spring</module>
   	<module>gestion-docente-common</module>
   </modules>
   <properties>
