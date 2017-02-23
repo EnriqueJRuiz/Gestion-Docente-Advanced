@@ -41,8 +41,8 @@ public class AlumnoServiceImp implements AlumnoService {
 	}
 
 	@Override
-	public void setAlumnoDao(AlumnoDAO alumno) {
-		this.alumnoDAO= alumnoDAO;
+	public void setAlumnoDao(AlumnoDAO alumnoDAO) {
+		this.alumnoDAO = alumnoDAO;
 		
 	}
 

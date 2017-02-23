@@ -16,8 +16,11 @@ public interface ClienteService {
 	public Cliente update(Cliente cliente);
 	
 	public void delete (int codigo);
-	
-	public void setClienteDao(ClienteDAO cliente);
 
 	public Cliente comprobarIdentificador(String identificador);
+	
+	public Cliente getInforme(int codigo);
+
+	void setClienteDao(ClienteDAO clienteDAO);
+
 }

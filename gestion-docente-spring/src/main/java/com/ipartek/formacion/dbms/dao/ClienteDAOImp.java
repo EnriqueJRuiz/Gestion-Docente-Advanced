@@ -11,39 +11,40 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dbms.dao.interfaces.ClienteDAO;
-import com.ipartek.formacion.dbms.mappers.AlumnoMapper;
+import com.ipartek.formacion.dbms.mappers.ClienteExtractor;
 import com.ipartek.formacion.dbms.mappers.ClienteMapper;
-import com.ipartek.formacion.dbms.persistence.Alumno;
 import com.ipartek.formacion.dbms.persistence.Cliente;
+
 
 @Repository("clienteDaoImp")
 public class ClienteDAOImp implements ClienteDAO {
 
 	private DataSource dataSource;
-	private SimpleJdbcCall JdbcCall;
-	private JdbcTemplate template;
+	private SimpleJdbcCall jdbcCall;
+	private JdbcTemplate jdbctemplate;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProfesorDAOImp.class);
 
 	@Autowired // = que inject
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
-		this.template = new JdbcTemplate(dataSource);
+		this.jdbctemplate = new JdbcTemplate(dataSource);
 	}
 	
 	@Override
 	public Cliente create(Cliente cliente) {
 		final String SQL="clienteCreate";
 		
-		this.JdbcCall = new SimpleJdbcCall(dataSource);
+		this.jdbcCall = new SimpleJdbcCall(dataSource);
 		
-		JdbcCall.withProcedureName(SQL);
+		jdbcCall.withProcedureName(SQL);
 		
 		SqlParameterSource in = new MapSqlParameterSource()
 				.addValue("pnombre", cliente.getNombre())
@@ -56,7 +57,7 @@ public class ClienteDAOImp implements ClienteDAO {
 		
 		LOGGER.info(cliente.toString());
 		//se ejecuta la consulta
-		Map<String, Object> out = JdbcCall.execute(in);
+		Map<String, Object> out = jdbcCall.execute(in);
 		//en out se han recogido los parametros out de la consulta a BBDD
 		cliente.setCodigo((Integer)out.get("pcodigo"));
 		return cliente;
@@ -67,11 +68,11 @@ public class ClienteDAOImp implements ClienteDAO {
 		Cliente cliente = null;
 		final String SQL="CALL clientegetById(?)";
 		try{
-			cliente = template.queryForObject(SQL, new ClienteMapper(),new Object[] { codigo });
+			cliente = jdbctemplate.queryForObject(SQL, new ClienteMapper(),new Object[] { codigo });
 			LOGGER.info(cliente.toString());
 		}catch(EmptyResultDataAccessException e){
 			cliente = new Cliente();
-			 LOGGER.info("no se he encontrado Alumno para el codigo: "+ codigo + " "+e.getMessage());
+			 LOGGER.info("no se he encontrado Alumno: "+ codigo + " "+e.getMessage());
 		}	
 		return cliente;
 	}
@@ -81,7 +82,7 @@ public class ClienteDAOImp implements ClienteDAO {
 		final String SQL = "CALL clientegetAll()";
 		List<Cliente> clientes = null;
 		try{
-			clientes = template.query(SQL, new ClienteMapper());
+			clientes = jdbctemplate.query(SQL, new ClienteMapper());
 		}catch(EmptyResultDataAccessException e){
 			LOGGER.trace(e.getMessage());
 			clientes = new ArrayList<Cliente>();
@@ -92,8 +93,8 @@ public class ClienteDAOImp implements ClienteDAO {
 	@Override
 	public Cliente update(Cliente cliente) {
 		final String SQL="clienteUpdate";
-		this.JdbcCall = new SimpleJdbcCall(dataSource);
-		JdbcCall.withProcedureName(SQL);
+		this.jdbcCall = new SimpleJdbcCall(dataSource);
+		jdbcCall.withProcedureName(SQL);
 
 		SqlParameterSource in = new MapSqlParameterSource()
 				.addValue("pnombre", cliente.getNombre())
@@ -106,20 +107,20 @@ public class ClienteDAOImp implements ClienteDAO {
 				.addValue("pcodigo", cliente.getCodigo());
 		LOGGER.info(cliente.toString());
 		
-			JdbcCall.execute(in);
+			jdbcCall.execute(in);
 		return cliente;
 	}
 
 	@Override
 	public void delete(int codigo) {
 		final String SQL= "clienteDeleteF";
-		this.JdbcCall = new SimpleJdbcCall(dataSource);
-		JdbcCall.withProcedureName(SQL);
+		this.jdbcCall = new SimpleJdbcCall(dataSource);
+		jdbcCall.withProcedureName(SQL);
 		SqlParameterSource in = new MapSqlParameterSource()
 				.addValue("pcodigo", codigo);
 		LOGGER.info(String.valueOf(codigo));
 		
-		JdbcCall.execute(in);
+		jdbcCall.execute(in);
 	}
 
 	@Override
@@ -127,10 +128,26 @@ public class ClienteDAOImp implements ClienteDAO {
 		Cliente cliente = null;
 		final String SQL= "CALL clienteIdentificadorUnico(?);";
 		try{
-			cliente = template.queryForObject(SQL, new ClienteMapper(),new Object[] { identificador });
+			cliente = jdbctemplate.queryForObject(SQL, new ClienteMapper(),new Object[] { identificador });
 			LOGGER.info("hay un cliente con ese identificador");
 		}catch(EmptyResultDataAccessException e){
 			LOGGER.info("NO hay cliente con ese identificador");
+		}
+		return cliente;
+	}
+
+	@Override
+	public Cliente getInforme(int codigo) {
+		final String SQL = "CALL clienteInforme(?);";
+		Cliente cliente = null;
+		try{
+			Map<Long, Cliente> clientes = jdbctemplate.query(SQL, new ClienteExtractor(), new Object[] { codigo });
+			cliente = clientes.get(codigo);
+			LOGGER.info("cliente: " +toString());
+			 
+		} catch (EmptyResultDataAccessException e){
+			cliente = null;
+			LOGGER.info("sin datos " + e.getMessage() + " " +SQL);
 		}
 		return cliente;
 	}

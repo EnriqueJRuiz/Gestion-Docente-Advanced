@@ -30,7 +30,8 @@
 						 				<td>${cliente.email}</td>
 						 				<td>${cliente.telefono}</td> 
 						 				<td>
-						 					<a href="<c:url value='clientes/${cliente.codigo}'/>" class="btn btn-success" role="button">Editar</a><!--  URL CANONICAS -->
+						 					<a href="<c:url value='clientes/verCliente/${cliente.codigo}'/>" class="btn btn-success" role="button">Ver informe</a>
+						 					<a href="<c:url value='clientes/${cliente.codigo}'/>" class="btn btn-warning" role="button">Editar</a><!--  URL CANONICAS -->
 						 					<a href="<c:url value='clientes/deleteCliente/${cliente.codigo}'/>" class="btn btn-danger" role="button">Borrar</a>
 						 				</td>
 						 			</tr>	

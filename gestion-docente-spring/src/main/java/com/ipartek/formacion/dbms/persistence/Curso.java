@@ -9,6 +9,10 @@ import java.util.Date;
 
 public class Curso implements Serializable, Comparable<Curso> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int codigo;
 	private String nombre;
 	private int duracion;

@@ -36,6 +36,8 @@ public class AlumnoValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "form.dniRequerido", "Tienes que introducir un email");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "telefono", "form.telefonoRequerido", "Tienes que introducir un telefono");
 		
+		LOGGER.info("pasas por la validacion");
+		
 		Alumno alum = (Alumno) obj;
 		if(alum.getCodigo() < Alumno.CODIGO_NULO){
 			errors.reject("codigo", new Object[] { "'codigo'" }, "no puede ser menor que "+Alumno.CODIGO_NULO);

@@ -24,11 +24,11 @@ import com.ipartek.formacion.dbms.persistence.Alumno;
 public class AlumnoDAOImp implements AlumnoDAO{
 
 	private DataSource dataSource;
-	private SimpleJdbcCall JdbcCall;
+	private SimpleJdbcCall jdbcCall;
 	private JdbcTemplate template;
 	private static final Logger LOGGER = LoggerFactory.getLogger(AlumnoDAOImp.class);
 	
-	@Autowired // = que inject
+	@Autowired
 	@Override
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -39,9 +39,9 @@ public class AlumnoDAOImp implements AlumnoDAO{
 	public Alumno create(Alumno alumno) {
 		final String SQL="alumnoCreate";
 		//se asigna el nombre del procedimiento almacenado PHPMYADMIN
-		this.JdbcCall = new SimpleJdbcCall(dataSource);
+		this.jdbcCall = new SimpleJdbcCall(dataSource);
 		
-		JdbcCall.withProcedureName(SQL);
+		jdbcCall.withProcedureName(SQL);
 		//crear un mapa con los parametros de procedimientos almacenados.
 		SqlParameterSource in = new MapSqlParameterSource()
 				.addValue("pnombre", alumno.getNombre())
@@ -56,7 +56,7 @@ public class AlumnoDAOImp implements AlumnoDAO{
 				.addValue("pnHermanos", alumno.getnHermanos());
 		LOGGER.info(alumno.toString());
 		//se ejecuta la consulta
-		Map<String, Object> out = JdbcCall.execute(in);
+		Map<String, Object> out = jdbcCall.execute(in);
 		//en out se han recogido los parametros out de la consulta a BBDD
 		alumno.setCodigo((Integer)out.get("pcodigo"));
 		
@@ -72,7 +72,7 @@ public class AlumnoDAOImp implements AlumnoDAO{
 			LOGGER.info(alumno.toString());
 		}catch(EmptyResultDataAccessException e){
 				alumno = new Alumno();
-			 LOGGER.info("no se he encontrado Alumno para el codigo: "+ codigo + " "+e.getMessage());
+			 LOGGER.info("no se he encontrado Alumno: "+ codigo + " "+e.getMessage());
 		}
 		return alumno;
 	}
@@ -94,8 +94,8 @@ public class AlumnoDAOImp implements AlumnoDAO{
 	@Override
 	public Alumno update(Alumno alumno) {
 		final String SQL="alumnoUpdate";
-		this.JdbcCall = new SimpleJdbcCall(dataSource);
-		JdbcCall.withProcedureName(SQL);
+		this.jdbcCall = new SimpleJdbcCall(dataSource);
+		jdbcCall.withProcedureName(SQL);
 
 		SqlParameterSource in = new MapSqlParameterSource()
 				.addValue("pnombre", alumno.getNombre())
@@ -111,7 +111,7 @@ public class AlumnoDAOImp implements AlumnoDAO{
 				.addValue("pcodigo", alumno.getCodigo());
 		LOGGER.info(alumno.toString());
 		
-			JdbcCall.execute(in);
+			jdbcCall.execute(in);
 		
 		
 		return alumno;
@@ -120,13 +120,13 @@ public class AlumnoDAOImp implements AlumnoDAO{
 	@Override
 	public void delete(int codigo) {
 		final String SQL= "alumnoDeleteF";
-		this.JdbcCall = new SimpleJdbcCall(dataSource);
-		JdbcCall.withProcedureName(SQL);
+		this.jdbcCall = new SimpleJdbcCall(dataSource);
+		jdbcCall.withProcedureName(SQL);
 		SqlParameterSource in = new MapSqlParameterSource()
 				.addValue("pcodigo", codigo);
 		LOGGER.info(String.valueOf(codigo));
 		
-		JdbcCall.execute(in);
+		jdbcCall.execute(in);
 	}
 
 	@Override

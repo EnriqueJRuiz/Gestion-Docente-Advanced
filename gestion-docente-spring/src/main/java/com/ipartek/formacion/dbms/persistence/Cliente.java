@@ -1,6 +1,7 @@
 package com.ipartek.formacion.dbms.persistence;
 
 import java.io.Serializable;
+import java.util.Map;
 
 
 
@@ -25,6 +26,7 @@ public class Cliente implements Serializable, Comparable<Cliente> {
 	private String telefono;
 	private String id;
 	private boolean activo;
+	private Map<Long, com.ipartek.formacion.persistence.Curso> cursos;
 	
 	public Cliente() {
 		super();
@@ -40,13 +42,22 @@ public class Cliente implements Serializable, Comparable<Cliente> {
 		this.codigo = CODIGO_NULO;
 	}
 	
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public Map<Long, com.ipartek.formacion.persistence.Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(Map<Long, com.ipartek.formacion.persistence.Curso> cursos) {
+		this.cursos = cursos;
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
-	}
 	
 	public String getNombre() {
 		return nombre;

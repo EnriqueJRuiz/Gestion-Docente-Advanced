@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.servlet.jsp.ErrorData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +48,7 @@ public class AlumnoController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
 		mav = new ModelAndView("alumnos/alumnos");
-		List alumnos= aS.getAll();
+		List<Alumno> alumnos= aS.getAll();
 		mav.addObject("listadoAlumnos", alumnos);//request
 		LOGGER.trace("pasa por getAll()");
 		return mav;

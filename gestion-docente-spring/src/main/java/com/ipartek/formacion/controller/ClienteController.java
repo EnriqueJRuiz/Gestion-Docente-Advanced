@@ -2,6 +2,7 @@ package com.ipartek.formacion.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ipartek.formacion.dbms.persistence.Cliente;
+import com.ipartek.formacion.dbms.persistence.Curso;
 import com.ipartek.formacion.service.interfaces.ClienteService;
 
 @Controller
@@ -90,6 +92,13 @@ public class ClienteController {
 		cS.delete(id);
 		return "redirect:/clientes";
 	}
-	
+	@RequestMapping(value="/verCliente/{id}")
+	public ModelAndView verCliente(@PathVariable("id") int id){
+		mav = new ModelAndView("clientes/informe");
+		Map<Integer, Curso> cursos= cS.getInforme(id);
+		mav.addObject("informecliente", cursos);//request
+		LOGGER.trace("pasa por getinforme()");
+		return mav;
+	}
 	
 }

@@ -113,6 +113,7 @@ public class Curso implements Serializable {
 		}
 		return iguales;
 	}
+
 	
 	
 	

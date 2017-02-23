@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ipartek.formacion.dbms.persistence.Alumno;
 import com.ipartek.formacion.dbms.persistence.Profesor;
 import com.ipartek.formacion.service.interfaces.ProfesorService;
 
@@ -34,7 +33,7 @@ public class ProfesorController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
 		mav = new ModelAndView("profesores/profesores");
-		List profesores = pS.getAll();
+		List<Profesor> profesores = pS.getAll();
 		mav.addObject("listadoProfesores", profesores);
 		LOGGER.trace("pasa por getAll()");
 		return mav;

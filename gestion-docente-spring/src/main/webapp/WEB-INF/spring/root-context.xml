@@ -37,6 +37,6 @@
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>	
 	
-	<jee:jndi-lookup id="jpaDataSource" jndi-name="java:/GestionDocenteDS" />
+	<!--  <jee:jndi-lookup id="jpaDataSource" jndi-name="java:/GestionDocenteDS" /> -->
 			
 </beans>

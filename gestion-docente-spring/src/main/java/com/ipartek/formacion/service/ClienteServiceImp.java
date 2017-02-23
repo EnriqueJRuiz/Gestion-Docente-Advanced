@@ -43,7 +43,7 @@ public class ClienteServiceImp implements ClienteService {
 	}
 
 	@Override
-	public void setClienteDao(ClienteDAO cliente) {
+	public void setClienteDao(ClienteDAO clienteDAO) {
 		this.clienteDAO = clienteDAO;
 		
 	}
@@ -51,6 +51,12 @@ public class ClienteServiceImp implements ClienteService {
 	@Override
 	public Cliente comprobarIdentificador(String identificador) {
 		return clienteDAO.comprobarIdentificador(identificador);
+	}
+
+	@Override
+	public Cliente getInforme(int codigo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
