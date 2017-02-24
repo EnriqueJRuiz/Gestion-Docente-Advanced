@@ -95,9 +95,8 @@ public class ClienteController {
 	@RequestMapping(value="/verCliente/{id}")
 	public ModelAndView verCliente(@PathVariable("id") int id){
 		mav = new ModelAndView("clientes/informe");
-		Map<Integer, Curso> cursos= cS.getInforme(id);
-		mav.addObject("informecliente", cursos);//request
-		LOGGER.trace("pasa por getinforme()");
+		Cliente cliente = cS.getInforme(id);
+		mav.addObject("cliente", cliente);//request
 		return mav;
 	}
 	

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-02-2017 a las 12:59:43
+-- Tiempo de generación: 24-02-2017 a las 13:14:29
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -158,14 +158,13 @@ END$$
 DROP PROCEDURE IF EXISTS `clienteInforme`$$
 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `clienteInforme`(in pcodigo INT)
 BEGIN
-	
-    SELECT c.codigo, c.nombre, c.telefono, c.direccion, c.poblacion, c.codigoPostal, c.identificador, c.activo,
-		   cu.codigo as cursocodigo, cu.nombre as cursonombre, cu.identificador as cursoidentificador, cu.fInicio, cu.fFin,cu.nhoras, SUM(i.precio) as preciocurso
+    SELECT c.codigo, c.nombre, c.telefono, c.direccion, c.poblacion, c.codigoPostal, c.identificador, c.activo, c.email,
+		   cu.codigo as cursocodigo, cu.nombre as cursonombre, cu.identificador as cursoidentificador, cu.fInicio, cu.fFin,cu.nhoras
+           /*, SUM(cd.precio) as preciocurso*/
     
     FROM cliente as c
-		LEFT JOIN curso as cu ON cu.clente_codigo = c.codigo
-        INNER JOIN imparticion as i on i.curso_codigo = cu.codigo
-    WHERE c.codigo = pcodigo;
+		LEFT JOIN curso as cu ON cu.cliente_codigo = c.codigo
+    WHERE c.codigo = pcodigo AND c.codigo >0;
     
 END$$
 
@@ -334,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `cliente`
@@ -343,7 +342,8 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 INSERT INTO `cliente` (`codigo`, `nombre`, `direccion`, `codigoPostal`, `poblacion`, `identificador`, `telefono`, `email`, `activo`) VALUES
 (0, 'cliente sin asignar', NULL, NULL, NULL, '12345678A', 0, 'cliente@sinasignar.es', 1),
 (1, 'EMPRESA DE ALGUNA CLASE', '', 05000, '', '45678912Z', 654987321, 'ASFQAWFAFA@QAFSFA.COM', 1),
-(3, 'ZZZ123456789ZZZ', '444555', 32165, 'DNZDSRFJNZTDJZDTZHZ', '11232123', 666222555, 'EUCALIPTUSLAND@GMAIL.COM', 1);
+(3, 'ZZZ123456789ZZZ', '444555', 32165, 'DNZDSRFJNZTDJZDTZHZ', '11232123', 666222555, 'EUCALIPTUSLAND@GMAIL.COM', 1),
+(4, 'AAA123456789', '', 00000, '', '11232122', 666222555, 'EUCALIPTUSLAND@GMAIL.COM', 1);
 
 -- --------------------------------------------------------
 
@@ -366,6 +366,14 @@ CREATE TABLE IF NOT EXISTS `curso` (
   PRIMARY KEY (`codigo`),
   KEY `fk_curso_cliente_codigo_idx` (`cliente_codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `curso`
+--
+
+INSERT INTO `curso` (`codigo`, `nombre`, `identificador`, `nHoras`, `fInicio`, `fFin`, `temario`, `cliente_codigo`, `activo`, `precio`) VALUES
+(1, 'desarrollo', '123456789', 80, NULL, NULL, NULL, 1, 1, 00000.00),
+(2, 'administracion', '321654987', 120, NULL, NULL, NULL, 1, 1, 00000.00);
 
 -- --------------------------------------------------------
 

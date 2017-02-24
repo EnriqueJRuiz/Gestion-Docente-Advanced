@@ -5,43 +5,31 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "curso")
+@Table
+@Entity(name = "curso")
 public class Curso implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "codigo")
 	private long codigo;
-	@Column(name = "nombre")
+	//@Column(name = "cursonombre")
 	private String nombre;
-	@Column(name = "identificador")
 	private String identificador;
-	@Column(name = "nHoras")
 	private int nHoras;
-	@Column(name = "fInicio")
 	private Date fInicio;
-	@Column(name = "fFin")
 	private Date fFin;
-	@Column(name = "temario")
 	private String temario;
-	@Column(name = "activo")
 	private boolean activo;
-	@Column(name = "precio")
 	private String precio;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	Cliente cliente;
 	
 	public long getCodigo() {
 		return codigo;
@@ -112,6 +100,12 @@ public class Curso implements Serializable {
 			iguales = true;
 		}
 		return iguales;
+	}
+	@Override
+	public String toString() {
+		return "Curso [codigo=" + codigo + ", nombre=" + nombre + ", identificador=" + identificador + ", finicio="
+				+ fInicio + ", ffin=" + fFin + ", nhoras=" + nHoras + ", temario=" + temario + ", precio=" + precio
+				+ "]";
 	}
 
 	
