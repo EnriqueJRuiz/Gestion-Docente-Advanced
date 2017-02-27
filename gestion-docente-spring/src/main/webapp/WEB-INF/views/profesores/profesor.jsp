@@ -7,7 +7,7 @@
 <c:if test="${cliente.codigo > 0}" >
 	<spring:message var="men"  code="form.editar" text="nombre" />
 </c:if>   
-<spring:message var="seccion" code="profesores.titulo" text="Profesor" />
+<spring:message var="seccion" code="profesor.titulo" text="Profesor" />
 <c:set scope="request" var="seccion" value="${men} ${seccion}"/>
 
 <jsp:include page="../includes/header.jsp" />

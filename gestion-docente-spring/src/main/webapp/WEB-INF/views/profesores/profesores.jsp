@@ -8,15 +8,22 @@
 <jsp:include page="../includes/header.jsp" />
 	<main>
 		<div class="container">
-		<a href="profesores/addProfesor" class="btn btn-info" role="button">Crear profesor</a>
+		<a href="profesores/addProfesor" class="btn btn-info" class="btn btn-info " style="margin: 5px 0" role="button">Crear profesor</a>
 		<table id="table-1" class="table table-hover">
-				<thead>
-					<tr>
+				<thead class="table-success">
+					<tr class="info">
 						<th>Nombre</th>
 						<th>Apellidos</th>
 						<th></th>
 					</tr>
 				</thead>
+				<tfoot class="table-success">
+					<tr class="info">
+						<th>Nombre</th>
+						<th>Apellidos</th>
+						<th></th>
+					</tr>
+				</tfoot>
 				<tbody>
 				 	<c:choose>
 				 		<c:when test="${not empty listadoProfesores}">	

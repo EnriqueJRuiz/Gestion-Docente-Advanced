@@ -8,12 +8,12 @@
 <c:if test="${alumno.codigo > 0}" >
 	<spring:message var="men"  code="form.editar" text="nombre" />
 </c:if>   
-<spring:message var="seccion" code="alumnos.titulo" text="alumno" />
+<spring:message var="seccion" code="alumno.titulo" text="alumno" />
 <c:set scope="request" var="seccion" value="${men} ${seccion}"/>
 
 <jsp:include page="../includes/header.jsp" />
 	<main>
-		<div class="container" style="align-items: center">
+		<div class="container" >
 		<form:form action="save" nethod="post" commandName="alumno" cssClass="form-horizontal" style="margin-bottom: 50px;">
 			<c:if test="${not empty alumno}">
 				<form:hidden path="codigo"/>

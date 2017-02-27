@@ -10,16 +10,24 @@
 
 		<main>
 			<div class="container">
-			<a href="clientes/addCliente" class="btn btn-info" role="button">Crear Cliente</a>
+			<a href="clientes/addCliente" class="btn btn-info" class="btn btn-info " style="margin: 5px 0" role="button">Crear Cliente</a>
 			<table id="table-1" class="table table-hover">
-					<thead>
-						<tr>
+					<thead class="table-success">
+						<tr class="info">
 							<th>Nombre</th>
 							<th>Email</th>
 							<th>Teléfono</th>
 							<th></th>
 						</tr>
 					</thead>
+					<tfoot class="table-success">
+						<tr class="info">
+							<th>Nombre</th>
+							<th>Email</th>
+							<th>Teléfono</th>
+							<th></th>
+						</tr>
+					</tfoot>
 					<tbody>
 					 	<c:choose>
 					 		<c:when test="${not empty listadoClientes}">	
