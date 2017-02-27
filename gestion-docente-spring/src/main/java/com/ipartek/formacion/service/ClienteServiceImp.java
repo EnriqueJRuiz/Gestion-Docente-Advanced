@@ -55,7 +55,6 @@ public class ClienteServiceImp implements ClienteService {
 
 	@Override
 	public Cliente getInforme(int codigo) {
-		// TODO Auto-generated method stub
 		return clienteDAO.getInforme(codigo);
 	}
 

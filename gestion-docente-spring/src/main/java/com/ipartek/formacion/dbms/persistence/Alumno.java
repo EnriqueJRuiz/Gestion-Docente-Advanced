@@ -2,6 +2,10 @@ package com.ipartek.formacion.dbms.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.ipartek.formacion.persistence.Curso;
 
 
 /**
@@ -28,6 +32,7 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 	private String telefono;
 	private boolean activo;
 	private int nHermanos;
+	private Map<Long, Curso> cursos;
 
 	public Alumno() {
 		super();// constructor de la clase padre
@@ -44,8 +49,21 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 		this.telefono = "";
 		this.codigoPostal = 0;
 		this.poblacion = "";
+		cursos = new HashMap<Long, Curso>();
 
 	}
+	
+	public Map<Long, Curso> getCursos() {
+		return cursos;
+	}
+
+
+	public void setCursos(Map<Long, Curso> cursos) {
+		this.cursos = cursos;
+	}
+
+
+
 
 	public int getCodigo() {
 		return codigo;
@@ -181,4 +199,6 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 		}
 		return iguales;
 	}
+
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ipartek.formacion.dbms.persistence.Alumno;
 
+
 /**
  * Esta interfaz defina los metodos de consulta a la Base de Datos de la entidad 
  * Alumno que tiene su correspondencia en la clase <code>Alumno</code> de la
@@ -33,5 +34,5 @@ public interface AlumnoDAO extends DAOSetter{
 	
 	public Alumno comprobarDni(String dni);
 	
-	
+	public Alumno getInforme(int codigo);
 }

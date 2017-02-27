@@ -43,7 +43,7 @@ public class ClienteExtractor implements ResultSetExtractor<Map<Integer, Cliente
 			
 			Long cCurso = rs.getLong("cursocodigo");
 			
-			if (cCurso != null) {
+			if (cCurso != null && cCurso > 0) {
 				Curso curso = new Curso();
 				curso.setCodigo(rs.getLong("cursocodigo"));
 				curso.setNombre(rs.getString("cursonombre"));

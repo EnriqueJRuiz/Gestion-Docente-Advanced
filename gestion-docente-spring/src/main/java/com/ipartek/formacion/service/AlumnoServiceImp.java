@@ -50,4 +50,10 @@ public class AlumnoServiceImp implements AlumnoService {
 	public Alumno comprobarDni(String dni) {
 		return alumnoDAO.comprobarDni(dni);
 	}
+
+	@Override
+	public Alumno getInforme(int codigo) {
+		
+		return alumnoDAO.getInforme(codigo);
+	}
 }

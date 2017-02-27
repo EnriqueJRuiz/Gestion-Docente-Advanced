@@ -36,6 +36,7 @@
 							 			<td >${alumno.nombre}</td> 
 							 			<td >${alumno.apellidos}</td> 
 							 			<td>
+							 				<a href="<c:url value='alumnos/verAlumno/${cliente.codigo}'/>" class="btn btn-success" role="button">Ver informe</a>
 							 				<a href="<c:url value='alumnos/${alumno.codigo}'/>"  class="btn btn-success" role="button">Editar</a><!--  URL CANONICAS -->
 							 				<a href="<c:url value='alumnos/deleteAlumno/${alumno.codigo}'/>" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-name"></span> Borrar </a>
 							 			</td>

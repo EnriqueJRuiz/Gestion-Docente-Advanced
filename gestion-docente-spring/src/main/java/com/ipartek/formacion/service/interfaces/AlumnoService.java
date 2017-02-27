@@ -19,4 +19,6 @@ public interface AlumnoService {
 	public void setAlumnoDao(AlumnoDAO alumno);
 
 	public Alumno comprobarDni(String dni);
+	
+	public Alumno getInforme(int codigo);
 }

@@ -94,4 +94,15 @@ public class AlumnoController {
 		return "redirect:/alumnos";// redirige a alumnos/alumnos de arriba para volver a cargar la lista.
 	}
 	
+	@RequestMapping(value="/verAlumno/{id}")
+	public ModelAndView verAlumno(@PathVariable("id") int id){
+		LOGGER.info("llega aqui");
+		mav = new ModelAndView("alumnos/informe");
+		Alumno alumno = aS.getInforme(id);
+		
+		mav.addObject("alumno", alumno);//request
+		return mav;
+	}
+	
+	
 }

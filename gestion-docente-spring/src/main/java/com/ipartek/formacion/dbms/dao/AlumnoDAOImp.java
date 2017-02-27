@@ -17,8 +17,10 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dbms.dao.interfaces.AlumnoDAO;
+import com.ipartek.formacion.dbms.mappers.AlumnoExtractor;
 import com.ipartek.formacion.dbms.mappers.AlumnoMapper;
 import com.ipartek.formacion.dbms.persistence.Alumno;
+
 
 @Repository("alumnoDaoImp")
 public class AlumnoDAOImp implements AlumnoDAO{
@@ -138,6 +140,21 @@ public class AlumnoDAOImp implements AlumnoDAO{
 			LOGGER.info("hay alguien con ese DNI");
 		}catch(EmptyResultDataAccessException e){
 			LOGGER.info("NO hay alguien con ese DNI");
+		}
+		return alumno;
+	}
+	
+	public Alumno getInforme(int codigo) {
+		final String SQL = "CALL alumnoCursoInforme(?);";
+		Alumno alumno = null;
+		try{
+			Map<Integer, Alumno> alumnos = template.query(SQL, new AlumnoExtractor(), new Object[] { codigo });
+			alumno = alumnos.get(codigo);
+			LOGGER.info("alumno: " +toString());
+			 
+		} catch (EmptyResultDataAccessException e){
+			alumno = null;
+			LOGGER.info("sin datos " + e.getMessage() + " " +SQL);
 		}
 		return alumno;
 	}

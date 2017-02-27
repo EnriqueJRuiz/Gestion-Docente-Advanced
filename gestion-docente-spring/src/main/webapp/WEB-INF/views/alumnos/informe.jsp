@@ -4,19 +4,19 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
   
 
-<spring:message var="seccion" code="listaclientes.titulo"/>
+<spring:message var="seccion" code="listaalumnos.titulo"/>
 <c:set scope="request" var="seccion" value="${seccion}"/>
 
 	<jsp:include page="../includes/header.jsp" />
 				<main>
 					<div class="container">
-						<h3 >Nombre: ${cliente.nombre}</h3>
-						<h3> Email: ${cliente.email}</h3>
+						<h3 >Nombre: ${alumno.nombre}</h3>
+						<h3> Email: ${alumno.email}</h3>
 					</div>
 					
 					<div class="container">
 						<c:choose>
-							<c:when test="${not empty cliente.cursos}">	
+							<c:when test="${not empty alumno.cursos}">	
 								<table id="table-1" class="table table-hover">
 									<thead>
 										<tr>
@@ -28,7 +28,7 @@
 										</tr>
 									</thead>
 									<tbody>
-							 			<c:forEach var="cursoentry" items="${cliente.cursos}">
+							 			<c:forEach var="cursoentry" items="${alumno.cursos}">
 							 				<tr>
 								 				<td><c:out value="${cursoentry.value.nombre}"/></td> 
 								 				<td><c:out value="${cursoentry.value.identificador}"/></td>

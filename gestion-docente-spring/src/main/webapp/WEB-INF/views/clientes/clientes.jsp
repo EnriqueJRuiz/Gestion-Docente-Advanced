@@ -3,7 +3,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
   
-
 <spring:message var="seccion" code="clientes.titulo"/>
 <c:set scope="request" var="seccion" value="${seccion}"/>
 
@@ -30,7 +29,7 @@
 						 				<td>${cliente.email}</td>
 						 				<td>${cliente.telefono}</td> 
 						 				<td>
-						 					<a href="<c:url value='clientes/verCliente/${cliente.codigo}'/>" class="btn btn-success" role="button">Ver informe</a>
+						 					<a href="<c:url value='clientes/verCliente/${cliente.codigo}'/>" class="btn btn-danger" role="button">Ver informe</a>
 						 					<a href="<c:url value='clientes/${cliente.codigo}'/>" class="btn btn-warning" role="button">Editar</a><!--  URL CANONICAS -->
 						 					<a href="<c:url value='clientes/deleteCliente/${cliente.codigo}'/>" class="btn btn-danger" role="button">Borrar</a>
 						 				</td>
