@@ -3,25 +3,26 @@ package com.ipartek.formacion.persistence;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Table
 @Entity(name = "curso")
+@NamedQueries(value = {@NamedQuery(name = "curso.getAll", query = "SELECT c FROM curso as c")})
 public class Curso implements Serializable {
 
 	/**
-	 * 
+	 * w
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private long codigo;
-	//@Column(name = "cursonombre")
 	private String nombre;
 	private String identificador;
 	private int nHoras;

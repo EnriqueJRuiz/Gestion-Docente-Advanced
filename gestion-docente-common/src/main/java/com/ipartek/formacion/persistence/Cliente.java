@@ -1,7 +1,6 @@
 package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

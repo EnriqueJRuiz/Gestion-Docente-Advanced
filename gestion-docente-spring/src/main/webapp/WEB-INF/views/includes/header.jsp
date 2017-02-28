@@ -40,6 +40,11 @@
 				<spring:message code="menu.clientes" text="G.Clientes" />
 			</a>
 	      </li>
+	      <li class="nav-item">
+	        <a  class="nav-link" href="<c:url value='/cursos'/>">
+				<spring:message code="menu.cursos" text="G.Cursos" />
+			</a>
+	      </li>
 	    </ul>
 	    <ul class="nav navbar-nav navbar-right">
 					<a class="nav-link" href="?locale=es">				

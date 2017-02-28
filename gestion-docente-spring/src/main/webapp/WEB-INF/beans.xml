@@ -26,6 +26,9 @@
 	 <bean id="clienteDaoImp" class="com.ipartek.formacion.dbms.dao.ClienteDAOImp">
 		<property name="dataSource" ref="mysqlDataSource"/>
 	</bean>	
+	
+	
+    
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 	
 		<property name="basenames" >
@@ -36,7 +39,13 @@
 		</property>
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>	
+	 <jee:jndi-lookup id="cursoServiceRemote" jndi-name="java:app/gestion-docente-ejb/CursoServiceBean" />
+	 
+	<bean id="cursoServiceImp" class="com.ipartek.formacion.service.CursoServiceImp">
+        <property name="cursoServiceRemote" ref="cursoServiceRemote" />
+    </bean>
 	
+    	
 	<!--  <jee:jndi-lookup id="jpaDataSource" jndi-name="java:/GestionDocenteDS" /> -->
 			
 </beans>
