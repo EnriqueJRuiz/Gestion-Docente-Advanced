@@ -1,12 +1,15 @@
 package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +31,8 @@ public class Modulo implements Serializable {
 	private String descripcion;
 	@Column(name = "precio")
 	private String precio;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="modulo")
+	private Set<CursoDetalle> detalle; 
 	
 	public long getCodigo() {
 		return codigo;
@@ -63,12 +68,7 @@ public class Modulo implements Serializable {
 	public String toString() {
 		return "Modulo [nombre=" + nombre + ", nHoras=" + nHoras + ", descripcion=" + descripcion + "]";
 	}
-	
-	//@ManyToMany 
-	
-	
-	
-	
+
 	
 	@Override
 	public int hashCode() {

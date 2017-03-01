@@ -2,13 +2,15 @@ package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Table
@@ -31,6 +33,10 @@ public class Curso implements Serializable {
 	private String temario;
 	private boolean activo;
 	private String precio;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="curso")
+	private Set<CursoDetalle> modulos;
+	
 	
 	public long getCodigo() {
 		return codigo;

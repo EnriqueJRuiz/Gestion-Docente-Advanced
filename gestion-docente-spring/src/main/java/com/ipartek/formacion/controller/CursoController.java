@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ipartek.formacion.persistence.Curso;
 import com.ipartek.formacion.service.interfaces.CursoService;
 
 @Controller
@@ -30,4 +31,12 @@ public class CursoController {
 		model.addAttribute("curso",cS.getById(codigo));
 		return "cursos/curso";
 	}
+	
+	@RequestMapping(value="/addCurso")
+	public String addAlumno(Model model){
+		model.addAttribute("cursos", new Curso());
+		LOGGER.trace("addCurso");
+		return "cursos/curso";
+	}
+	
 }
