@@ -39,7 +39,8 @@
 		</property>
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>	
-	 <jee:jndi-lookup id="cursoServiceRemote" jndi-name="java:app/gestion-docente-ejb/CursoServiceBean" />
+	 <jee:jndi-lookup id="cursoServiceRemote" jndi-name="java:app/gestion-docente-ejb/cursoServiceBean"/>
+
 	 
 	<bean id="cursoServiceImp" class="com.ipartek.formacion.service.CursoServiceImp">
         <property name="cursoServiceRemote" ref="cursoServiceRemote" />

@@ -13,8 +13,7 @@ import com.ipartek.formacion.persistence.Curso;
 /**
  * Session Bean implementation class CursoServiceBean
  */
-@Stateless(name = "CursoServiceBean")
-@LocalBean
+@Stateless(name = "cursoServiceBean")
 public class CursoServiceBean implements CursoServiceRemote {
 
 	@PersistenceContext(unitName = "gestiondocente")
