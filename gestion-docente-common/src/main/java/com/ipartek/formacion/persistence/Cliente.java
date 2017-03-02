@@ -33,6 +33,9 @@ public class Cliente implements Serializable {
 	//@OneToMany(fetch = FetchType.LAZY)
 	//List<Curso> curso;
 	
+	
+	
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -113,7 +116,7 @@ public class Cliente implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		boolean iguales = false;
-		if (obj != null && obj instanceof Curso && this.codigo == ((Curso) obj).getCodigo()) {
+		if (obj != null && obj instanceof Cliente && this.codigo == ((Cliente) obj).getCodigo()) {
 			iguales = true;
 		}
 		return iguales;

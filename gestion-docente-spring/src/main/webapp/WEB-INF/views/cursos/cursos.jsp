@@ -36,9 +36,7 @@
 						 				<td>${curso.nHoras}</td>
 						 				<td>${curso.precio}</td>  
 						 				<td>
-						 					<a href="<c:url value='cursos/verCurso/${curso.codigo}'/>" class="btn btn-success" role="button">Ver informe</a>
-						 					<a href="<c:url value='cursos/${curso.codigo}'/>" class="btn btn-warning" role="button">Editar</a><!--  URL CANONICAS -->
-						 					<a href="<c:url value='cursos/deleteCurso/${curso.codigo}'/>" class="btn btn-danger" role="button">Borrar</a>
+						 					<a href="<c:url value='cursos/${curso.codigo}'/>" class="btn btn-success" role="button">Ver informe</a>
 						 				</td>
 						 			</tr>	
 					 			</c:forEach>	

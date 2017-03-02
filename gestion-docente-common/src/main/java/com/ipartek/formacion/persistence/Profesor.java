@@ -141,6 +141,14 @@ public class Profesor implements Serializable {
 		return codigoPostal;
 	}
 
+	public Set<Imparticion> getImparticiones() {
+		return imparticiones;
+	}
+
+	public void setImparticiones(Set<Imparticion> imparticiones) {
+		this.imparticiones = imparticiones;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -152,7 +160,7 @@ public class Profesor implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		boolean iguales = false;
-		if (obj != null && obj instanceof Curso && this.codigo == ((Curso) obj).getCodigo()) {
+		if (obj != null && obj instanceof Profesor && this.codigo == ((Profesor) obj).getCodigo()) {
 			iguales = true;
 		}
 		return iguales;

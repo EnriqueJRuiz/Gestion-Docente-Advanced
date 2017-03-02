@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-03-2017 a las 12:31:09
+-- Tiempo de generación: 02-03-2017 a las 13:33:54
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `poblacion` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   `codigoPostal` int(5) DEFAULT NULL,
   `telefono` int(9) NOT NULL,
-  `nHermanos` int(2) DEFAULT NULL,
+  `nHermanos` int(2) DEFAULT '0',
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
@@ -280,8 +280,8 @@ CREATE TABLE IF NOT EXISTS `alumno` (
 --
 
 INSERT INTO `alumno` (`codigo`, `dni`, `nombre`, `apellidos`, `fNacimiento`, `email`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `nHermanos`, `activo`) VALUES
-(1, '45678912H', 'Enrique Javier', 'Ruiz Jiménez', '1985-12-01', 'enriquej@algomail.com', NULL, NULL, NULL, 678945123, NULL, 1),
-(3, '45677362Y', '66666666', 'QQQQ EEEE', '1998-11-12', 'ALGUIENPESAO@YYA.COM', 'A', '', 0, 444444444, 0, 1);
+(1, '45678912H', 'Enrique Javier', 'Ruiz Jiménez', '1985-12-01', 'enriquej@algomail.com', NULL, NULL, NULL, 678945123, 0, 1),
+(3, '45677362Y', 'xabier', 'QQQQ EEEE', '1998-11-12', 'ALGUIENPESAO@YYA.COM', 'A', '', 0, 444444444, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -306,8 +306,8 @@ CREATE TABLE IF NOT EXISTS `asistente` (
 INSERT INTO `asistente` (`codigo`, `alumno_codigo`, `imparticion_codigo`) VALUES
 (1, 1, 1),
 (2, 1, 2),
-(3, 1, 3),
-(4, 1, 4);
+(3, 3, 1),
+(4, 3, 2);
 
 -- --------------------------------------------------------
 

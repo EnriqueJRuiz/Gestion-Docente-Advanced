@@ -34,9 +34,11 @@ public class Curso implements Serializable {
 	private boolean activo;
 	private String precio;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="curso")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="curso")
 	private Set<CursoDetalle> modulos;
-	
+	public Curso(){
+		super();
+	}
 	
 	public long getCodigo() {
 		return codigo;
@@ -93,6 +95,12 @@ public class Curso implements Serializable {
 		this.precio = precio;
 	}
 	
+	public Set<CursoDetalle> getModulos() {
+		return modulos;
+	}
+	public void setModulos(Set<CursoDetalle> modulos) {
+		this.modulos = modulos;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

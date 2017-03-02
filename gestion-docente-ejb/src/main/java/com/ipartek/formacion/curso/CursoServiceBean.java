@@ -2,12 +2,10 @@ package com.ipartek.formacion.curso;
 
 import java.util.List;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.ipartek.formacion.persistence.Curso;
@@ -53,6 +51,22 @@ public class CursoServiceBean implements CursoServiceRemote {
 			tx.rollback();
 		}
 	
+		return curso;
+	}
+	@Override
+	public Curso create(Curso curso) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void delete(int codigo) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Curso getInforme(long codigo) {
+		Curso curso = null;
+		curso = entityManager.find(Curso.class, codigo);
 		return curso;
 	}
 

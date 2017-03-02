@@ -45,7 +45,7 @@ public class Alumno implements Serializable{
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name ="asistente",
 	joinColumns= @JoinColumn(name = "alumno_codigo",referencedColumnName="codigo"),
-	inverseJoinColumns = @JoinColumn(name="impartricion_codigo",referencedColumnName="codigo"))
+	inverseJoinColumns = @JoinColumn(name="imparticion_codigo",referencedColumnName="codigo"))
 	private Set<Imparticion> imparticiones;
 	
 	public Alumno(){
@@ -126,6 +126,18 @@ public class Alumno implements Serializable{
 	public void setnHermanos(int nHermanos) {
 		this.nHermanos = nHermanos;
 	}
+	public Set<Imparticion> getImparticiones() {
+		return imparticiones;
+	}
+
+
+
+	public void setImparticiones(Set<Imparticion> imparticiones) {
+		this.imparticiones = imparticiones;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -136,7 +148,7 @@ public class Alumno implements Serializable{
 	@Override
 	public boolean equals(Object obj) {
 		boolean iguales = false;
-		if (obj != null && obj instanceof Curso && this.codigo == ((Curso) obj).getCodigo()) {
+		if (obj != null && obj instanceof Alumno && this.codigo == ((Alumno) obj).getCodigo()) {
 			iguales = true;
 		}
 		return iguales;

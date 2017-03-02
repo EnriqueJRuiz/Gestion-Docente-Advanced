@@ -31,6 +31,7 @@ public class Modulo implements Serializable {
 	private String descripcion;
 	@Column(name = "precio")
 	private String precio;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="modulo")
 	private Set<CursoDetalle> detalle; 
 	
@@ -64,6 +65,12 @@ public class Modulo implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	public Set<CursoDetalle> getDetalle() {
+		return detalle;
+	}
+	public void setDetalle(Set<CursoDetalle> detalle) {
+		this.detalle = detalle;
+	}
 	@Override
 	public String toString() {
 		return "Modulo [nombre=" + nombre + ", nHoras=" + nHoras + ", descripcion=" + descripcion + "]";
@@ -80,7 +87,7 @@ public class Modulo implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		boolean iguales = false;
-		if (obj != null && obj instanceof Curso && this.codigo == ((Curso) obj).getCodigo()) {
+		if (obj != null && obj instanceof Modulo && this.codigo == ((Modulo) obj).getCodigo()) {
 			iguales = true;
 		}
 		return iguales;

@@ -13,4 +13,10 @@ public interface CursoServiceRemote {
 	public Curso getById(long codigo);
 
 	public Curso update(Curso curso);
+	
+	public Curso create(Curso curso);
+	
+	public void delete (int codigo);
+	
+	public Curso getInforme(long codigo);
 }

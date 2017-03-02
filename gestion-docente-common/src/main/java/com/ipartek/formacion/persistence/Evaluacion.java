@@ -63,7 +63,7 @@ public class Evaluacion implements Serializable{
 	@Override
 	public boolean equals(Object obj) {
 		boolean iguales = false;
-		if (obj != null && obj instanceof Curso && this.codigo == ((Curso) obj).getCodigo()) {
+		if (obj != null && obj instanceof Evaluacion && this.codigo == ((Evaluacion) obj).getCodigo()) {
 			iguales = true;
 		}
 		return iguales;

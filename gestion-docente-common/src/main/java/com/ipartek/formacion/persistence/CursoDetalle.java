@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,13 +24,26 @@ public class CursoDetalle implements Serializable{
 	private long codigo;
 	private Date fInicio;
 	private Date fFin;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="curso_codigo")
 	private Curso curso;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="modulo_codigo")
 	private Modulo modulo;
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="codigo", referencedColumnName="codigo_curso_detalle")
+	private Imparticion imparticion;
+	
+	
+	
+
+
+	public CursoDetalle(){
+		super();
+	}
 	
 	public long getCodigo() {
 		return codigo;
@@ -69,6 +83,36 @@ public class CursoDetalle implements Serializable{
 
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
+	}
+	public Imparticion getImparticion() {
+		return imparticion;
+	}
+
+	public void setImparticion(Imparticion imparticion) {
+		this.imparticion = imparticion;
+	}
+
+	@Override
+	public String toString() {
+		return "CursoDetalle [codigo=" + codigo + ", fInicio=" + fInicio + ", fFin=" + fFin + ", curso=" + curso
+				+ ", modulo=" + modulo + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (codigo ^ (codigo >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean iguales = false;
+		if (obj != null && obj instanceof CursoDetalle && this.codigo == ((CursoDetalle) obj).getCodigo()) {
+			iguales = true;
+		}
+		return iguales;
 	}
 	
 }

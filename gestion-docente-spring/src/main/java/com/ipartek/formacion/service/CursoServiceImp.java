@@ -33,4 +33,19 @@ public class CursoServiceImp implements CursoService {
 		return cursoServiceRemote.getAll();
 	}
 
+	@Override
+	public Curso create(Curso curso) {
+		return cursoServiceRemote.create(curso);
+	}
+
+	@Override
+	public void delete(int codigo) {
+		cursoServiceRemote.delete(codigo);
+	}
+
+	@Override
+	public Curso getInforme(long codigo) {
+		return cursoServiceRemote.getInforme(codigo);
+	}
+
 }

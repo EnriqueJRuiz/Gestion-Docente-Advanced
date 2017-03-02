@@ -12,4 +12,10 @@ public interface CursoService {
 	public Curso getById(long codigo);
 	
 	public List<Curso> getAll();
+	
+	public Curso create(Curso curso);
+	
+	public void delete (int codigo);
+	
+	public Curso getInforme(long codigo);
 }
