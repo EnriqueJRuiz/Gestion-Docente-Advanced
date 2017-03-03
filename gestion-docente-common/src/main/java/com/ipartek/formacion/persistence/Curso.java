@@ -2,6 +2,7 @@ package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -10,16 +11,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Table
 @Entity(name = "curso")
 @NamedQueries(value = {@NamedQuery(name = "curso.getAll", query = "SELECT c FROM curso as c")})
+@NamedStoredProcedureQueries({@NamedStoredProcedureQuery(name = "curso.getAlumnos", procedureName = "alumnogetByCurso",resultClasses=Alumno.class,parameters={@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class)})
+})
 public class Curso implements Serializable {
 
 	/**
-	 * w
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -34,8 +45,13 @@ public class Curso implements Serializable {
 	private boolean activo;
 	private String precio;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="curso")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="curso")
+	@Fetch(FetchMode.JOIN)
 	private Set<CursoDetalle> modulos;
+	
+	@Transient
+	private List<Alumno> alumnos;
+	
 	public Curso(){
 		super();
 	}
@@ -101,6 +117,14 @@ public class Curso implements Serializable {
 	public void setModulos(Set<CursoDetalle> modulos) {
 		this.modulos = modulos;
 	}
+	public List<Alumno> getAlumnos() {
+		return alumnos;
+	}
+
+	public void setAlumnos(List<Alumno> alumnos) {
+		this.alumnos = alumnos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

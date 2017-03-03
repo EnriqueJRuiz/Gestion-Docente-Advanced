@@ -64,9 +64,9 @@ public class AlumnoValidator implements Validator {
 			errors.rejectValue("dni","form.letraDniIncorrecta", new Object[]{"'dni'"},"el dni es incorrecto tiene que ser 8 numero y letra Mayúscula correcta");
 		}else{ 
 			Alumno alumComprobar = aS.comprobarDni(alum.getDni());
-			if(alum.getCodigo() == Alumno.CODIGO_NULO || alumComprobar.getCodigo() != alum.getCodigo()){
-				if( alumComprobar.getDni()!=null){
-					errors.rejectValue("dni","form.letraDniIncorrecta", new Object[]{"'dni'"},"el dni es incorrecto, ya esta almacenado");
+			if(alumComprobar != null){
+				if(alum.getCodigo() == Alumno.CODIGO_NULO || (!alum.equals(alumComprobar) && alum.getDni().equalsIgnoreCase(alumComprobar.getDni()))){
+						errors.rejectValue("dni","form.letraDniIncorrecta", new Object[]{"'dni'"},"el dni es incorrecto, ya esta almacenado");
 				}
 			}
 		}

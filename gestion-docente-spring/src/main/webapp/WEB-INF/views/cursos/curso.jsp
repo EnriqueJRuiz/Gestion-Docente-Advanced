@@ -13,37 +13,22 @@
 
 		<main>
 			<div class="container">
-				
-				<c:choose>
-				<c:when test="${not empty curso}">	
+				<section>
+				<header><h2>Datos del curso</h2></header>
 			 			<c:forEach var="cdmodulo" items="${curso.modulos}">
 			 				<br>
-			 				${cdmodulo.modulo.nombre}
+			 				<a href="<c:url value='/cursos/${cdmodulo.modulo.codigo}/detalle/${cdmodulo.codigo}'/>" >${cdmodulo.modulo.nombre}</a>
 			 				${cdmodulo.fInicio}
 			 				${cdmodulo.fFin}
 			 				${cdmodulo.imparticion.profesor.nombre}
 			 			</c:forEach>	
-			 		</c:when>
-			 		<c:otherwise>
-			 			No se han encontrado cursos en la Base de Datos
-			 		</c:otherwise>
-			 	</c:choose>
-			 	<hr>
-			 	Alumnos:
-			 	<br>
-			 	<c:choose>
-				<c:when test="${not empty curso}">	
-			 			<c:forEach var="cdmodulo" items="${curso.modulos}">
-			 				<c:forEach var="asistentes" items="${cdmodulo.imparticion.alumnos}">
-			 				<br>
-			 					<a href="<c:url value='../alumnos/verAlumno/${asistentes.codigo}'/>" >${asistentes.nombre}</a>
-			 				</c:forEach>
-			 			</c:forEach>	
-			 		</c:when>
-			 		<c:otherwise>
-			 			No se han encontrado cursos en la Base de Datos
-			 		</c:otherwise>
-			 	</c:choose>  
+			 </section>
+			 <section>	
+			 	<header><h3>Listado de alumnos</h3></header>
+			 			<c:forEach var="alumno" items="${curso.alumnos}">
+			 					<a href="<c:url value='/cursos/${cdmodulo.modulo.codigo}/alumnos/${alumno.codigo}'/>" >${alumno.nombre}</a>
+			 			</c:forEach>	 
+			 	</section>
 			</div>
 		</main>
 	<jsp:include page="../includes/footer.jsp" />

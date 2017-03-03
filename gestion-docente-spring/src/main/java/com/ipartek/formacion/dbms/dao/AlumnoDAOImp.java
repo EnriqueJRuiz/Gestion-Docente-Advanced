@@ -56,7 +56,7 @@ public class AlumnoDAOImp implements AlumnoDAO{
 				.addValue("pdireccion", alumno.getDireccion())
 				.addValue("ppoblacion", alumno.getPoblacion())
 				.addValue("pnHermanos", alumno.getnHermanos());
-		LOGGER.info(alumno.toString());
+		LOGGER.info("Create de alumno: "+alumno.toString());
 		//se ejecuta la consulta
 		Map<String, Object> out = jdbcCall.execute(in);
 		//en out se han recogido los parametros out de la consulta a BBDD
@@ -111,7 +111,7 @@ public class AlumnoDAOImp implements AlumnoDAO{
 				.addValue("ppoblacion", alumno.getPoblacion())
 				.addValue("pnHermanos", alumno.getnHermanos())
 				.addValue("pcodigo", alumno.getCodigo());
-		LOGGER.info(alumno.toString());
+		LOGGER.info("update de alumno: "+alumno.toString());
 		
 			jdbcCall.execute(in);
 		
@@ -136,9 +136,10 @@ public class AlumnoDAOImp implements AlumnoDAO{
 		Alumno alumno = null;
 		final String SQL= "CALL alumnoDniUnico(?);";
 		try{
-			alumno = template.queryForObject(SQL, new AlumnoMapper(),new Object[] { dni });
+			alumno = template.queryForObject(SQL, new AlumnoMapper(), new Object[] { dni });
 			LOGGER.info("hay alguien con ese DNI");
 		}catch(EmptyResultDataAccessException e){
+			alumno = null;
 			LOGGER.info("NO hay alguien con ese DNI");
 		}
 		return alumno;

@@ -76,7 +76,7 @@ public class ProfesorController {
 	@RequestMapping(value="/deleteProfesor/{id}")
 	public String deleteProfesor(@PathVariable("id") int id){
 		pS.delete(id);
-		return "redirect:/prodesores";
+		return "redirect:/profesores";
 	}
 	
 }

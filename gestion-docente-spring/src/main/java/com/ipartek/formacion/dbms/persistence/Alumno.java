@@ -191,9 +191,10 @@ public class Alumno implements Comparable<Alumno>, Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		boolean iguales = false;
-		if (obj instanceof Alumno) {
-			Alumno alum = (Alumno) obj;
-			if (this.codigo == alum.getCodigo()) {
+
+		if (obj != null && obj instanceof Alumno) {
+			final Alumno alum = (Alumno) obj;
+			if (this == alum || (alum.getCodigo() == this.codigo && this.dni.equalsIgnoreCase(alum.getDni()))) {
 				iguales = true;
 			}
 		}

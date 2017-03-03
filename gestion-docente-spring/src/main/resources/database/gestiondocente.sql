@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-03-2017 a las 13:33:54
+-- Tiempo de generación: 03-03-2017 a las 13:20:40
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -87,6 +87,22 @@ BEGIN
 	SELECT a.codigo as codigo, a.nombre as nombre, a.apellidos as apellidos, a.dni as dni, a.email as email, a.telefono as telefono, a.fNacimiento as fNacimiento, a.direccion as direccion, a.codigoPostal as codigoPostal, a.poblacion as poblacion, a.nHermanos as nHermanos, a.activo as activo
     FROM alumno as a;
 
+END$$
+
+DROP PROCEDURE IF EXISTS `alumnogetByCurso`$$
+CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `alumnogetByCurso`(in pcodigo INT)
+BEGIN
+    SELECT a.codigo, a.nombre, a.apellidos, a.fNacimiento, a.telefono, a.direccion, a.poblacion, a.codigoPostal, a.dni, a.activo, a.email,a.nHermanos
+    
+    FROM alumno as a 
+		LEFT JOIN asistente as asi on a.codigo = asi.alumno_codigo
+        LEFT JOIN imparticion as i on asi.imparticion_codigo = i.codigo
+        LEFT JOIN curso_detalle as cd on i.codigo_curso_detalle = cd.codigo
+		LEFT JOIN curso as c on cd.curso_codigo = c.codigo
+			
+			WHERE c.codigo = pcodigo
+            GROUP BY codigo;
+            
 END$$
 
 DROP PROCEDURE IF EXISTS `alumnogetById`$$
@@ -273,15 +289,15 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   `nHermanos` int(2) DEFAULT '0',
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `alumno`
 --
 
 INSERT INTO `alumno` (`codigo`, `dni`, `nombre`, `apellidos`, `fNacimiento`, `email`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `nHermanos`, `activo`) VALUES
-(1, '45678912H', 'Enrique Javier', 'Ruiz Jiménez', '1985-12-01', 'enriquej@algomail.com', NULL, NULL, NULL, 678945123, 0, 1),
-(3, '45677362Y', 'xabier', 'QQQQ EEEE', '1998-11-12', 'ALGUIENPESAO@YYA.COM', 'A', '', 0, 444444444, 0, 1);
+(1, '45677362Y', 'ENRIQUE JAVIER', 'RUIZ JIMÉNEZ', '1985-12-01', 'ENRIQUEJ@ALGOMAIL.COM', '', '', 0, 666555444, 0, 1),
+(3, '44444444A', 'xabier', 'QQQQ EEEE', '1998-11-12', 'ALGUIENPESAO@YYA.COM', 'A', '', 0, 444444444, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -488,14 +504,14 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   `nSS` bigint(12) NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `profesor`
 --
 
 INSERT INTO `profesor` (`codigo`, `dni`, `nombre`, `apellidos`, `fNacimiento`, `email`, `direccion`, `poblacion`, `codigoPostal`, `telefono`, `nSS`, `activo`) VALUES
-(0, '12345678A', 'profesor', 'no asignado', NULL, 'alumno@sinasignar.es', NULL, NULL, NULL, 0, 0, 1),
+(0, '12345678A', 'PROFESOR', 'NO ASIGNADO', '1998-11-12', 'ALUMNO@SINASIGNAR.ES', '', '', 00000, 666777666, 0, 1),
 (1, '481234567', 'Urko', 'Villanueva Alvarez', '1976-11-24', '30693142x', 'Av. Mazustegi 9', 'Bilbao', 48009, 944110293, 0, 1);
 
 --

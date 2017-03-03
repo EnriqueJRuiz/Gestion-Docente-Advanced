@@ -6,8 +6,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
 
+import com.ipartek.formacion.persistence.Alumno;
 import com.ipartek.formacion.persistence.Curso;
 
 /**
@@ -37,6 +39,10 @@ public class CursoServiceBean implements CursoServiceRemote {
 	@Override
 	public Curso getById(long codigo) {
 		Curso curso = entityManager.find(Curso.class, codigo);
+		StoredProcedureQuery spq = entityManager.createNamedStoredProcedureQuery("curso.getAlumnos");
+		spq.setParameter(1, curso.getCodigo());
+		List<Alumno> alumnos = spq.getResultList();
+		curso.setAlumnos(alumnos);
 		return curso;
 	}
 
@@ -69,5 +75,7 @@ public class CursoServiceBean implements CursoServiceRemote {
 		curso = entityManager.find(Curso.class, codigo);
 		return curso;
 	}
+	
+	
 
 }
