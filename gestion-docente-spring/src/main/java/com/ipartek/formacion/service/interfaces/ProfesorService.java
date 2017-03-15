@@ -13,4 +13,8 @@ public interface ProfesorService {
 	public Profesor update(Profesor profesor);
 	public void delete(int codigo);
 	public void setAlumnoDao(ProfesorDAO profesorDAO);
+
+	public Object getByDni(String dni);
+
+	public Object getByNss(String nss);
 }
