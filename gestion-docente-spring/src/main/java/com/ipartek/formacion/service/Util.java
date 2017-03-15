@@ -26,7 +26,6 @@ public class Util {
 				String letraValidacion = cadenaVerificacion.substring(posicion,cadenaVerificacion.length()-cadenaSobrante);
 				*/
 				
-				
 					if (letraValidacion == dni.charAt(dni.length()-1)){
 					incorrecto=false;
 				}
