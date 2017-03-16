@@ -52,14 +52,12 @@ public class ProfesorServiceImp implements ProfesorService {
 	}
 
 	@Override
-	public Object getByDni(String dni) {
-		
+	public Profesor getByDni(String dni) {
 		return getByDni(dni);
 	}
 
 	@Override
-	public Object getByNss(String nss) {
-		// TODO Auto-generated method stub
+	public Profesor getByNss(String nss) {
 		return getByNss(nss);
 	}
 

@@ -1,11 +1,17 @@
-package com.ipartek.formacion.api.restfulservers;
+package com.ipartek.formacion.api.restfulservers.alumno;
 
 import java.util.List;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +28,15 @@ public class AlumnoRestController {
 
 	@Autowired
 	AlumnoService aS;
+	
+	@Resource(name = "alumnoValidator")
+	Validator validator;
+	
+	@InitBinder
+	protected void InitBinder(WebDataBinder binder){
+		binder.setValidator(validator);
+	}
+	
 	
 	@RequestMapping( method = RequestMethod.GET)
 	public ResponseEntity<List<Alumno>> getAll(){
@@ -49,7 +64,7 @@ public class AlumnoRestController {
 	
 	
 	@RequestMapping( method = RequestMethod.POST)
-	public ResponseEntity<Void> create(@RequestBody Alumno alumno, UriComponentsBuilder ucBuilder){
+	public ResponseEntity<Void> create(@Valid @RequestBody Alumno alumno, UriComponentsBuilder ucBuilder){
 		Alumno alum = aS.comprobarDni(alumno.getDni());
 		ResponseEntity<Void> response=null;
 		if(alum != null){
@@ -68,8 +83,8 @@ public class AlumnoRestController {
 		return response;
 	}
 	
-	@RequestMapping(value = "/{codigo}", method = RequestMethod.POST)
-	public ResponseEntity<Alumno> update(@PathVariable("codigo") int id,@RequestBody Alumno alumno){
+	@RequestMapping(value = "/{codigo}", method = RequestMethod.PUT)
+	public ResponseEntity<Alumno> update(@PathVariable("codigo") int id, @Valid @RequestBody Alumno alumno){
 		Alumno alum = aS.getById(id);
 		ResponseEntity<Alumno> response = null;
 		if(alum == null){
