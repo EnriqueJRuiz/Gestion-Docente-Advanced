@@ -134,7 +134,7 @@ public class AlumnoDAOImp implements AlumnoDAO{
 	@Override
 	public Alumno comprobarDni(String dni) {
 		Alumno alumno = null;
-		final String SQL= "CALL alumnoDniUnico(?);";
+		final String SQL= "CALL alumnogetByDni(?);";
 		try{
 			alumno = template.queryForObject(SQL, new AlumnoMapper(), new Object[] { dni });
 			LOGGER.info("hay alguien con ese DNI");
@@ -146,7 +146,7 @@ public class AlumnoDAOImp implements AlumnoDAO{
 	}
 	
 	public Alumno getInforme(int codigo) {
-		final String SQL = "CALL alumnoCursoInforme(?);";
+		final String SQL = "CALL alumnoInforme(?);";
 		Alumno alumno = null;
 		try{
 			Map<Integer, Alumno> alumnos = template.query(SQL, new AlumnoExtractor(), new Object[] { codigo });

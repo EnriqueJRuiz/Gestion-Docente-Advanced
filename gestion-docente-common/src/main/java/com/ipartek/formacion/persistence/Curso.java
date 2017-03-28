@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.NamedStoredProcedureQueries;
@@ -22,11 +24,12 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-@Table
+@Table(name = "curso")
 @Entity(name = "curso")
-@NamedQueries(value = {@NamedQuery(name = "curso.getAll", query = "SELECT c FROM curso as c")})
-@NamedStoredProcedureQueries({@NamedStoredProcedureQuery(name = "curso.getAlumnos", procedureName = "alumnogetByCurso",resultClasses=Alumno.class,parameters={@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class)})
-})
+@NamedQueries({ @NamedQuery(name = "curso.getAll", query = "SELECT c FROM curso as c WHERE c.activo =true") })
+@NamedStoredProcedureQueries({
+		@NamedStoredProcedureQuery(name = "curso.getAlumnos", procedureName = "alumnogetByCurso", resultClasses = Alumno.class, parameters = {
+				@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class) }) })
 public class Curso implements Serializable {
 
 	/**
@@ -45,10 +48,29 @@ public class Curso implements Serializable {
 	private boolean activo;
 	private String precio;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="curso")
-	@Fetch(FetchMode.JOIN)
-	private Set<CursoDetalle> modulos;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cliente_codigo")
+	private Cliente cliente;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "profesor_codigo")
+	private Profesor profesor;
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Profesor getProfesor() {
+		return profesor;
+	}
+
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
+	}
 	@Transient
 	private List<Alumno> alumnos;
 	
@@ -111,12 +133,6 @@ public class Curso implements Serializable {
 		this.precio = precio;
 	}
 	
-	public Set<CursoDetalle> getModulos() {
-		return modulos;
-	}
-	public void setModulos(Set<CursoDetalle> modulos) {
-		this.modulos = modulos;
-	}
 	public List<Alumno> getAlumnos() {
 		return alumnos;
 	}
@@ -140,12 +156,14 @@ public class Curso implements Serializable {
 		}
 		return iguales;
 	}
+
 	@Override
 	public String toString() {
-		return "Curso [codigo=" + codigo + ", nombre=" + nombre + ", identificador=" + identificador + ", finicio="
-				+ fInicio + ", ffin=" + fFin + ", nhoras=" + nHoras + ", temario=" + temario + ", precio=" + precio
-				+ "]";
+		return "Curso [codigo=" + codigo + ", nombre=" + nombre + ", identificador=" + identificador + ", nHoras="
+				+ nHoras + ", fInicio=" + fInicio + ", fFin=" + fFin + ", temario=" + temario + ", activo=" + activo
+				+ ", precio=" + precio + ", cliente=" + cliente + ", profesor=" + profesor + "]";
 	}
+
 
 	
 	

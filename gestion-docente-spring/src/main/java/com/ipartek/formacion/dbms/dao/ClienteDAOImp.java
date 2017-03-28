@@ -125,7 +125,7 @@ public class ClienteDAOImp implements ClienteDAO {
 	@Override
 	public Cliente comprobarIdentificador(String identificador) {
 		Cliente cliente = null;
-		final String SQL= "CALL clienteIdentificadorUnico(?);";
+		final String SQL= "CALL clientegetByIdentificador(?);";
 		try{
 			cliente = jdbctemplate.queryForObject(SQL, new ClienteMapper(),new Object[] { identificador });
 			LOGGER.info("hay un cliente con ese identificador");

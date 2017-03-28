@@ -2,6 +2,7 @@ package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,10 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-@Entity
+@Entity(name = "alumno")
 @Table(name = "alumno")
+@NamedQueries({ @NamedQuery(name = "alumno.getAll", query = "SELECT a FROM alumno as a WHERE a.activo =true") })
 public class Alumno implements Serializable{
 
 	/**
@@ -39,14 +44,33 @@ public class Alumno implements Serializable{
 	private String telefono;
 	private boolean activo;
 	private int nHermanos;
+	
 	//	@Fetch(FetchMode.JOIN)// Si fuese inprescindible una lista en vez del set
 	//  se tendria que usar esta anotación
-	@ManyToMany(fetch = FetchType.LAZY)
+	/*@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name ="asistente",
 	joinColumns= @JoinColumn(name = "alumno_codigo",referencedColumnName="codigo"),
 	inverseJoinColumns = @JoinColumn(name="imparticion_codigo",referencedColumnName="codigo"))
 	private Set<Imparticion> imparticiones;
+	*/
+	@Transient
+	private List<Curso> curso;
 	
+	
+	
+	
+	public List<Curso> getCurso() {
+		return curso;
+	}
+
+
+
+	public void setCurso(List<Curso> curso) {
+		this.curso = curso;
+	}
+
+
+
 	public Alumno(){
 		super();
 	}
@@ -124,15 +148,6 @@ public class Alumno implements Serializable{
 	}
 	public void setnHermanos(int nHermanos) {
 		this.nHermanos = nHermanos;
-	}
-	public Set<Imparticion> getImparticiones() {
-		return imparticiones;
-	}
-
-
-
-	public void setImparticiones(Set<Imparticion> imparticiones) {
-		this.imparticiones = imparticiones;
 	}
 
 

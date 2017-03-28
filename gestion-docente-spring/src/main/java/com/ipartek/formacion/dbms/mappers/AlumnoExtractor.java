@@ -14,7 +14,7 @@ import com.ipartek.formacion.dbms.persistence.Alumno;
 import com.ipartek.formacion.persistence.Curso;
 
 public class AlumnoExtractor implements ResultSetExtractor<Map<Integer, Alumno>> {
-		private final static Logger LOGGER = LoggerFactory.getLogger(ClienteExtractor.class);
+		private final static Logger LOGGER = LoggerFactory.getLogger(AlumnoExtractor.class);
 
 		@Override
 		public Map<Integer, Alumno> extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -29,6 +29,7 @@ public class AlumnoExtractor implements ResultSetExtractor<Map<Integer, Alumno>>
 				if (alumno == null) {// si el cliente no esta en el mapa
 					alumno = new Alumno();
 					alumno.setNombre(rs.getString("nombre"));
+					alumno.setApellidos(rs.getString("apellidos"));
 					alumno.setDni(rs.getString("dni"));
 					alumno.setCodigoPostal(rs.getInt("codigoPostal"));
 					alumno.setDireccion(rs.getString("direccion"));

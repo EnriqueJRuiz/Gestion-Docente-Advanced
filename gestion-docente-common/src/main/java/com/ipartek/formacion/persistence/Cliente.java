@@ -1,15 +1,21 @@
 package com.ipartek.formacion.persistence;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-@Entity
+@Entity(name = "cliente")
 @Table(name = "cliente")
+@NamedQueries({ @NamedQuery(name = "cliente.getAll", query = "SELECT c FROM cliente as c WHERE c.activo =true") })
 public class Cliente implements Serializable {
 
 	/**
@@ -26,18 +32,27 @@ public class Cliente implements Serializable {
 	private int codigoPostal;
 	private String poblacion;
 	private String telefono;
-	private String id;
 	private boolean activo;
+	@Transient
+	private List<Curso> cursos;
 	//private Map<Long, com.ipartek.formacion.persistence.Curso> cursos;
 	
 	//@OneToMany(fetch = FetchType.LAZY)
 	//List<Curso> curso;
 	
-	
+	public Cliente(){
+		super();
+	}
 	
 	
 	public String getNombre() {
 		return nombre;
+	}
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -85,18 +100,15 @@ public class Cliente implements Serializable {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	public boolean isActivo() {
 		return activo;
 	}
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+
+	
 	/*
 	public Map<Long, com.ipartek.formacion.persistence.Curso> getCursos() {
 		return cursos;
