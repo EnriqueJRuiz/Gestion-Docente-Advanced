@@ -18,4 +18,6 @@ public interface CursoService {
 	public void delete (int codigo);
 	
 	public Curso getInforme(long codigo);
+	
+	public Curso update(Curso curso);
 }

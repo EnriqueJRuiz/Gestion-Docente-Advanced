@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ipartek.formacion.dbms.dao.interfaces.ProfesorDAO;
 import com.ipartek.formacion.dbms.persistence.Profesor;
+import com.ipartek.formacion.profesor.ProfesorServiceRemote;
 
 public interface ProfesorService {
 	public Profesor create(Profesor profesor);
@@ -17,4 +18,6 @@ public interface ProfesorService {
 	public Profesor getByDni(String dni);
 
 	public Profesor getByNss(String nss);
+
+	
 }

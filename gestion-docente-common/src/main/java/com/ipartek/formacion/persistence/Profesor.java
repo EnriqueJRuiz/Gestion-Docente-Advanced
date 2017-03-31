@@ -6,12 +6,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.ipartek.formacion.listeners.ProfesorListener;
 
 @Entity(name = "profesor")
 @Table(name = "profesor")
@@ -142,6 +145,7 @@ public class Profesor implements Serializable {
 		this.nSS = nSS;
 	}
 	
+
 	public void setCodigoPostal(Integer codigoPostal) {
 		this.codigoPostal = codigoPostal;
 	}

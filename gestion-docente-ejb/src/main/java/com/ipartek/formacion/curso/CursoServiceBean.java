@@ -2,9 +2,10 @@ package com.ipartek.formacion.curso;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
@@ -20,6 +21,8 @@ public class CursoServiceBean implements CursoServiceRemote {
 
 	@PersistenceContext(unitName = "gestiondocente")
 	private EntityManager entityManager;
+	@Resource
+	private SessionContext sessionContext;
 
 	/**
 	 * Default constructor.
@@ -48,13 +51,17 @@ public class CursoServiceBean implements CursoServiceRemote {
 
 	@Override
 	public Curso update(Curso curso) {
-		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
+
+		//EntityTransaction tx = sessionContext.getUserTransaction();
+		//EntityTransaction tx = entityManager.getTransaction();
+		//tx.begin();
 		try{
+
 			entityManager.persist(curso);
-			tx.commit();
+			//tx.commit();
 		}catch(Exception e){
-			tx.rollback();
+			//	tx.rollback();
+
 		}
 	
 		return curso;
@@ -66,7 +73,14 @@ public class CursoServiceBean implements CursoServiceRemote {
 	}
 	@Override
 	public void delete(int codigo) {
-		// TODO Auto-generated method stub
+		//EntityTransaction txt = entityManager.getTransaction();
+		//txt.begin();
+		try{
+			entityManager.remove(entityManager.find(Curso.class, codigo));
+			//txt.commit();
+		}catch(Exception e){
+			//txt.rollback();
+		}
 		
 	}
 	@Override

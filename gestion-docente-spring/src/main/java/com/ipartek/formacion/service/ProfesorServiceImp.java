@@ -2,18 +2,26 @@ package com.ipartek.formacion.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.ipartek.formacion.curso.CursoServiceRemote;
 import com.ipartek.formacion.dbms.dao.interfaces.ProfesorDAO;
 import com.ipartek.formacion.dbms.persistence.Profesor;
+import com.ipartek.formacion.profesor.ProfesorServiceRemote;
 import com.ipartek.formacion.service.interfaces.ProfesorService;
 
+@Transactional
 @Service
-
 public class ProfesorServiceImp implements ProfesorService {
+
+	
 	@Autowired
 	private ProfesorDAO profesorDAO;
+	
 	
 	@Override
 	public Profesor create(Profesor profesor) {

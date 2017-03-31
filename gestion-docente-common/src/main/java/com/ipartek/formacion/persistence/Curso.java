@@ -3,26 +3,23 @@ package com.ipartek.formacion.persistence;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Table(name = "curso")
 @Entity(name = "curso")
@@ -36,6 +33,7 @@ public class Curso implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final int CODIGO_NULO = -1;
 	@Id
 	@GeneratedValue
 	private long codigo;
@@ -56,6 +54,10 @@ public class Curso implements Serializable {
 	@JoinColumn(name = "profesor_codigo")
 	private Profesor profesor;
 	
+	@ManyToMany
+	@JoinTable(name = "imparticion", joinColumns = { @JoinColumn(name = "curso_codigo") }, inverseJoinColumns = {@JoinColumn(name = "alumno_codigo") })
+	private List<Alumno> alumnos;
+	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -71,8 +73,7 @@ public class Curso implements Serializable {
 	public void setProfesor(Profesor profesor) {
 		this.profesor = profesor;
 	}
-	@Transient
-	private List<Alumno> alumnos;
+	
 	
 	public Curso(){
 		super();

@@ -27,7 +27,8 @@ public class CursoServiceImp implements CursoService {
 		
 		return cursoServiceRemote.getById(codigo);
 	}
-
+	
+	
 	@Override
 	public List<Curso> getAll() {
 		return cursoServiceRemote.getAll();
@@ -46,6 +47,12 @@ public class CursoServiceImp implements CursoService {
 	@Override
 	public Curso getInforme(long codigo) {
 		return cursoServiceRemote.getInforme(codigo);
+	}
+
+	@Override
+	public Curso update(Curso curso) {
+		// TODO Auto-generated method stub
+		return cursoServiceRemote.update(curso);
 	}
 
 }
