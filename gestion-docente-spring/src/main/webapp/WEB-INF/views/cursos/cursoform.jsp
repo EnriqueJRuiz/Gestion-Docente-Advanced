@@ -13,11 +13,12 @@
 			<section class="col-xs-12">
 				<header class="col-xs-12"><h2>${men}</h2></header>
 				<div class="col-xs-10 col-md-offset-1">
-					<form:form action="save" nethod="post" commandName="curso" cssClass="form-horizontal">
+				<c:url var="postUrl" value="/cursos/save"/>
+					<form:form action="${postUrl}" nethod="post" commandName="curso" cssClass="form-horizontal">
 						<c:if test="${not empty curso}">
 							<form:hidden path="codigo"/>
 						</c:if>
-						
+						<form:hidden path="activo"/>
 						<div class="form-group">
 						<form:label path="nombre" for="nombre" cssClass="col-xs-2 form-label">Nombre:</form:label>
 							<div class=" col-xs-8">

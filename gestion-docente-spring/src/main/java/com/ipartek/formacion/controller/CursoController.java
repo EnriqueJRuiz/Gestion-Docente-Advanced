@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ipartek.formacion.persistence.Alumno;
-import com.ipartek.formacion.persistence.Cliente;
+import com.ipartek.formacion.controller.validator.CursoValidator;
 import com.ipartek.formacion.persistence.Curso;
 import com.ipartek.formacion.persistence.Profesor;
 import com.ipartek.formacion.service.interfaces.AlumnoServiceEJB;
@@ -39,8 +40,8 @@ public class CursoController {
 	private ProfesorServiceEJB pS;
 	@Autowired
 	private AlumnoServiceEJB aS;
-	/*@Autowired
-	CursoValidator validator;*/
+	//@Autowired
+	//CursoValidator validator;
 	@Autowired
 	private ClienteServiceEJB cl;
 	
@@ -50,17 +51,16 @@ public class CursoController {
 	private void initBinder(WebDataBinder binder){
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		 		dateFormat.setLenient(false);
+		 		//binder.addValidators(validator);
 		 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-		 		//binder.setValidator(validator);
+		 	
 		 }
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String getAll(Model model){
-		LOGGER.info("llega a controller curso");
-		//model.addAttribute("listadoCursos",cS.getAll());
 		List<Curso> cursos = cS.getAll();
-		
-			model.addAttribute("listadoCursos", cursos);
+		LOGGER.info("tamaño:" + cursos.size());
+		model.addAttribute("listadoCursos", cursos);
 		return "cursos/cursos";
 	}
 	
@@ -85,10 +85,8 @@ public class CursoController {
 		List<Profesor> profesores = pS.getAll();
 	 	LOGGER.info("tamaño:" + profesores.size());
   		mav.addObject("listadoProfesores", profesores);
-  		List<Cliente> clientes = cl.getAll();
-  		mav.addObject("listadoClientes", clientes);
-  		List<Alumno>alumnos = aS.getAll();
-  		mav.addObject("listadoAlumnos", alumnos);
+  		mav.addObject("listadoClientes", cl.getAll());
+  		mav.addObject("listadoAlumnos", aS.getAll());
 		return mav;
 		
 	}
@@ -101,21 +99,23 @@ public class CursoController {
 		List<Profesor> profesores = pS.getAll();
 		LOGGER.info("nº "+profesores.size());
   		mav.addObject("listadoProfesores", profesores);
-  		List<Cliente> clientes = cl.getAll();
-  		mav.addObject("listadoClientes", clientes);
-  		List<Alumno>alumnos = aS.getAll();
-  		mav.addObject("listadoAlumnos", alumnos);
+  		mav.addObject("listadoClientes", cl.getAll());
+  		mav.addObject("listadoAlumnos", aS.getAll());
   		return mav;
 	}
 	
-	@RequestMapping(value="save", method = RequestMethod.POST)
-	public String saveCurso( Model model,@ModelAttribute("curso")@Validated Curso curso,BindingResult bindingResult){
+	@RequestMapping(value="/save", method = RequestMethod.POST)
+	public String saveCurso( Model model,@ModelAttribute("curso")@Valid Curso curso,BindingResult bindingResult){
 		String destino = "";
 		if (bindingResult.hasErrors()) {
 			LOGGER.info("curso tiene errores");
+			model.addAttribute("listadoProfesores", pS.getAll());
+			model.addAttribute("listadoAlumnos", aS.getAll());
+			model.addAttribute("listadoClientes", cl.getAll());
+
 			destino = "/cursos/cursoformulario";
 		}else{
-			destino = "redirect:/alumnos";
+			destino = "redirect:/cursos";
 			if(curso.getCodigo() > Curso.CODIGO_NULO){
 				LOGGER.info(curso.toString());
 				cS.update(curso);

@@ -30,22 +30,19 @@ public class CursoServiceBean implements CursoServiceRemote {
 	 * public CursoServiceBean() { // TODO Auto-generated constructor stub }
 	 */
 	
-	public CursoServiceBean() {
-		// TODO Auto-generated constructor stub
-	}
 	@Override
 	public List<Curso> getAll() {
-		TypedQuery<Curso> cursos = entityManager.createNamedQuery("curso.getAll",Curso.class);
-		return cursos.getResultList();
+		TypedQuery<Curso> pcursos = entityManager.createNamedQuery("curso.getAll", Curso.class);
+		return pcursos.getResultList();
 	}
 
 	@Override
 	public Curso getById(long codigo) {
 		Curso curso = entityManager.find(Curso.class, codigo);
-		StoredProcedureQuery spq = entityManager.createNamedStoredProcedureQuery("curso.getAlumnos");
+		/*StoredProcedureQuery spq = entityManager.createNamedStoredProcedureQuery("curso.getAlumnos");
 		spq.setParameter(1, curso.getCodigo());
 		List<Alumno> alumnos = spq.getResultList();
-		curso.setAlumnos(alumnos);
+		curso.setAlumnos(alumnos);*/
 		return curso;
 	}
 
@@ -57,7 +54,8 @@ public class CursoServiceBean implements CursoServiceRemote {
 		//tx.begin();
 		try{
 
-			entityManager.persist(curso);
+			entityManager.merge(curso);
+			System.out.println("update");
 			//tx.commit();
 		}catch(Exception e){
 			//	tx.rollback();
@@ -68,8 +66,20 @@ public class CursoServiceBean implements CursoServiceRemote {
 	}
 	@Override
 	public Curso create(Curso curso) {
-		// TODO Auto-generated method stub
-		return null;
+		//EntityTransaction tx = sessionContext.getUserTransaction();
+				//EntityTransaction tx = entityManager.getTransaction();
+				//tx.begin();
+				try{
+					System.out.println("Create");
+					curso = entityManager.merge(curso);
+					entityManager.flush();
+					//tx.commit();
+				}catch(Exception e){
+					//	tx.rollback();
+
+				}
+			
+				return curso;
 	}
 	@Override
 	public void delete(int codigo) {

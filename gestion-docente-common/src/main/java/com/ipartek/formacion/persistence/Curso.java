@@ -3,9 +3,12 @@ package com.ipartek.formacion.persistence;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -35,7 +38,7 @@ public class Curso implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final int CODIGO_NULO = -1;
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long codigo;
 	private String nombre;
 	private String identificador;
@@ -46,16 +49,17 @@ public class Curso implements Serializable {
 	private boolean activo;
 	private String precio;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "cliente_codigo")
 	private Cliente cliente;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "profesor_codigo")
 	private Profesor profesor;
 	
-	@ManyToMany
-	@JoinTable(name = "imparticion", joinColumns = { @JoinColumn(name = "curso_codigo") }, inverseJoinColumns = {@JoinColumn(name = "alumno_codigo") })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "imparticion", joinColumns = { @JoinColumn(name = "curso_codigo") }, inverseJoinColumns = {
+			@JoinColumn(name = "alumno_codigo") })
 	private List<Alumno> alumnos;
 	
 	public Cliente getCliente() {
