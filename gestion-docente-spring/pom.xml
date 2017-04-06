@@ -20,6 +20,7 @@
 		<jackson.library>2.7.5</jackson.library>
 		<springfox-swagger>2.4.0</springfox-swagger>
 		<org.springsecurity-version>4.2.2.RELEASE</org.springsecurity-version>
+		   
 	</properties>
 	<dependencies>
 		<!-- para trabajar con common  -->
@@ -162,7 +163,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency> 
 		  <dependency>
@@ -202,7 +203,14 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
             <version>${org.springsecurity-version}</version>
-        </dependency>   
+        </dependency> 
+          <!-- Test -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework-version}</version>
+            <scope>test</scope>
+        </dependency>  
 	</dependencies>
     <build>
         <plugins>
