@@ -2,8 +2,6 @@ package com.ipartek.formacion.api.restfulservers.alumno.configuration;
 
 import javax.servlet.Filter;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 import com.ipartek.formacion.api.restfulservers.CORSFilter;
 
 public class AlumnoRestInitializer{ //extends AbstractAnnotationConfigDispatcherServletInitializer {

@@ -1,9 +1,10 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%><!--  -->
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%><!--  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%><!--  -->
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%><!--  -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <spring:message var="men" text="Nuevo Curso" />
 <c:if test="${carta.codigo > 0}" >
 	<spring:message var="men"  code="form.editar" text="Editar curso" />
@@ -14,7 +15,7 @@
 				<header class="col-xs-12"><h2>${men}</h2></header>
 				<div class="col-xs-10 col-md-offset-1">
 				<c:url var="postUrl" value="/cursos/save"/>
-					<form:form action="${postUrl}" nethod="post" commandName="curso" cssClass="form-horizontal">
+					<form:form action="${postUrl}" nethod="post" commandName="curso" cssClass="form-horizontal" enctype="multipart/form-data" >
 						<c:if test="${not empty curso}">
 							<form:hidden path="codigo"/>
 						</c:if>
@@ -55,19 +56,26 @@
 						</div>
 						
 						<div class="form-group">
-							<form:label path="temario" for="temario" cssClass="col-xs-2 form-label">Temario:</form:label>
-							<div class=" col-xs-8">
-								<form:input path="temario" cssErrorClass="form-control alert-danger" cssClass="form-control"  />
-							</div>
-						</div>
-						
-						<div class="form-group">
 							<form:label path="precio" for="precio" cssClass="col-xs-2 form-label">Precio:</form:label>
 							<div class=" col-xs-8">
 								<form:input path="precio" cssErrorClass="form-control alert-danger" cssClass="form-control"  />
 							</div>
 						</div>
-									
+						<div class="form-group">
+		            		<form:label path="temario" cssClass="control-label  col-xs-2">Temario:</form:label>
+		            		<div class="col-xs-4">
+		            			<c:set var="string" value="${curso.temario}" />
+		   						<c:set var="names" value="${fn:split(string, '/')}" />
+		   						<c:set var="len" value="${fn:length(numList)}"/>
+		   						<c:set var="value" value="${names[len-1]}" />
+		   						${value}
+								<form:input value="${value}" path="temario" disabled="disabled" cssClass="form-control" cssErrorClass="text-danger"/>
+							</div>
+							<form:errors path="temario" cssClass="text-danger col-xs-6"></form:errors>
+							 <label class="btn btn-primary">
+		                		Examinar&hellip; <input type="file" id="fichero" name="fichero" style="display: none;">
+		            		</label>
+		            	</div>					
 		  				<div class="form-group">
 		 					<form:label path="profesor" for="profesor" cssClass="col-xs-2 form-labe" >Profesor:</form:label>
 		 					<div class="col-xs-8">

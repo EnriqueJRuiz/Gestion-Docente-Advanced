@@ -28,7 +28,7 @@ public class ProfesorExistsValidator implements ConstraintValidator<ProfesorExis
 
 	@Override
 	public boolean isValid(Object object, ConstraintValidatorContext ctx) {
-		// ctx.
+		
 		LOGGER.info(object.toString());
 		boolean valid = true;
 		try {
@@ -36,11 +36,7 @@ public class ProfesorExistsValidator implements ConstraintValidator<ProfesorExis
 			final String keyValue = BeanUtils.getProperty(object, key);
 			Object obj = null;
 			if (keyValue != null && keyValue != "") {
-				if ("nSS".equalsIgnoreCase(key)) {
-					obj = pS.getByNss(keyValue);
-				} else if ("dni".equalsIgnoreCase(key)) {
-					obj = pS.getByDni(keyValue);
-				}
+				obj = pS.getByNss(keyValue);
 				if ((Integer.parseInt(codeValue) == Profesor.CODIGO_NULO || !object.equals(obj)) && obj != null) {
 					valid = false;
 					LOGGER.info("deberia fallar " + obj.toString());

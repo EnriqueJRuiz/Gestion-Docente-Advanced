@@ -20,7 +20,7 @@
 			<p>F.Inicio: <fmt:formatDate pattern="dd/MM/yyyy" value="${curso.fInicio}" /></p>
 			<p>F.Fin: <fmt:formatDate pattern="dd/MM/yyyy"  value="${curso.fFin}" /></p>
 	        <p>Horas: ${curso.nHoras}</p>
-	        <p>Temario: ${curso.temario}</p>
+	        <p>Temario: <a href="<c:url value="/resources/docs/${curso.temario}"/>" download >Ver</a></p>
 	       	<p>Precio: ${curso.precio}</p>
 	       	<p>Cliente: ${curso.cliente.nombre}</p>
         </div>
