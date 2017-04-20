@@ -3,17 +3,12 @@ package com.ipartek.formacion.persistence;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -47,7 +42,7 @@ public class Alumno implements Serializable{
 	private int nHermanos;
 	
 	//	@Fetch(FetchMode.JOIN)// Si fuese inprescindible una lista en vez del set
-	//  se tendria que usar esta anotación
+	// se tendria que usar esta anotación
 	/*@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name ="asistente",
 	joinColumns= @JoinColumn(name = "alumno_codigo",referencedColumnName="codigo"),

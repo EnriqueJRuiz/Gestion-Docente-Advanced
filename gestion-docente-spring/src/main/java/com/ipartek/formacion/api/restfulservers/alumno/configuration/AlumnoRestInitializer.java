@@ -1,9 +1,6 @@
 package com.ipartek.formacion.api.restfulservers.alumno.configuration;
 
-import javax.servlet.Filter;
-
-import com.ipartek.formacion.api.restfulservers.CORSFilter;
-
+/*
 public class AlumnoRestInitializer{ //extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	//@Override
@@ -28,3 +25,4 @@ public class AlumnoRestInitializer{ //extends AbstractAnnotationConfigDispatcher
 	}
 
 }
+*/
