@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,6 +34,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ipartek.formacion.controller.pojo.Mensaje;
+import com.ipartek.formacion.controller.pojo.MensajeType;
 import com.ipartek.formacion.controller.validator.CursoValidator;
 import com.ipartek.formacion.persistence.Curso;
 import com.ipartek.formacion.persistence.Profesor;
@@ -128,18 +131,21 @@ public class CursoController {
 			@ModelAttribute("curso")@Valid Curso curso,BindingResult bindingResult, ModelMap model,
 			RedirectAttributes redirectMap) throws IOException {
 		String destino = "";
+		String txt="";
+		Mensaje mensaje = null;
 		if (bindingResult.hasErrors()) {
+			
 			LOGGER.info("curso tiene errores");
 			model.addAttribute("listadoProfesores", pS.getAll());
 			model.addAttribute("listadoAlumnos", aS.getAll());
 			model.addAttribute("listadoClientes", cl.getAll());
-			
-			
+			txt = "Los datos de formulario contienen errores";
+			mensaje = new Mensaje(MensajeType.MSG_TYPE_DANGER);
 			
 			destino = "/cursos/cursoformulario";
 		}else{
 			destino = "redirect:/cursos";
-			String txt="";
+			
 			InputStream in = file.getInputStream();
 			String root= File.separator+ "resource" + File.separator + "docs" +File.separator;
 			String ruta = servletContext.getRealPath(root);
@@ -150,6 +156,7 @@ public class CursoController {
 			
 			curso.setTemario(file.getOriginalFilename());
 			LOGGER.info(file.getOriginalFilename());
+			
 			if(curso.getCodigo() > Curso.CODIGO_NULO){
 				LOGGER.info(curso.toString());
 				cS.update(curso);
@@ -157,6 +164,7 @@ public class CursoController {
 				LOGGER.info(curso.toString());
 				cS.create(curso);
 			}
+			
 		}
 		return destino;
 		
