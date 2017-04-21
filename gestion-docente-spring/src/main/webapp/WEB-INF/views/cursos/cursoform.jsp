@@ -44,14 +44,14 @@
 						<div class="form-group">
 						<form:label path="fInicio" for="fInicio" cssClass="col-xs-2 form-label">Fecha inicio:</form:label>
 							<div class=" col-xs-8">
-								<form:input path="fInicio" placeholder="dd/MM/yyyy" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" cssErrorClass="form-control alert-danger" cssClass="form-control"  />
+								<form:input path="fInicio"  cssErrorClass="form-control alert-danger" cssClass="form-control"  />
 							</div>
 						</div>
 						
 						<div class="form-group">
 						<form:label path="fFin" for="fFin" cssClass="col-xs-2 form-label">Fecha fin:</form:label>
 							<div class=" col-xs-8">
-								<form:input path="fFin" placeholder="dd/MM/yyyy" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" cssErrorClass="form-control alert-danger" cssClass="form-control"  />
+								<form:input path="fFin" cssErrorClass="form-control alert-danger" cssClass="form-control"  />
 							</div>
 						</div>
 						

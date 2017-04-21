@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -66,9 +64,8 @@ public class CursoController {
 	ModelAndView mav = null;
 	
 	@InitBinder("curso")
-	public void initBinder(WebDataBinder binder, Locale locale) {
-		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	public void initBinder(WebDataBinder binder,Locale locale){
+		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 		binder.addValidators(validator);
@@ -145,25 +142,52 @@ public class CursoController {
 			destino = "/cursos/cursoformulario";
 		}else{
 			destino = "redirect:/cursos";
-			
-			InputStream in = file.getInputStream();
-			String root= File.separator+ "resource" + File.separator + "docs" +File.separator;
-			String ruta = servletContext.getRealPath(root);
-			File destination = new File(ruta + file.getOriginalFilename());
-			FileUtils.copyInputStreamToFile(in,  destination);
-			
-			LOGGER.info(ruta);
-			
-			curso.setTemario(file.getOriginalFilename());
-			LOGGER.info(file.getOriginalFilename());
-			
-			if(curso.getCodigo() > Curso.CODIGO_NULO){
-				LOGGER.info(curso.toString());
-				cS.update(curso);
-			}else{
-				LOGGER.info(curso.toString());
-				cS.create(curso);
+			if(file.getOriginalFilename().isEmpty() == false){
+				InputStream in = file.getInputStream();
+				String root= File.separator+ "resources" + File.separator + "docs" +File.separator;
+				String ruta = servletContext.getRealPath(root);
+				File destination = new File(ruta + file.getOriginalFilename());
+				
+					FileUtils.copyInputStreamToFile(in,  destination);
+				
+				LOGGER.info(ruta);
+				
+				curso.setTemario(file.getOriginalFilename());
+				
+				LOGGER.info(file.getOriginalFilename());
 			}
+			if(curso.getCodigo() > Curso.CODIGO_NULO){
+				
+				LOGGER.info(curso.toString());
+				LOGGER.info(curso.getProfesor().toString());
+				try {
+					cS.update(curso);
+					txt = "El curso se ha actualizado correctamente.";
+					mensaje = new Mensaje(MensajeType.MSG_TYPE_SUCCESS);
+				} catch (Exception e) {
+					LOGGER.info("Se ha lanzadado una excepcion update. " + e.toString());
+					mensaje = new Mensaje(MensajeType.MSG_TYPE_DANGER);
+					txt = "Ha habido problemas en la actualización.";
+				}
+				
+				
+			}else{
+				
+				LOGGER.info(curso.toString());
+				LOGGER.info(curso.getProfesor().toString());
+				try {
+					cS.create(curso);
+					txt = "El curso se ha creado correctamente.";
+					mensaje = new Mensaje(MensajeType.MSG_TYPE_SUCCESS);
+				} catch (Exception e) {
+					LOGGER.info("Se ha lanzadado una excepcion create. " + e.toString());
+					mensaje = new Mensaje(MensajeType.MSG_TYPE_DANGER);
+					txt = "Ha habido problemas en la creación del curso.";
+					
+				}
+			}
+			mensaje.setMsg(txt);
+			redirectMap.addFlashAttribute("mensaje", mensaje);
 			
 		}
 		return destino;
@@ -171,8 +195,24 @@ public class CursoController {
 	}
 	
 	@RequestMapping(value = "/deleteCurso/{codigocurso}")
-	public String deleteCurso(@PathVariable("codigocurso") long codigocurso) {
-		 
+	public String deleteCurso(@PathVariable("codigocurso") long codigocurso, RedirectAttributes redirectMap) {
+		String txt="";
+		Mensaje mensaje = null;
+		
+		try {
+			cS.delete(codigocurso);
+			txt = "El curso se ha borrado correctamente.";
+			mensaje = new Mensaje(MensajeType.MSG_TYPE_SUCCESS);
+		} catch (Exception e) {
+			LOGGER.info("Se ha lanzadado una excepcion Delete. " + e.toString());
+			mensaje = new Mensaje(MensajeType.MSG_TYPE_DANGER);
+			txt = "Ha habido problemas al borrar.";
+		} 
+		
+		mensaje.setMsg(txt);
+
+		redirectMap.addFlashAttribute("mensaje", mensaje);
+		
 		return "redirect:/cursos";
 	}	
 	

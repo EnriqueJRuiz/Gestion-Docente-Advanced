@@ -15,7 +15,7 @@ public interface CursoService {
 	
 	public Curso create(Curso curso);
 	
-	public void delete (int codigo);
+	public void delete (long codigocurso);
 	
 	public Curso getInforme(long codigo);
 	

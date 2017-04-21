@@ -40,7 +40,7 @@ public class CursoServiceImp implements CursoService {
 	}
 
 	@Override
-	public void delete(int codigo) {
+	public void delete(long codigo) {
 		cursoServiceRemote.delete(codigo);
 	}
 

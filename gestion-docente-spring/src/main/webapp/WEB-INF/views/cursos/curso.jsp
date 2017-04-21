@@ -16,7 +16,7 @@
 			<section>
 		<header><h2>Datos del curso</h2></header>
 		<div>
-			<p>Nombre: ${curso.nombre}</p>
+			<p>Nombre: ${curso.nombre}</p>w
 			<p>F.Inicio: <fmt:formatDate pattern="dd/MM/yyyy" value="${curso.fInicio}" /></p>
 			<p>F.Fin: <fmt:formatDate pattern="dd/MM/yyyy"  value="${curso.fFin}" /></p>
 	        <p>Horas: ${curso.nHoras}</p>

@@ -7,10 +7,8 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
 
-import com.ipartek.formacion.persistence.Alumno;
 import com.ipartek.formacion.persistence.Curso;
 
 /**
@@ -52,15 +50,15 @@ public class CursoServiceBean implements CursoServiceRemote {
 		//EntityTransaction tx = sessionContext.getUserTransaction();
 		//EntityTransaction tx = entityManager.getTransaction();
 		//tx.begin();
-		try{
+		//try{
 
 			entityManager.merge(curso);
-			System.out.println("update");
+		//	System.out.println("update");
 			//tx.commit();
-		}catch(Exception e){
+		//}catch(Exception e){
 			//	tx.rollback();
 
-		}
+		//}
 	
 		return curso;
 	}
@@ -68,29 +66,29 @@ public class CursoServiceBean implements CursoServiceRemote {
 	public Curso create(Curso curso) {
 		//EntityTransaction tx = sessionContext.getUserTransaction();
 				//EntityTransaction tx = entityManager.getTransaction();
-				//tx.begin();
-				try{
+				////tx.begin();
+				//try{
 					System.out.println("Create");
 					curso = entityManager.merge(curso);
 					entityManager.flush();
 					//tx.commit();
-				}catch(Exception e){
+				//}catch(Exception e){
 					//	tx.rollback();
 
-				}
+				//}
 			
 				return curso;
 	}
 	@Override
-	public void delete(int codigo) {
+	public void delete(long codigo) {
 		//EntityTransaction txt = entityManager.getTransaction();
 		//txt.begin();
-		try{
+		//try{
 			entityManager.remove(entityManager.find(Curso.class, codigo));
 			//txt.commit();
-		}catch(Exception e){
-			//txt.rollback();
-		}
+		//}catch(Exception e){
+		//	//txt.rollback();
+		//}
 		
 	}
 	@Override
