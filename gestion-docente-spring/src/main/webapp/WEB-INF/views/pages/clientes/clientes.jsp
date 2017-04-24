@@ -1,14 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
-  
-<spring:message var="seccion" code="clientes.titulo"/>
-<c:set scope="request" var="seccion" value="${seccion}"/>
 
-	<jsp:include page="../includes/header.jsp" />
-
-		<main>
 			<div class="container">
 			<a href="clientes/addCliente" class="btn btn-info" class="btn btn-info " style="margin: 5px 0" role="button">Crear Cliente</a>
 			<table id="table-1" class="table table-hover">
@@ -16,7 +8,7 @@
 						<tr class="info">
 							<th>Nombre</th>
 							<th>Email</th>
-							<th>TelÃ©fono</th>
+							<th>Teléfono</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -24,7 +16,7 @@
 						<tr class="info">
 							<th>Nombre</th>
 							<th>Email</th>
-							<th>TelÃ©fono</th>
+							<th>Teléfono</th>
 							<th></th>
 						</tr>
 					</tfoot>
@@ -51,7 +43,4 @@
 					</tbody>
 				</table>
 			</div>
-		</main>
-	<jsp:include page="../includes/footer.jsp" />
-</body>
-</html>
+		

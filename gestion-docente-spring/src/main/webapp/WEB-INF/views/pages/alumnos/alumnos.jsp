@@ -1,13 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
-  
-<spring:message var="seccion" code="alumnos.titulo" />
-<c:set scope="request" var="seccion" value="${seccion}"/>
 
-	<jsp:include page="../includes/header.jsp" />
-		<main class="container-fluid">
 			<section class="col-xs-12">
 				<header class="col-xs-12 "><h2 class="text-center text-capitalize">Lista de Alumnos</h2></header>
 				<a href="<c:url value='alumnos/addAlumno'/>" class="btn btn-info ">Crear alumno</a>
@@ -18,7 +11,7 @@
 						<div class="col-md-1 hidden-xs col-sm-2">Nombre</div>
 						<div class="col-md-2 hidden-xs col-sm-3">Apellidos</div>
 						<div class="col-md-2 hidden-xs col-sm-2">Email</div>
-						<div class="col-md-1 hidden-xs col-sm-1">telÃ©fono</div>
+						<div class="col-md-1 hidden-xs col-sm-1">teléfono</div>
 						<div class="col-md-2 hidden-xs hidden-sm">direccion</div>
 						<div class="col-md-3 hidden-xs"></div>
 					</div>
@@ -46,7 +39,3 @@
 						 </c:choose>
 				</div>
 			</section>
-		</main>
-	<jsp:include page="../includes/footer.jsp" />
-</body>
-</html>

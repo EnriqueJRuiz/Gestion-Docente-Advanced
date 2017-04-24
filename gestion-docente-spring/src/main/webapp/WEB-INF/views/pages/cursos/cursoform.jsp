@@ -1,18 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%><!--  -->
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%><!--  -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
-<spring:message var="men" text="Nuevo Curso" />
-<c:if test="${carta.codigo > 0}" >
-	<spring:message var="men"  code="form.editar" text="Editar curso" />
-</c:if>  
-	<jsp:include page="../includes/header.jsp" />
-		<main  class="container-fluid">
+
+
 			<section class="col-xs-12">
-				<header class="col-xs-12"><h2>${men}</h2></header>
 				<div class="col-xs-10 col-md-offset-1">
 				<c:url var="postUrl" value="/cursos/save"/>
 					<form:form action="${postUrl}" nethod="post" commandName="curso" cssClass="form-horizontal" enctype="multipart/form-data" >
@@ -111,6 +105,3 @@
 					</form:form>
 				</div>
 			</section>
-		</main>	
-	</body>
-</html>

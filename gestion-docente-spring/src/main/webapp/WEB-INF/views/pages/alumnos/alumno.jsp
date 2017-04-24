@@ -1,18 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%><!--  -->
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%><!--  -->
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<spring:message var="men" code="form.crear" text="nombre" />
-<c:if test="${alumno.codigo > 0}" >
-	<spring:message var="men"  code="form.editar" text="nombre" />
-</c:if>   
-<spring:message var="seccion" code="alumno.titulo" text="alumno" />
-<c:set scope="request" var="seccion" value="${men} ${seccion}"/>
 
-<jsp:include page="../includes/header.jsp" />
-	<main>
 		<div class="container" >
 		<form:form action="save" nethod="post" commandName="alumno" cssClass="form-horizontal" style="margin-bottom: 50px;">
 			<c:if test="${not empty alumno}">
@@ -60,7 +49,7 @@
 			</div>
 			
 			<div class="form-group row">
-				<form:label path="telefono" for="telefono" cssClass="col-2 col-form-label">TelÃ©fono</form:label>
+				<form:label path="telefono" for="telefono" cssClass="col-2 col-form-label">Teléfono</form:label>
 				<div class="col-4" >
 					<form:input path="telefono" cssErrorClass="form-control alert-danger" cssClass="form-control" />
 				</div>
@@ -80,7 +69,7 @@
 			</div>
 			
 			<div class="form-group row">
-				<form:label path="direccion" for="direccion" cssClass="col-2 col-form-label">DirecciÃ³n:</form:label>
+				<form:label path="direccion" for="direccion" cssClass="col-2 col-form-label">Dirección:</form:label>
 				<div class="col-4">
 					<form:input path="direccion" cssErrorClass="form-control alert-danger" cssClass="form-control" />
 				</div>
@@ -100,7 +89,7 @@
 			</div>
 			
 			<div class="form-group row">
-				<form:label path="codigoPostal" for="codigoPostal" cssClass="col-2 col-form-label">CÃ³digo Postal:</form:label>
+				<form:label path="codigoPostal" for="codigoPostal" cssClass="col-2 col-form-label">Código Postal:</form:label>
 				<div class="col-4">
 					<form:input path="codigoPostal" pattern="{5}" cssErrorClass="form-control alert-danger" cssClass="form-control" />
 				</div>
@@ -127,7 +116,4 @@
 			<button type="submit"  class="btn btn-success" >${menssg}</button>
 		</form:form>
 		</div>
-	</main>
-	<jsp:include page="../includes/footer.jsp" />
-</body>
-</html>
+	

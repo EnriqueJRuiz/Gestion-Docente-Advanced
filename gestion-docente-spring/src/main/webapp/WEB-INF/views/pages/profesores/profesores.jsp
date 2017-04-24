@@ -1,14 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>  
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<spring:message var="seccion" code="profesores.titulo" />   
-<c:set scope="request" var="seccion" value="${seccion}"/>
-<jsp:include page="../includes/header.jsp" />
-	<main>
+
 		<div class="container">
-		<a href="<c:url value='profesores/addProfeso'/> class="btn btn-info" class="btn btn-info " style="margin: 5px 0" role="button">Crear profesor</a>
+		<a href="<c:url value='profesores/addProfesor'/>" class="btn btn-info " style="margin: 5px 0" role="button">Crear profesor</a>
 		<table id="table-1" class="table table-hover">
 				<thead class="table-success">
 					<tr class="info">
@@ -45,7 +39,4 @@
 				</tbody>
 			</table>
 			</div>
-		</main>
-	<jsp:include page="../includes/footer.jsp" />
-</body>
-</html>
+		

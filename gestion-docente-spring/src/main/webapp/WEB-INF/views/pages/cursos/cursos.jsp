@@ -1,17 +1,8 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<spring:message var="seccion" code="listaclientes.titulo"/>
-<c:set scope="request" var="seccion" value="${seccion}"/>
-
-	<jsp:include page="../includes/header.jsp" />
-				<main>
-					<main class="container-fluid">
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>    
 	<section class="row">
-		<header class="col-xs-12"><h2>Listado Cursos</h2></header>
+		<header class="col-xs-12"><h2></h2></header>
 		<div class="col-xs-12">
 		<a class="btn btn-primary" href="<c:url value="/cursos/addCurso"/>">Crear Curso</a> 
 		</div>
@@ -31,11 +22,11 @@
 							</div>
 							<div class="col-xs-2">
 								<fmt:formatDate pattern="dd/MM/yyyy" 
-					            value="${curso.finicio}" />
+					            value="${curso.fInicio}" />
 				            </div>
 							<div class="col-xs-2">
 								<fmt:formatDate pattern="dd/MM/yyyy" 
-					            value="${curso.ffin}" />
+					            value="${curso.fFin}" />
 				            </div>
 				            <div class="col-xs-4">
 				            	<a class="btn btn-warning" href="<c:url value="/cursos/editCurso/${curso.codigo}"/>">Editar Curso</a>
@@ -52,7 +43,3 @@
 			</c:choose>
 		</div>
 	</section>
-			</main>
-		<jsp:include page="../includes/footer.jsp" />
-	</body>
-</html>

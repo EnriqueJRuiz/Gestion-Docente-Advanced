@@ -32,7 +32,7 @@ public class ProfesorController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
-		mav = new ModelAndView("profesores/profesores");
+		mav = new ModelAndView("profesores");
 		List<Profesor> profesores = pS.getAll();
 		mav.addObject("listadoProfesores", profesores);
 		LOGGER.trace("pasa por getAll()");
@@ -41,7 +41,7 @@ public class ProfesorController {
 	
 	@RequestMapping(value="/{id}")
 	public ModelAndView getById(@PathVariable("id") int id){
-		mav = new ModelAndView("profesores/profesor");
+		mav = new ModelAndView("profesor");
 		mav.addObject("profesor",pS.getById(id));
 		return mav;
 	}
@@ -53,7 +53,7 @@ public class ProfesorController {
 			
 		if (bindingResult.hasErrors()){
 			LOGGER.info("profesor tiene errores");
-			destino = "profesores/profesor";
+			destino = "profesor";
 		}else{
 			destino = "redirect:/profesores";
 			if (profesor.getCodigo() > Profesor.CODIGO_NULO){
@@ -70,7 +70,7 @@ public class ProfesorController {
 	@RequestMapping(value="/addProfesor")
 	public String addPorfesor(Model model){
 		model.addAttribute("profesor", new Profesor());
-		return "profesores/profesor";
+		return "profesor";
 	}
 	
 	@RequestMapping(value="/deleteProfesor/{id}")

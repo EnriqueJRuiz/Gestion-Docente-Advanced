@@ -1,15 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>    
-  
-<spring:message var="seccion" code="cursos.titulo"/>
-<c:set scope="request" var="seccion" value="${seccion}"/>
 
-	<jsp:include page="../includes/header.jsp" />
-
-		<main class="container-fluid">
 	<section class="row">
 		<header class="col-xs-12"><h2>Listado Cursos</h2></header>
 		<div class="col-xs-12">
@@ -31,11 +23,11 @@
 							</div>
 							<div class="col-xs-2">
 								<fmt:formatDate pattern="dd/MM/yyyy" 
-					            value="${curso.fInicio}" />
+					            value="${curso.finicio}" />
 				            </div>
 							<div class="col-xs-2">
 								<fmt:formatDate pattern="dd/MM/yyyy" 
-					            value="${curso.fFin}" />
+					            value="${curso.ffin}" />
 				            </div>
 				            <div class="col-xs-4">
 				            	<a class="btn btn-warning" href="<c:url value="/cursos/editCurso/${curso.codigo}"/>">Editar Curso</a>
@@ -52,7 +44,4 @@
 			</c:choose>
 		</div>
 	</section>
-</main>
-	<jsp:include page="../includes/footer.jsp" />
-</body>
-</html>
+			

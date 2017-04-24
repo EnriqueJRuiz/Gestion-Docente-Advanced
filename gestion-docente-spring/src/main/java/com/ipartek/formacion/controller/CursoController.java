@@ -80,25 +80,25 @@ public class CursoController {
 		List<Curso> cursos = cS.getAll();
 		LOGGER.info("tamaño:" + cursos.size());
 		model.addAttribute("listadoCursos", cursos);
-		return "cursos/cursos";
+		return "cursos";
 	}
 	
 	@RequestMapping("/{codigo}")
 	public String getById(@PathVariable("codigo") long codigo, Model model){
 		model.addAttribute("curso",cS.getById(codigo));
-		return "cursos/curso";
+		return "curso";
 	}
 	
 	
 	@RequestMapping("verCurso/{codigo}")
 	public String getInforme(@PathVariable("codigo") long codigo, Model model){
 		model.addAttribute("cursoDetalladodo",cS.getInforme(codigo));
-		return "cursos/curso";
+		return "curso";
 	}
 	
 	@RequestMapping(value = "/editCurso/{codigocurso}", method = RequestMethod.GET)
 	public ModelAndView editCurso(@PathVariable("codigocurso") long codigocurso) {
-		mav = new ModelAndView("/cursos/cursoform");
+		mav = new ModelAndView("cursoform");
 		Curso curso = cS.getById(codigocurso);
 		mav.addObject("curso", curso);
 		List<Profesor> profesores = pS.getAll();
@@ -111,7 +111,7 @@ public class CursoController {
 	}
 	@RequestMapping(value="addCurso")
 	public ModelAndView addCurso() {
-		mav = new ModelAndView("/cursos/cursoform");
+		mav = new ModelAndView("cursoform");
 		Curso curso = new Curso();
 		curso.setActivo(true);
 		mav.addObject("curso", curso);
@@ -139,7 +139,7 @@ public class CursoController {
 			txt = "Los datos de formulario contienen errores";
 			mensaje = new Mensaje(MensajeType.MSG_TYPE_DANGER);
 			
-			destino = "/cursos/cursoformulario";
+			destino = "cursoform";
 		}else{
 			destino = "redirect:/cursos";
 			if(file.getOriginalFilename().isEmpty() == false){
