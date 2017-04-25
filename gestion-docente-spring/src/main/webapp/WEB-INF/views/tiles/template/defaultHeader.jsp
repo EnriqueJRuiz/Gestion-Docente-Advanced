@@ -2,8 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-<body>
-	<header class="container-fluid">
+
 		<div class="row">
 			<nav class="navbar navbar-inverse">
 		    	<div class="navbar-header">
@@ -65,21 +64,29 @@
 			 					</li>
 			 				</ul>
 				 		</li>
-				 		<li>
+				 		 	<li>
 				 		<sec:authorize access="isAnonymous()">
-			                <form method="POST" action="<c:url value='/login'/>">
-			                    Username: <input name="userId" type="text" value="${SPRING_SECURITY_LAST_USERNAME}" /> 
-			                    Password: <input name="password" type="password" />
-			                    <!-- 
+			                <form method="POST" action="<c:url value='/login'/>" role="form"  class="navbar-form navbar-right">
+			                    <div class="input-group">
+									<span class="input-group-addon label-info"><i class="glyphicon glyphicon-user"></i></span> 
+									<input name="userId" type="text" value="${SPRING_SECURITY_LAST_USERNAME}" /> 
+			                   </div>
+			                    <div class="input-group">
+									<span class="input-group-addon label-info"><i class="glyphicon glyphicon-lock "></i></span>
+									<input name="password" type="password" />
+			                   </div>					                    
 			                    <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
-			                     --> 
-			                    <input type="submit" value="Login" />
+			              		<div class="form-group ">
+			                    	<input type="submit" value="Login" class="btn btn-info"/>
+			                    </div>
 			                </form>
 			            </sec:authorize>
 			            <sec:authorize access="isAuthenticated()">
-			                <a class="btn btn-default" href="<c:url value="/logout" />">Logout</a>
+			            	<div class="form-group navbar-form navbar-right">
+			                	<a href="<c:url value="/logout" />" class="btn btn-info" type="button" >Logout</a>
+			            	</div>
 			            </sec:authorize>
-				 		</li>
+				 	</li>
 			 		</ul>
 	 			</div>
 			</nav>
@@ -95,4 +102,3 @@
 		  		</div>
 	  		</c:if>
 		</div>
-	</header>
