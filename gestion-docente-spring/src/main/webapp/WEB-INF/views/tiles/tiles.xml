@@ -66,9 +66,26 @@
        <put-attribute name="body" value="/WEB-INF/views/pages/alumnos/alumno.jsp" />  
    </definition>  
    
-     <definition name="informe" extends="my-template">  
+     <definition name="informealumno" extends="my-template">  
        <put-attribute name="title" value="detalle de Alumno" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/alumnos/informe.jsp" />  
+   </definition>  
+   
+   <!-- clientes Pages -->
+   
+   <definition name="clientes" extends="my-template">  
+       <put-attribute name="title" value="listado de clientes" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/clientes/clientes.jsp" />  
+   </definition>  
+  
+    <definition name="cliente" extends="my-template">  
+       <put-attribute name="title" value="formulario cliente" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/clientes/cliente.jsp" />  
+   </definition>  
+   
+     <definition name="informecliente" extends="my-template">  
+       <put-attribute name="title" value="detalle de cliente" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/clientes/informe.jsp" />  
    </definition>  
    
 </tiles-definitions>

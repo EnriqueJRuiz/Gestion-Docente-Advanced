@@ -45,7 +45,7 @@ public class ClienteController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
-		mav = new ModelAndView("clientes/clientes");
+		mav = new ModelAndView("clientes");
 		List<Cliente> clientes= cS.getAll();
 		mav.addObject("listadoClientes", clientes);//request
 		LOGGER.trace("pasa por getAll()");
@@ -54,7 +54,7 @@ public class ClienteController {
 	
 	@RequestMapping(value="/{id}")
 	public ModelAndView getById(@PathVariable("id") int id){
-		mav = new ModelAndView("clientes/cliente");
+		mav = new ModelAndView("cliente");
 		mav.addObject("cliente",cS.getById(id));
 		return mav;
 	}
@@ -65,7 +65,7 @@ public class ClienteController {
 		
 		if (bindingResult.hasErrors()) {
 			LOGGER.info("cliente tiene errores");
-			destino = "/clientes/cliente";
+			destino = "cliente";
 		}else{
 			destino = "redirect:/clientes";
 			if(cliente.getCodigo() > Cliente.CODIGO_NULO){
@@ -83,7 +83,7 @@ public class ClienteController {
 	public String addCliente(Model model){
 		model.addAttribute("cliente", new Cliente());
 		LOGGER.trace("");
-		return "clientes/cliente";
+		return "cliente";
 	}
 	
 	@RequestMapping(value="/deleteCliente/{id}")
@@ -94,7 +94,7 @@ public class ClienteController {
 	}
 	@RequestMapping(value="/verCliente/{id}")
 	public ModelAndView verCliente(@PathVariable("id") int id){
-		mav = new ModelAndView("clientes/informe");
+		mav = new ModelAndView("informecliente");
 		Cliente cliente = cS.getInforme(id);
 		mav.addObject("cliente", cliente);//request
 		return mav;

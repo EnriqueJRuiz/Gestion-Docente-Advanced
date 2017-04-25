@@ -47,7 +47,7 @@ public class AlumnoController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
-		mav = new ModelAndView("alumnos/alumnos");
+		mav = new ModelAndView("alumnos");
 		List<Alumno> alumnos= aS.getAll();
 		mav.addObject("listadoAlumnos", alumnos);//request
 		LOGGER.trace("pasa por getAll()");
@@ -56,7 +56,7 @@ public class AlumnoController {
 	
 	@RequestMapping(value="/{id}")
 	public ModelAndView getById(@PathVariable("id") int id){
-		mav = new ModelAndView("alumnos/alumno");
+		mav = new ModelAndView("alumno");
 		mav.addObject("alumno",aS.getById(id));
 		return mav;
 	}
@@ -66,7 +66,7 @@ public class AlumnoController {
 		String destino = "";
 		if (bindingResult.hasErrors()) {
 			LOGGER.info("alumno tiene errores");
-			destino = "/alumnos/alumno";
+			destino = "alumno";
 		}else{
 			destino = "redirect:/alumnos";
 			if(alumno.getCodigo() > Alumno.CODIGO_NULO){
@@ -84,7 +84,7 @@ public class AlumnoController {
 	public String addAlumno(Model model){
 		model.addAttribute("alumno", new Alumno());
 		LOGGER.trace("");
-		return "alumnos/alumno";
+		return "alumno";
 	}
 	
 	@RequestMapping(value="/deleteAlumno/{id}")
@@ -97,7 +97,7 @@ public class AlumnoController {
 	@RequestMapping(value="/verAlumno/{id}")
 	public ModelAndView verAlumno(@PathVariable("id") int id){
 		LOGGER.info("llega aqui");
-		mav = new ModelAndView("alumnos/informe");
+		mav = new ModelAndView("informealumno");
 		Alumno alumno = aS.getInforme(id);
 		
 		mav.addObject("alumno", alumno);//request
